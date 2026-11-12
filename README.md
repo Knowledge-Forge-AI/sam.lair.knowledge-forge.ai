@@ -1,49 +1,25 @@
-# Starlight Starter Kit: Basics
+# Sam Lair
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+Samuel Leighton Lair’s personal workbench and journal at **https://sam.lair.knowledge-forge.ai/**.
 
-```
-npm create astro@latest -- --template starlight
-```
+Agent engineering, repository intelligence, visual systems and the infrastructure that connects them. The site uses a Developer-family design informed by the owner’s terminal palette: phosphor green, cyan, purple, amber and a soft sage light appearance. Glass surfaces, an original anime portrait and responsive layouts are implemented as real HTML/CSS.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Journal and provenance
 
-## 🚀 Project Structure
+Release reflections use the original release or milestone date. Newly backfilled entries disclose their retrospective writing date, link public source records and retain independent product/version boundaries. The original July 22 APGR reflection remains at its existing blog route, unchanged. Common Lore Index is the in-progress name for RepoMap; no installed command is renamed by this site. DINAS is identified as the original inspiration.
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+`src/data/release-records.json` binds covered release identities to their public dates and articles. A website update is not a product release.
 
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+## Development
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+Use the committed lockfile with `npm ci`, then `npm run build`. Do not upgrade dependencies as part of editorial or appearance updates. Start a local server using `npm run dev -- --background`; manage it with the existing Astro background-server commands documented in AGENTS.md. No analytics, remote font fetch, account, form backend or tracking script is added. The theme preference is stored only in local browser storage.
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+The existing main-branch GitHub Pages workflow builds and deploys this static Astro site. The maintainer reviews source changes before landing them; this is a working practice rather than an enforced branch rule. The Pages environment retains its existing protection rules. Package and product workflows belong to their respective repositories.
 
-Static assets, like favicons, can be placed in the `public/` directory.
+## License
 
-## 🧞 Commands
+Original website software and editorial text are licensed under **AGPL-3.0-or-later**; see [LICENSE](LICENSE). AGPL permits commercial use subject to its terms. [Commercial licenses](COMMERCIAL-LICENSE.md) are available for proprietary arrangements.
 
-All commands are run from the root of the project, from a terminal:
+Contributors retain copyright and must explicitly acknowledge [CLA.md](CLA.md) in pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md), [NOTICE](NOTICE), and [BRAND-ASSETS.md](BRAND-ASSETS.md). The portrait and personal brand assets are excluded from the software grant. Third-party material retains its original terms. Steward: Samuel Leighton Lair <sam.lair@knowledge-forge.ai>.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+This project began with the Astro/Starlight starter. Astro, Starlight, starlight-blog and other locked dependencies retain their upstream licenses and notices.
