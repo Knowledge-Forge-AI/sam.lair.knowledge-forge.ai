@@ -1,0 +1,4 @@
+{
+  "starlightBlog.post.date": "{{date, datetime(dateStyle: medium; timeZone: UTC)}}",
+  "starlightBlog.post.lastUpdate": " - Last update: <time datetime=\"{{isoDate}}\">{{date, datetime(dateStyle: medium; timeZone: UTC)}}</time>"
+}

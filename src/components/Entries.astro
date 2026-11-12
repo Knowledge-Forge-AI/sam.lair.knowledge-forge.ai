@@ -1,0 +1,6 @@
+---
+import { formatDate } from '../lib/journal';
+const {entries,headingLevel="h3"} = Astro.props;
+const Heading=headingLevel;
+---
+<div class="entries">{entries.map(entry=><article class="entry" data-entry data-category={entry.category} data-search={`${entry.title} ${entry.description} ${entry.category}`.toLowerCase()}><div class="entry-meta"><time datetime={entry.date}>{formatDate(entry.date)}</time><span>{entry.category}</span></div><div><Heading><a href={entry.href}>{entry.title}</a></Heading><p>{entry.description}</p></div></article>)}</div>
