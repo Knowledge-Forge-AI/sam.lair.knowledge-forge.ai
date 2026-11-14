@@ -7,6 +7,11 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://sam.lair.knowledge-forge.ai',
+    // Retained Lightning CSS comparison dropped standard backdrop-filter
+    // while retaining -webkit-backdrop-filter when final CSS was minified.
+    vite: {
+        build: { cssMinify: false },
+    },
     integrations: [starlight({
         title: 'Sam Lair',
         disable404Route: true,
