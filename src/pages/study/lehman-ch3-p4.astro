@@ -1,0 +1,29 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/study.css';
+import { editorMarkup, lessonMarkup } from '../../study/generated-study.js';
+
+const title = 'Chapter 3 Problem 4 — Recursive truth-value arrays — Sam Lair';
+const description = 'A static study lesson for recursive truth assignments, with MathML, proof structure, and a clearly bounded source record.';
+---
+
+<Site title={title} description={description}>
+  <article class="article study-article glass">
+    <link rel="stylesheet" href="/study/katex.css" />
+    <a class="back-link" href="/">← Sam Lair home</a>
+    <div class="article-meta"><span>Study</span><span>Static lesson</span></div>
+    <h1>Chapter 3 Problem 4 — Recursive truth-value arrays</h1>
+    <p class="article-lead">An authentic bounded source example: readable equations, a nested induction proof, and the maintained Python entry before any runtime is activated.</p>
+    <section class="study-notice" aria-labelledby="study-boundary-title">
+      <h2 id="study-boundary-title">Static lesson first</h2>
+      <p>This page presents the lesson, rendered equations, proof structure, and source record without starting a code runtime.</p>
+    </section>
+    <section class="study-mdx" aria-label="Compiled study lesson" set:html={lessonMarkup}></section>
+    <section class="study-editor-slot" aria-label="Optional React editor (disabled)" set:html={editorMarkup}></section>
+    <section class="study-provenance" aria-labelledby="study-provenance-title">
+      <h2 id="study-provenance-title">Source and conversion boundary</h2>
+      <p>Adapted from the pinned GPL-3.0 source record for <code>lair001/lehman-math-cs</code>. The source paths, revision, attribution, conversion date, and published-file hashes are recorded in the linked provenance manifest.</p>
+      <p>The bounded entry accepts <code>n</code> from <code>0</code> through <code>8</code>. Its logical output limit is 256 rows and 2048 Boolean cells; that count is not a Python object-memory estimate.</p>
+    </section>
+  </article>
+</Site>

@@ -1,0 +1,110 @@
+---
+id: lehman-ch3-p4
+title: "Chapter 3 Problem 4 — Recursive truth-value arrays"
+status: adapted-static-lesson
+provenance: ./lehman-ch3-p4.provenance.json
+---
+
+This is an authored adaptation of the selected Chapter 3 Problem
+4 algorithm. The source repository calls this item **Problem 4**; the
+`Exercise` wrapper below is a semantic document boundary, not a new
+textbook label.
+
+<Exercise id="lehman-ch3-p4" sourceLabel="Chapter 3 Problem 4">
+
+Given a nonnegative integer `n`, enumerate the Boolean rows produced by the
+maintained recursive algorithm. Each returned row should contain exactly `n`
+truth values.
+
+<Solution id="lehman-ch3-p4-solution">
+
+The code is not copied into this MDX file. The build binds the maintained
+Python file to this include; its bounded entry point is
+`bounded_truth_value_array`.
+
+<CodeInclude includeId="lehman-truth-assignments" label="Maintained Python source" />
+
+<aside role="note" aria-label="Runnable code is not enabled" data-study-runnable="unqualified">
+Interactive execution is not enabled in this static lesson.
+</aside>
+
+The preserved source function starts with one empty row, then copies the
+current partial row before appending `True` to one branch and `False` to the
+copy. It recursively extends both branches and appends the second branch after
+the recursive calls. The new `bounded_truth_value_array` entry validates the
+input first; it rejects booleans, nonintegers, negatives, and values above the
+documented limit of 8 before the original function allocates its result or
+recurses.
+
+<Equation id="lehman-ch3-p4-row-count" tag="row count">
+
+$$
+R_0 = 1, \qquad R_n = 2R_{n-1}, \qquad R_n = 2^n.
+$$
+
+</Equation>
+
+<Equation id="lehman-ch3-p4-row-width" tag="row width">
+
+$$
+W_0 = 0, \qquad W_n = W_{n-1} + 1, \qquad W_n = n.
+$$
+
+</Equation>
+
+The bounded entry therefore permits at most `2^8 = 256` rows and
+`8 × 2^8 = 2048` logical Boolean cells in the returned result. Those are
+logical output counts, not a claim about Python object bytes or a general
+memory bound.
+
+</Solution>
+
+<Proof id="lehman-ch3-p4-induction">
+
+<Subproof id="lehman-ch3-p4-base">
+
+For `n = 0`, the preserved function returns `[[]]`: there is one assignment
+of zero variables, represented by one empty row. This is not an empty result;
+it is the terminating empty assignment and establishes `R_0 = 1` and
+`W_0 = 0`.
+
+</Subproof>
+
+<Subproof id="lehman-ch3-p4-step">
+
+For any list `p` and nonnegative integer `k`, assume that
+`_add_truth_values(k, p, result)` extends `p` by `k` values, appends
+`2^k - 1` new rows, and produces all `2^k` rows beginning with `p` with
+pairwise-distinct length-`k` suffixes. At a positive call, the current partial
+row is copied before one branch receives `True` and the copy receives `False`.
+The two recursive branches therefore preserve this hypothesis for both the
+original branch row and the newly copied branch row, contributing two times
+the previous row count with no duplicate rows:
+<EquationRef id="lehman-ch3-p4-row-count" />. The same step adds one value to
+each row:
+<EquationRef id="lehman-ch3-p4-row-width" />.
+
+</Subproof>
+
+</Proof>
+
+The source-level observation is that `n = 0` yields one empty row and
+`n = 1..4` yields exactly `2^n` distinct rows of width `n`, in the order
+defined by the preserved recursive mutation. The pinned TeX solution records
+the corresponding `n = 4` sample output. An earlier private study performed a
+bounded standard-library readback of those rows and guard behavior; that
+readback is not part of this repository's build or source-verifier checks, so
+native behavior remains unverified here.
+
+</Exercise>
+
+## Scope and terms
+
+The Python file is adapted from the pinned authored GPLv3 source and keeps its
+recursive algorithm recognizable. The bounded validation helper, this MDX
+explanation, the semantic component boundaries, and the source-link manifest
+are new project-authored additions. See the
+[selected content terms](/study/content-terms.md) and the
+[published provenance manifest](/study/provenance/lehman-ch3-p4.json), as well
+as the [selected GPL-3.0 notice](/study/licenses/lehman-GPL-3.0.txt) and the
+[KaTeX MIT notice](/study/licenses/katex-LICENSE.txt).

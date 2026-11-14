@@ -5,6 +5,13 @@ dist/
 # generated types
 .astro/
 
+# Study source-build derivatives owned by tools/build-study-source.mjs
+src/study/generated-study.js
+public/study/katex.css
+public/study/fonts/
+public/study/provenance/
+public/study/licenses/katex-LICENSE.txt
+
 # typescript
 *.tsbuildinfo
 .eslintcache

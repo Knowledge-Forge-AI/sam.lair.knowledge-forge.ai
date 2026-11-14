@@ -1,0 +1,70 @@
+.study-article{max-width:1080px;margin-top:48px;padding:50px 64px 70px}.study-article h1{max-width:900px}.study-notice,.study-provenance{margin:30px 0;padding:22px 24px;border:1px solid var(--line);border-left:3px solid var(--cyan);background:var(--solid)}.study-notice h2,.study-provenance h2{font-size:1.35rem;margin-bottom:12px}.study-notice p,.study-provenance p{margin:0 0 10px;color:var(--sam-site-muted);font-size:.98rem}.study-notice p:last-child,.study-provenance p:last-child{margin-bottom:0}.study-mdx{margin-top:36px}.study-mdx>p:first-child{font-size:1.08rem}.study-mdx article[data-study-kind="exercise"]{margin-top:28px}.study-mdx article[data-study-kind="exercise"]>h2{font-size:1.6rem;margin:28px 0 18px}.study-mdx section[data-study-kind="solution"]{margin-top:24px}.study-mdx section[data-study-kind="solution"]>h3{font-size:1.35rem;margin:24px 0 12px}.study-mdx section[data-study-kind="proof"],.study-mdx section[data-study-kind="subproof"]{margin:24px 0;padding:22px 24px;border-left:2px solid var(--purple);background:color-mix(in srgb,var(--solid) 76%,transparent)}.study-mdx section[data-study-kind="proof"]>h3,.study-mdx section[data-study-kind="subproof"]>h4{font-size:1.2rem;margin-bottom:12px}.study-mdx figure[data-study-kind="equation"]{margin:24px 0;padding:18px 20px;border:1px solid var(--line);border-radius:6px;background:var(--canvas);overflow-x:auto}.study-mdx figure[data-study-kind="equation"] figcaption{font:600 .9rem var(--mono);color:var(--sam-site-muted);margin-bottom:10px}.study-mdx figure[data-study-kind="equation"] .katex-display{margin:0}.study-mdx figure[data-study-kind="equation"] [data-author-tag]{outline:1px solid color-mix(in srgb,var(--cyan) 30%,transparent);outline-offset:3px}.study-mdx a[data-study-reference]{color:var(--sam-site-accent);font-family:var(--mono);font-size:.95em}.study-mdx figure[data-study-code-include]{margin:28px 0;padding:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#07110c}.study-mdx figure[data-study-code-include] figcaption{padding:12px 16px;border-bottom:1px solid var(--line);font:600 .88rem var(--mono);color:var(--cyan)}.study-mdx figure[data-study-code-include] pre{margin:0;padding:18px;overflow:auto;max-height:480px}.study-mdx figure[data-study-code-include] code{font:0.83rem/1.6 var(--mono);color:var(--text);white-space:pre}.study-mdx p[aria-label="End of proof"]{font:600 .9rem var(--mono);color:var(--cyan);margin:18px 0 0}.study-editor-slot{margin-top:38px;padding-top:28px;border-top:1px solid var(--line)}.study-editor-gate{padding:26px;border:1px solid var(--line);border-radius:6px;background:var(--solid)}.study-editor-gate h3{font-size:1.25rem;margin-bottom:10px}.study-editor-gate p{color:var(--sam-site-muted);margin:0 0 18px}.study-editor-gate button{font:600 .9rem var(--mono);color:var(--button-ink);background:var(--sam-site-accent);border:1px solid var(--sam-site-accent);border-radius:4px;padding:11px 16px;cursor:pointer}.study-editor-slot [data-study-editor]{padding:24px;border:1px solid var(--line);border-radius:6px;background:var(--solid)}.study-editor-slot [data-study-editor] h3{font-size:1.2rem;margin-bottom:16px}.study-editor-slot [data-study-editor-controls]{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.study-editor-slot [data-study-editor-controls] button{font:600 .82rem var(--mono);padding:8px 12px}.study-editor-slot [data-study-editor-status]{color:var(--sam-site-muted)}.study-editor-slot [data-study-editor] textarea{width:100%;min-height:110px;background:var(--canvas);color:var(--text);border:1px solid var(--line);padding:10px;font:0.82rem/1.5 var(--mono)}.study-editor-slot [data-study-editor-stream],.study-editor-slot [data-study-editor-result]{margin-top:16px}.study-editor-slot [data-study-editor] pre{overflow:auto;padding:12px;background:var(--canvas);min-height:2.5rem;white-space:pre-wrap}.study-provenance code{font-family:var(--mono);font-size:.9em;color:var(--cyan)}
+@media(max-width:600px){.study-article{width:calc(100% - 28px);padding:30px 22px 44px;margin-top:30px}.study-notice,.study-provenance{padding:18px}.study-mdx section[data-study-kind="proof"],.study-mdx section[data-study-kind="subproof"]{padding:18px 16px}.study-mdx figure[data-study-code-include] pre{max-height:360px;padding:14px}.study-editor-slot [data-study-editor-controls]{display:grid;grid-template-columns:1fr 1fr}.study-editor-slot [data-study-editor-controls] button{min-height:42px}}
+.study-editor-disabled{padding:26px;border:1px solid var(--line);border-radius:6px;background:var(--solid)}.study-editor-disabled h3{font-size:1.25rem;margin-bottom:10px}.study-editor-disabled p{color:var(--sam-site-muted);margin:0 0 10px}.study-editor-disabled p:last-child{margin-bottom:0;font:600 .88rem var(--mono);color:var(--cyan)}
+
+/* Study panels consume the site's material roles instead of introducing an
+ * opaque nested veil.  Generated material changes alpha to 1 for reduced
+ * transparency, and the forced-colors rule below supplies native system
+ * colors; no study-specific blur or element opacity is added here. */
+.study-article {
+  --study-panel-tint: var(--tfss-material-panel-tint, var(--card, var(--solid)));
+  --study-panel-alpha: var(--tfss-material-panel-alpha, .46);
+  --study-border-tint: var(--tfss-material-border-tint, var(--line));
+  --study-border-alpha: var(--tfss-material-border-alpha, .24);
+}
+.study-notice,
+.study-provenance,
+.study-mdx section[data-study-kind="proof"],
+.study-mdx section[data-study-kind="subproof"],
+.study-mdx figure[data-study-kind="equation"],
+.study-mdx figure[data-study-code-include],
+.study-editor-gate,
+.study-editor-disabled,
+.study-editor-slot [data-study-editor],
+.study-editor-slot [data-study-editor] pre,
+.study-editor-slot [data-study-editor] textarea {
+  background-color: color-mix(in srgb, var(--study-panel-tint) calc(var(--study-panel-alpha) * 100%), transparent);
+}
+.study-notice,
+.study-provenance,
+.study-mdx figure[data-study-kind="equation"],
+.study-mdx figure[data-study-code-include],
+.study-editor-gate,
+.study-editor-disabled,
+.study-editor-slot [data-study-editor],
+.study-editor-slot [data-study-editor] textarea {
+  border-color: color-mix(in srgb, var(--study-border-tint) calc(var(--study-border-alpha) * 100%), transparent);
+}
+.study-mdx figure[data-study-code-include] figcaption {
+  border-bottom-color: color-mix(in srgb, var(--study-border-tint) calc(var(--study-border-alpha) * 100%), transparent);
+}
+.study-mdx figure[data-study-code-include] code,
+.study-editor-slot [data-study-editor] pre,
+.study-editor-slot [data-study-editor] textarea {
+  color: var(--text, var(--card-foreground, CanvasText));
+}
+@media (forced-colors: active) {
+  .study-notice,
+  .study-provenance,
+  .study-mdx section[data-study-kind="proof"],
+  .study-mdx section[data-study-kind="subproof"],
+  .study-mdx figure[data-study-kind="equation"],
+  .study-mdx figure[data-study-code-include],
+  .study-editor-gate,
+  .study-editor-disabled,
+  .study-editor-slot [data-study-editor],
+  .study-editor-slot [data-study-editor] pre,
+  .study-editor-slot [data-study-editor] textarea {
+    background: Canvas;
+    background-color: Canvas;
+    border-color: CanvasText;
+    color: CanvasText;
+  }
+  .study-mdx figure[data-study-code-include] figcaption,
+  .study-mdx figure[data-study-code-include] code,
+  .study-editor-slot [data-study-editor] pre,
+  .study-editor-slot [data-study-editor] textarea {
+    color: CanvasText;
+  }
+  .study-mdx a[data-study-reference] { color: LinkText; }
+}

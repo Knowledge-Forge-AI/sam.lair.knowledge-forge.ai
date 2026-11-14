@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "document_id": "lehman-ch3-p4",
+  "status": "adapted-static-lesson",
+  "conversion_date": "2026-11-13",
+  "authorship": {
+    "source_author": "Samuel Lair",
+    "source_author_evidence": "solutions/book/p1/ch3-sol.tex author field",
+    "lesson_adapter": "Knowledge Forge study-components source integration",
+    "edition": "June 6, 2018 edition of Mathematics for Computer Science",
+    "source_solution_date": "August 2022",
+    "python_source_date": null
+  },
+  "source_repository": {
+    "repo": "lair001/lehman-math-cs",
+    "revision": "23ac35dd77d923f45137fa3ccce7599890056c70",
+    "readme": "https://raw.githubusercontent.com/lair001/lehman-math-cs/23ac35dd77d923f45137fa3ccce7599890056c70/README.md",
+    "license_basis": {
+      "software": "GPL-3.0",
+      "software_or_later": "not-stated",
+      "content": "CC-BY-NC-SA-4.0 for separate repository content; this adaptation uses the GPL-3.0 source files",
+      "gpl_notice": "https://raw.githubusercontent.com/lair001/lehman-math-cs/23ac35dd77d923f45137fa3ccce7599890056c70/LICENSE_GNU",
+      "cc_notice": "https://raw.githubusercontent.com/lair001/lehman-math-cs/23ac35dd77d923f45137fa3ccce7599890056c70/LICENSE_CC",
+      "materialized_gpl_notice_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    }
+  },
+  "source_files": [
+    {
+      "path": "solutions/book/p1/ch3_p4.py",
+      "url": "https://github.com/lair001/lehman-math-cs/blob/23ac35dd77d923f45137fa3ccce7599890056c70/solutions/book/p1/ch3_p4.py",
+      "git_blob": "99b83a9bc7c9ca3d4fac8bd2928453c1c15b86c3",
+      "bytes": 864,
+      "sha256": "f63b505f907baa0d41c75f6bcc624de956e0d16909f06c5782bd75937f16b47b",
+      "hash_status": "verified from pinned official raw source",
+      "source_kind": "authored Python code",
+      "treatment": "copied algorithm plus separately marked bounded entry guard",
+      "selected_scope": "get_truth_value_array and _add_truth_values"
+    },
+    {
+      "path": "solutions/book/p1/ch3-sol.tex",
+      "url": "https://github.com/lair001/lehman-math-cs/blob/23ac35dd77d923f45137fa3ccce7599890056c70/solutions/book/p1/ch3-sol.tex",
+      "git_blob": "1dd54ca8bc7197036b5c6f426c5473d1ae6e3584",
+      "bytes": 37902,
+      "sha256": "d9a0b5dadf77fbcfbf75a10962ffe1a8ec4c4dffc6110ef109d63fbd2a4fe524",
+      "hash_status": "verified from pinned official raw source and contents API metadata",
+      "source_kind": "authored TeX solution",
+      "treatment": "adapted semantic reference",
+      "selected_scope": "Chapter 3 Problem 4 section and n=4 sample output",
+      "source_date": "August 2022"
+    }
+  ],
+  "materialized_files": [
+    {
+      "path": "src/study/lehman-ch3-p4.py",
+      "sha256": "867e1d6747fe64918c311ce00d0176fbd4356acb3a4055de3a37120f84b642d8",
+      "treatment": "adapted-source-code",
+      "source_dependency": "solutions/book/p1/ch3_p4.py",
+      "new_addition": "validate_nonnegative_integer_entry and bounded_truth_value_array entry guard"
+    },
+    {
+      "path": "src/study/lehman-ch3-p4.mdx",
+      "sha256": "9626d8bfd1411ab573ff1e3652b40cf56f13e4b5ab5b76eb93688d0e641a12f2",
+      "treatment": "adapted-mdx",
+      "source_dependency": "ch3_p4.py and Chapter 3 Problem 4 section of ch3-sol.tex"
+    },
+    {
+      "path": "public/study/content-terms.md",
+      "sha256": "9f783e0a27f235db4dee402191961010ecafc64d180bcc04b0bc3438d576c96e",
+      "treatment": "new-terms-record"
+    }
+  ],
+  "code_manifest": {
+    "RunnableCode": {
+      "manifest": "src/study/lehman-ch3-p4.provenance.json",
+      "source": "src/study/lehman-ch3-p4.py",
+      "entry": "bounded_truth_value_array",
+      "input": "bounded nonnegative integer",
+      "maximum": 8,
+      "maximum_argument": "optional strict integer in 0..MAX_N; bool rejected; defaults to MAX_N",
+      "mode": "unqualified-static-fallback",
+      "runtime_status": "bounded standard-library readback reported by an earlier private study; not executed by this repository build/test; runtime remains unqualified"
+    },
+    "CodeInclude": {
+      "includeId": "lehman-truth-assignments",
+      "source": "src/study/lehman-ch3-p4.py",
+      "entry": "bounded_truth_value_array",
+      "mode": "static-build-bound",
+      "copy_policy": "MDX contains no independent code copy"
+    }
+  },
+  "treatment": {
+    "copied": [
+      "The recursive get_truth_value_array/_add_truth_values algorithm and its row order are preserved from the pinned Python source."
+    ],
+    "adapted": [
+      "MDX explanation, induction reasoning, n=0 interpretation, Equation/EquationRef semantics, and bounded logical resource counts.",
+      "Python entry guard that validates an optional maximum as a non-bool integer in 0..MAX_N before validating n, then rejects bool, noninteger, negative, and greater-than-maximum inputs before recursion/allocation."
+    ],
+    "new": [
+      "Source-linked CodeInclude/RunnableCode manifest.",
+      "Project terms and provenance records."
+    ]
+  },
+  "attribution": {
+    "required": true,
+    "text": "Adapted from Samuel Lair's GPLv3 source in lair001/lehman-math-cs at revision 23ac35dd77d923f45137fa3ccce7599890056c70, solutions/book/p1/ch3_p4.py and the Chapter 3 Problem 4 section of ch3-sol.tex.",
+    "license_label": "GPL-3.0",
+    "or_later": "not-stated; do not relabel as GPL-3.0-or-later"
+  },
+  "qualification": {
+    "status": "static-source-with-historical-unqualified-readback",
+    "native_execution": "an earlier private study reported an unqualified standard-library readback; this repository build/test does not execute it and native behavior remains unverified here",
+    "browser_execution": "unqualified",
+    "mathematical_proof": "not claimed",
+    "allowed_readback": "bounded standard-library-only source behavior check for n=0..8, exact n=4 row order, invalid n inputs, and invalid maximum inputs before value validation; historical private-study evidence only, not a repository build/test check",
+    "conversion_date": "2026-11-13"
+  }
+}

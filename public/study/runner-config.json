@@ -1,0 +1,9 @@
+{
+  "schema": "study-runner-consumer-boundary-v1",
+  "status": "static-not-active",
+  "entry": "bounded_truth_value_array",
+  "inputBounds": { "minimum": 0, "maximum": 8 },
+  "pyodideAssetsLoadedBeforeRun": false,
+  "editorStatus": "static-only",
+  "publicActivation": "not enabled"
+}
