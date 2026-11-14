@@ -141,7 +141,7 @@ check(Array.isArray(publicProjectionPaths) && publicProjectionPaths.includes("to
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 134 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1074927 && publicProjectionAggregate === "bcee5e37ffeba99e03a6154524512c1ecd33541a5ef07fc9324a80c382a48dd4", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 137 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1078307 && publicProjectionAggregate === "b99dc10654f445f283b3d8fab76f5ae728510c69dc52ef0713f0dd3b145ad23f", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -155,6 +155,9 @@ const baselineLockEntries = currentLockEntries.filter(([path]) => !allowedAddedL
 const baselineLockDigest = { count: baselineLockEntries.length, sha256: sha256(Buffer.from(baselineLockEntries.map(([path, record]) => `${path}\n${JSON.stringify(record)}\n`).join(""))) };
 const baselineLockPathsSha256 = sha256(Buffer.from(baselineLockEntries.map(([path]) => path).join("\n") + "\n"));
 check(baselineLockDigest.count === fixture.lock.nonRootEntryCount && baselineLockDigest.sha256 === fixture.lock.nonRootEntriesSha256 && baselineLockPathsSha256 === fixture.lock.nonRootPathsSha256, "BASELINE_LOCK_ENTRIES");
+
+const lessonChecks = spawnSync(process.execPath, [join(root, "tools/test-lehman-checks.mjs")], {cwd:root,encoding:"utf8"});
+check(lessonChecks.status === 0 && lessonChecks.stdout.includes('"status":"PASS"'), "LESSON_EXAMPLE_CHECKS");
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
@@ -184,6 +187,7 @@ check(studyRoute.includes('data-study-code-include="lehman-truth-assignments"'),
 check(editorSourceForLayout().includes('study-editor-slot study-editor-gate'), "EDITOR_LAYOUT_SCOPE");
 function editorSourceForLayout() { return readFileSync(join(root, "src/study/LehmanCh3P4Interactive.tsx"), "utf8"); }
 check(readFileSync(join(root,"src/styles/study.css"),"utf8").includes("max-height: 30rem"), "EDITOR_BOUNDED_SCROLL");
+check(studyRoute.includes("Example checks inspect the current result") && editorSourceForLayout().includes("checks={LEHMAN_CHECKS}"), "VISIBLE_LESSON_CHECKS");
 check(studyRoute.includes("Optional Python editor") && studyRoute.includes("LehmanCh3P4Interactive") && !studyRoute.includes('class="study-editor-disabled"'), "OPTIONAL_EDITOR_ISLAND");
 const editorSource = readFileSync(join(root, "src/study/LehmanCh3P4Interactive.tsx"), "utf8");
 const runnerConfig = readJson(join(root, "public/study/runner-config.json"));

@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { LEHMAN_CHECKS } from "./lehman-checks.mjs";
 import { StudyEditor } from "@knowledge-forge-ai/study-components/editor";
 import { createStudyRuntimeEditorAdapterFactory } from "@knowledge-forge-ai/study-components/runtime-adapter";
 import { STUDY_RUNTIME_ASSET_PATHS } from "@knowledge-forge-ai/study-components/runtime-protocol";
@@ -60,6 +61,7 @@ export function LehmanCh3P4Interactive({ source }: LehmanCh3P4InteractiveProps) 
         this island; Python execution is not a semantic checker. Editor dependencies retain their MIT notices.
       </p>
       <p><a href="/study/licenses/codemirror-NOTICES.txt">Editor dependency notices</a></p>
+      <p>Example checks inspect the current result. Passing examples does not replace the proof above.</p>
       <StudyEditor
         source={source}
         input={4}
@@ -68,6 +70,7 @@ export function LehmanCh3P4Interactive({ source }: LehmanCh3P4InteractiveProps) 
         execution={execution}
         pythonEntry={{ entry: "bounded_truth_value_array", revision: LEHMAN_SOURCE_REVISION }}
         title="Lehman Chapter 3 Problem 4 editor"
+        checks={LEHMAN_CHECKS}
       />
     </section>
   );
