@@ -76,11 +76,20 @@
     "src/pages/journal/index.astro",
     "src/pages/journal/rss.xml.ts",
     "src/pages/legal.astro",
+    "src/pages/study/goodrich-ch4-ex6-harmonic.astro",
+    "src/pages/study/index.astro",
     "src/pages/study/lehman-ch3-p4.astro",
+    "src/pages/study/rosen-1-3-ex5-6.astro",
     "src/study/LehmanCh3P4Editor.tsx",
+    "src/study/goodrich-ch4-ex6.mdx",
+    "src/study/goodrich-ch4-ex6.provenance.json",
+    "src/study/goodrich-ch4-ex6.py",
     "src/study/lehman-ch3-p4.mdx",
     "src/study/lehman-ch3-p4.provenance.json",
     "src/study/lehman-ch3-p4.py",
+    "src/study/rosen-1-3-ex5-6.mdx",
+    "src/study/rosen-1-3-ex5-6.provenance.json",
+    "src/study/static-slices13.manifest.json",
     "src/styles/legacy.css",
     "src/styles/material.css",
     "src/styles/site-material-consumer.css",
@@ -88,6 +97,7 @@
     "src/styles/study.css",
     "src/styles/theme.css",
     "test/fixtures/study-baseline.v1.json",
+    "tools/build-study-slices13.mjs",
     "tools/build-study-source.mjs",
     "tools/test-study-source.mjs",
     "tools/test-study-source-probes.mjs",
@@ -256,6 +266,25 @@
       "legal/index.html": "99e1b31962b07a201e3039b4f115362361d62cf63f9b1d020e503e1d163d8d70"
     },
     "manifestSha256": "19394f7dbb35aeb746d2841ad1e8451aa642b8f39272444799f78b0117b1165a"
+  },
+  "studySlices13": {
+    "sourceFiles": 10,
+    "routes": [
+      "/study/goodrich-ch4-ex6-harmonic/",
+      "/study/rosen-1-3-ex5-6/"
+    ],
+    "indexRoute": "/study/",
+    "output": {
+      "fileCount": 150,
+      "htmlPages": 47,
+      "manifestSha256": "4b52b0e47fa7a135d779b5b25e1a1b0ebce3e1a18f253cfb576d84d25412d443"
+    },
+    "htmlSha256": {
+      "study/index.html": "5096790f212d064e65e8e381c620a96c26c7b0e0891250dbd142a80a8e29d60a",
+      "study/goodrich-ch4-ex6-harmonic/index.html": "01840bff621eb34eaeaef874e74f768d00fbc1bb899491f537a2f7eec9c9ea92",
+      "study/rosen-1-3-ex5-6/index.html": "6a5316252205eb25a60dc2d9c5dd1682406b754e40fb9026a2c379813e240f61"
+    },
+    "staticOnly": true
   },
   "shell": {
     "studyLinkBaselinePages": 0

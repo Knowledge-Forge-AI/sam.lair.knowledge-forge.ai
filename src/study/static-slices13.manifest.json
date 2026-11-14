@@ -1,0 +1,40 @@
+{
+  "schema": "personal-study-consumer-static-slices13/v1",
+  "status": "private-portable-build-candidate",
+  "pages": [
+    {
+      "documentId": "goodrich-ch4-ex6-harmonic",
+      "sourcePath": "src/study/goodrich-ch4-ex6.mdx",
+      "provenancePath": "src/study/goodrich-ch4-ex6.provenance.json",
+      "route": "/study/goodrich-ch4-ex6-harmonic/",
+      "generatedMarkupExport": "goodrichMarkup",
+      "static": true,
+      "codeIncludes": ["goodrich-harmonic-source"]
+    },
+    {
+      "documentId": "rosen-1-3-ex5-6",
+      "sourcePath": "src/study/rosen-1-3-ex5-6.mdx",
+      "provenancePath": "src/study/rosen-1-3-ex5-6.provenance.json",
+      "route": "/study/rosen-1-3-ex5-6/",
+      "generatedMarkupExport": "rosenMarkup",
+      "static": true,
+      "codeIncludes": []
+    }
+  ],
+  "codeSources": [
+    {
+      "includeId": "goodrich-harmonic-source",
+      "path": "src/study/goodrich-ch4-ex6.py",
+      "entry": "bounded_harmonic",
+      "language": "python",
+      "staticBuildOnly": true
+    }
+  ],
+  "buildPolicy": {
+    "sourceProjection": "parent12 explicit public-source manifest only; these files are consumer additions",
+    "articleSource": "MDX never duplicates the Python source; the generator reads the single local file",
+    "dynamicRun": "disabled; no editor initialization or Python runtime assets",
+    "math": "trusted first-party static MDX compilation; only the two displayed Rosen finite truth-table equivalences are proof claims, with no general theorem-prover or unrelated mathematical claim",
+    "rollback": "remove this manifest, the two MDX pages, their two source provenance records, the copied Python source, the two route files, and the public derived outputs src/study/generated-slices13.js, public/study/provenance/goodrich-ch4-ex6-harmonic.json, public/study/provenance/rosen-1-3-ex5-6.json, build/study-slices13-binding.json, and build/study-slices13-output-lock.json; then remove the slices13 generator overlay"
+  }
+}

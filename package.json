@@ -3,11 +3,11 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "predev": "node tools/build-study-source.mjs",
+    "predev": "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs",
     "dev": "astro dev",
-    "prestart": "node tools/build-study-source.mjs",
+    "prestart": "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs",
     "start": "astro dev",
-    "build": "node tools/build-study-source.mjs && astro build",
+    "build": "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs && astro build",
     "test:study-source": "node tools/test-study-source.mjs",
     "preview": "astro preview",
     "astro": "astro"

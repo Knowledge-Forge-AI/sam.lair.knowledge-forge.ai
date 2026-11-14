@@ -1,0 +1,25 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/study.css';
+import { rosenMarkup } from '../../study/generated-slices13.js';
+
+const title = 'Rosen 1.3 Exercises 5 and 6 — Truth tables — Sam Lair';
+const description = 'A static rendering of two selected Rosen exercise truth-table slices.';
+---
+
+<Site title={title} description={description}>
+  <article class="article study-article glass">
+    <link rel="stylesheet" href="/study/katex.css" />
+    <a class="back-link" href="/">← Sam Lair home</a>
+    <div class="article-meta"><span>Study</span><span>Logic</span></div>
+    <h1>Chapter 1, Section 1.3 — Exercises 5 and 6</h1>
+    <p class="article-lead">Exhaustive truth assignments prove the distributive and De Morgan equivalences.</p>
+    <section class="study-mdx" aria-label="Compiled Rosen study page" set:html={rosenMarkup}></section>
+    <section class="study-provenance" aria-labelledby="rosen-provenance-title">
+      <h2 id="rosen-provenance-title">Source and attribution</h2>
+      <p>The page records the exact Rosen revision and selected TeX line scope. The repository's separate CC-BY-NC-SA content split is not used here; no textbook or PDF bulk is copied.</p>
+      <p><a href="/study/provenance/rosen-1-3-ex5-6.json">Read the Rosen provenance manifest</a></p>
+      <p><a href="/study/licenses/lehman-GPL-3.0.txt">GPL-3.0 source license</a> · <a href="/study/licenses/katex-LICENSE.txt">KaTeX license</a></p>
+    </section>
+  </article>
+</Site>

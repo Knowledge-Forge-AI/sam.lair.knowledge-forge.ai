@@ -1,0 +1,122 @@
+---
+id: rosen-1-3-ex5-6
+title: "Rosen 1.3 — Exercises 5 and 6: equivalence by truth table"
+status: source-only-static-page
+provenance: ./rosen-1-3-ex5-6.provenance.json
+---
+
+These exercises compare two pairs of propositions by listing every possible
+truth-value assignment. The source exercise labels are retained as **Exercise
+5** and **Exercise 6**; the `Exercise` wrapper below provides the document
+structure without changing those labels.
+
+<Exercise id="rosen-1-3-ex5-6" sourceLabel="Chapter 1 Section 1.3 — Exercises 5 and 6">
+
+<Solution id="rosen-1-3-ex5-solution" title="Exercise 5 — Distributive law">
+
+The two propositions under comparison are:
+
+<Equation id="rosen-1-3-ex5-left" tag="left proposition">
+
+$$
+p \land (q \lor r)
+$$
+
+</Equation>
+
+<Equation id="rosen-1-3-ex5-right" tag="right proposition">
+
+$$
+(p \land q) \lor (p \land r)
+$$
+
+</Equation>
+
+<TruthTable
+  caption="Exercise 5 — p ∧ (q ∨ r) and (p ∧ q) ∨ (p ∧ r)"
+  headers={["p", "q", "r", "q ∨ r", "p ∧ (q ∨ r)", "p ∧ q", "p ∧ r", "(p ∧ q) ∨ (p ∧ r)"]}
+  rows={[
+    ["T", "T", "T", "T", "T", "T", "T", "T"],
+    ["T", "T", "F", "T", "T", "T", "F", "T"],
+    ["T", "F", "T", "T", "T", "F", "T", "T"],
+    ["T", "F", "F", "F", "F", "F", "F", "F"],
+    ["F", "T", "T", "T", "F", "F", "F", "F"],
+    ["F", "T", "F", "T", "F", "F", "F", "F"],
+    ["F", "F", "T", "T", "F", "F", "F", "F"],
+    ["F", "F", "F", "F", "F", "F", "F", "F"],
+  ]}
+ />
+
+<Proof id="rosen-1-3-ex5-proof" title="Equivalence by exhaustive valuation">
+
+For all eight valuations of `p`, `q`, and `r`, the column for
+<EquationRef id="rosen-1-3-ex5-left">the left proposition</EquationRef> agrees
+with the column for
+<EquationRef id="rosen-1-3-ex5-right">the right proposition</EquationRef>.
+The exhaustive two-valued truth table therefore proves the displayed
+propositional equivalence for Exercise 5. That conclusion is specific to the
+finite valuations shown here; the page does not generalize it to unrelated
+mathematics.
+
+</Proof>
+
+</Solution>
+
+<Solution id="rosen-1-3-ex6-solution" title="Exercise 6 — De Morgan's law">
+
+The two propositions under comparison are:
+
+<Equation id="rosen-1-3-ex6-left" tag="left proposition">
+
+$$
+\neg (p \land q)
+$$
+
+</Equation>
+
+<Equation id="rosen-1-3-ex6-right" tag="right proposition">
+
+$$
+\neg p \lor \neg q
+$$
+
+</Equation>
+
+<TruthTable
+  caption="Exercise 6 — ¬(p ∧ q) and ¬p ∨ ¬q"
+  headers={["p", "q", "p ∧ q", "¬(p ∧ q)", "¬p", "¬q", "¬p ∨ ¬q"]}
+  rows={[
+    ["T", "T", "T", "F", "F", "F", "F"],
+    ["T", "F", "F", "T", "F", "T", "T"],
+    ["F", "T", "F", "T", "T", "F", "T"],
+    ["F", "F", "F", "T", "T", "T", "T"],
+  ]}
+ />
+
+<Proof id="rosen-1-3-ex6-proof" title="Equivalence by exhaustive valuation">
+
+For all four valuations of `p` and `q`, the column for
+<EquationRef id="rosen-1-3-ex6-left">the left proposition</EquationRef> agrees
+with the column for
+<EquationRef id="rosen-1-3-ex6-right">the right proposition</EquationRef>.
+The exhaustive two-valued truth table therefore proves the displayed
+propositional equivalence for Exercise 6. That conclusion is specific to the
+finite valuations shown here; the page does not generalize it to unrelated
+mathematics.
+
+</Proof>
+
+</Solution>
+
+</Exercise>
+
+## Scope and terms
+
+This page preserves the selected exercise identities, equations, and
+valuation rows. No PDF, textbook bulk text, slides, or companion materials
+are copied. See the provenance manifest for source identity, license split,
+exercise scope, and conversion treatment.
+
+The two exhaustive tables prove the displayed finite propositional
+equivalences. The page makes no claim that a format conversion proves other
+mathematics, and it does not implement a general-purpose theorem prover.

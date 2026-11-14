@@ -9,11 +9,14 @@ const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const outputRoot = join(root, "dist");
 const bindingPath = join(root, "build/study-source-binding.json");
 const outputLockPath = join(root, "build/study-source-output-lock.json");
+const slicesBindingPath = join(root, "build/study-slices13-binding.json");
+const slicesOutputLockPath = join(root, "build/study-slices13-output-lock.json");
 const receiptPath = join(root, "build/study-build-receipt.json");
 const packageJsonPath = join(root, "package.json");
 const packageLockPath = join(root, "package-lock.json");
 const fixturePath = join(root, "test/fixtures/study-baseline.v1.json");
 const sourceBuilderPath = join(root, "tools/build-study-source.mjs");
+const slicesBuilderPath = join(root, "tools/build-study-slices13.mjs");
 
 const fail = (code) => { throw new Error(code); };
 const check = (condition, code) => { if (!condition) fail(code); };
@@ -125,18 +128,20 @@ const packageLock = readJson(packageLockPath);
 const fixture = readJson(fixturePath);
 const sourceBuild = readFileSync(join(root, "tools/build-study-source.mjs"), "utf8");
 
-check(packageJson.scripts.build === "node tools/build-study-source.mjs && astro build", "NORMAL_BUILD_PIPELINE");
+check(packageJson.scripts.predev === "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs"
+  && packageJson.scripts.prestart === "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs"
+  && packageJson.scripts.build === "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs && astro build", "NORMAL_BUILD_PIPELINE");
 for (const forbidden of ["/Users/", "/home/", "pinnedNode", "astroClosure", "knowledge-forge.github.io", "study-components-package1"]) check(!sourceBuild.includes(forbidden), "SOURCE_BUILDER_AMBIENT_PATH");
 check(fixture.schema === "personal-study-public-fixture.v1", "PUBLIC_FIXTURE_SCHEMA");
 for (const forbiddenPath of ["tools/private", "research", "study-pilot-binding.json"]) check(!existsSync(join(root, forbiddenPath)), `PUBLIC_PRIVATE_PATH_${forbiddenPath}`);
-check(existsSync(sourceBuilderPath) && existsSync(join(root, "tools/test-study-source.mjs")), "PUBLIC_TEST_FILES_MISSING");
+check(existsSync(sourceBuilderPath) && existsSync(slicesBuilderPath) && existsSync(join(root, "tools/test-study-source.mjs")), "PUBLIC_TEST_FILES_MISSING");
 const publicProjectionPaths = fixture.publicProjectionPaths;
 check(Array.isArray(publicProjectionPaths) && publicProjectionPaths.includes("tools/test-study-source.mjs"), "PUBLIC_PROJECTION_PATH_LIST");
 // The verifier is included in the explicit public path list but omitted from this aggregate to avoid a self-hash cycle.
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 118 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 965999 && publicProjectionAggregate === "be94db8ab2a097088446990c61867058a41dbbe57ab0685ba6d8c9d15ad353ad", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 128 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1005337 && publicProjectionAggregate === "dd0cce52e2a074acf51295b3a5a0175cb8b1c841751ad35002fbfc2501fec37e", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -153,8 +158,8 @@ check(baselineLockDigest.count === fixture.lock.nonRootEntryCount && baselineLoc
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
-check(outputFiles.length === 145, "OUTPUT_FILE_COUNT");
-check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 44, "OUTPUT_HTML_COUNT");
+check(outputFiles.length === 150, "OUTPUT_FILE_COUNT");
+check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 47, "OUTPUT_HTML_COUNT");
 check(fixture.output.fileCount === 77 && fixture.output.htmlPages === 43, "BASELINE_OUTPUT_FACTS");
 check(sha256(Buffer.from(fixture.output.nonGeneratedPaths.join("\n") + "\n")) === fixture.output.nonGeneratedPathsSha256, "BASELINE_OUTPUT_PATHS_HASH");
 for (const path of fixture.output.nonGeneratedPaths) check(outputByPath.has(path), `BASELINE_OUTPUT_MISSING_${path}`);
@@ -164,14 +169,14 @@ for (const [path, expectedHash] of Object.entries(fixture.output.authoredHeading
   check(sha256(Buffer.from(JSON.stringify(actual))) === expectedHash, `AUTHORED_HEADING_${path}`);
 }
 
-const studyLink = 'href="/study/lehman-ch3-p4/"';
+const studyLink = 'href="/study/"';
 let outputPagesWithStudyLink = 0;
 check(fixture.shell.studyLinkBaselinePages === 0, "BASELINE_STUDY_LINK_PRESENT");
 for (const record of outputFiles.filter((item) => item.path.endsWith(".html"))) {
   const outputHtml = readFileSync(join(outputRoot, record.path), "utf8");
   if (outputHtml.includes(studyLink)) outputPagesWithStudyLink += 1;
 }
-check(outputPagesWithStudyLink === 38, "OUTPUT_STUDY_LINK_COUNT");
+check(outputPagesWithStudyLink === 41, "OUTPUT_STUDY_LINK_COUNT");
 const studyRoute = readFileSync(join(outputRoot, "study/lehman-ch3-p4/index.html"), "utf8");
 check(studyRoute.includes('aria-current="page"') && studyRoute.includes(studyLink), "STUDY_LINK_ACTIVE");
 check(studyRoute.includes("data-study-kind=\"proof\"") && studyRoute.includes("data-study-kind=\"subproof\""), "STUDY_PROOF_MARKERS");
@@ -180,6 +185,38 @@ check(studyRoute.includes('class="study-editor-disabled"') && !studyRoute.includ
 check(studyRoute.includes("http://www.w3.org/1998/Math/MathML"), "STUDY_MATHML");
 for (const forbidden of ["new Worker", "fetch(", "pyodide"]) check(!studyRoute.includes(forbidden), `STUDY_RUNTIME_MARKER_${forbidden}`);
 for (const href of ["/study/content-terms.md", "/study/provenance/lehman-ch3-p4.json", "/study/licenses/katex-LICENSE.txt", "/study/licenses/lehman-GPL-3.0.txt"]) check(studyRoute.includes(`href=\"${href}\"`), `STUDY_LINK_${href}`);
+
+check(existsSync(slicesBindingPath) && existsSync(slicesOutputLockPath), "SLICES13_OUTPUT_METADATA_MISSING");
+const slicesBinding = readJson(slicesBindingPath);
+const slicesOutputLock = readJson(slicesOutputLockPath);
+check(slicesBinding.schema === "personal-study-slices13-build.v1" && slicesBinding.status === "passed-consumer-static-source-generation", "SLICES13_BINDING_STATUS");
+check(slicesBinding.generated.sha256 === hashFile(join(root, slicesBinding.generated.path)), "SLICES13_GENERATED_HASH");
+check(slicesOutputLock.schema === "personal-study-slices13-output-lock.v1" && slicesOutputLock.outputs.length === 4, "SLICES13_OUTPUT_LOCK");
+for (const record of slicesOutputLock.outputs) check(hashFile(join(root, record.path)) === record.sha256, `SLICES13_OUTPUT_HASH_${record.path}`);
+const studyIndex = readFileSync(join(outputRoot, "study/index.html"), "utf8");
+for (const href of ["/study/lehman-ch3-p4/", "/study/goodrich-ch4-ex6-harmonic/", "/study/rosen-1-3-ex5-6/"]) check(studyIndex.includes(`href=\"${href}\"`), `SLICES13_INDEX_LINK_${href}`);
+check(studyIndex.includes("Three pages on a recurrence")
+  && studyIndex.includes("Recursive harmonic numbers")
+  && studyIndex.includes("Truth assignments")
+  && !studyIndex.includes("new Worker") && !studyIndex.includes("pyodide"), "SLICES13_INDEX_CONTENT");
+const goodrichRoute = readFileSync(join(outputRoot, "study/goodrich-ch4-ex6-harmonic/index.html"), "utf8");
+const rosenRoute = readFileSync(join(outputRoot, "study/rosen-1-3-ex5-6/index.html"), "utf8");
+check((goodrichRoute.match(/data-study-code-include="goodrich-harmonic-source"/g) ?? []).length === 1
+  && !goodrichRoute.includes("data-study-runnable")
+  && (goodrichRoute.match(/<h1>/g) ?? []).length === 1
+  && goodrichRoute.includes("bounded_harmonic"), "SLICES13_GOODRICH_SINGLE_OUTPUT");
+check((rosenRoute.match(/<h1>/g) ?? []).length === 1
+  && (rosenRoute.match(/<table/g) ?? []).length === 2
+  && (rosenRoute.match(/data-study-reference=/g) ?? []).length === 4, "SLICES13_ROSEN_OUTPUT");
+for (const [routeName, routeHtml] of [["index", studyIndex], ["goodrich", goodrichRoute], ["rosen", rosenRoute]]) {
+  for (const forbidden of ["new Worker", "fetch(", "pyodide", "Activate optional editor"])
+    check(!routeHtml.includes(forbidden), `SLICES13_${routeName.toUpperCase()}_RUNTIME_MARKER_${forbidden}`);
+}
+for (const routeHtml of [goodrichRoute, rosenRoute]) {
+  check(routeHtml.includes('href="/study/licenses/lehman-GPL-3.0.txt"')
+    && routeHtml.includes('href="/study/licenses/katex-LICENSE.txt"'), "SLICES13_LICENSE_LINKS");
+}
+for (const outputPath of Object.keys(fixture.studySlices13.htmlSha256)) check(sha256(readFileSync(join(outputRoot, outputPath))) === fixture.studySlices13.htmlSha256[outputPath], `SLICES13_HTML_HASH_${outputPath}`);
 
 check(binding.generated.studyModule.sha256 === hashFile(join(root, "src/study/generated-study.js")), "GENERATED_STUDY_HASH");
 check(binding.generated.provenance.sha256 === hashFile(join(root, "public/study/provenance/lehman-ch3-p4.json")), "GENERATED_PROVENANCE_HASH");
@@ -210,7 +247,18 @@ function runIsolatedMutationProbes() {
       ), "PROBE_OUTPUT_PATH");
       return record.path;
     });
-    const inputs = new Set([...publicProjectionPaths, ...generatedPaths, "build/study-source-output-lock.json"]);
+    const slicesLock = readJson(slicesOutputLockPath);
+    check(slicesLock.schema === "personal-study-slices13-output-lock.v1"
+      && Array.isArray(slicesLock.outputs) && slicesLock.outputs.length === 4, "PROBE_SLICES13_OUTPUT_LOCK");
+    const slicesGeneratedPaths = slicesLock.outputs.map((record) => {
+      check(typeof record.path === "string" && (
+        record.path === "build/study-slices13-binding.json"
+        || record.path === "src/study/generated-slices13.js"
+        || /^public\/study\/provenance\/(goodrich-ch4-ex6-harmonic|rosen-1-3-ex5-6)\.json$/.test(record.path)
+      ), "PROBE_SLICES13_OUTPUT_PATH");
+      return record.path;
+    });
+    const inputs = new Set([...publicProjectionPaths, ...generatedPaths, ...slicesGeneratedPaths, "build/study-source-output-lock.json", "build/study-slices13-output-lock.json"]);
     for (const name of inputs) {
       const from = checkedPublicFile(name);
       const to = join(probeRoot, name);
@@ -240,7 +288,7 @@ const receipt = {
   sourceBinding: finalBinding,
   output: { files: outputFiles.length, htmlPages: outputFiles.filter((record) => record.path.endsWith(".html")).length, manifestSha256: outputManifestSha256 },
   baseline: { files: fixture.output.fileCount, htmlPages: fixture.output.htmlPages, manifestSha256: fixture.output.manifestSha256 },
-  intentionalShellDelta: { studyLink: "/study/lehman-ch3-p4/", baselinePagesWithStudyLink: fixture.shell.studyLinkBaselinePages, outputPagesWithStudyLink, allOutputPagesWithStudyLink, note: "One discoverable Study navigation link was added to the existing site shell; no landing page was added and authored headings were preserved." },
+  intentionalShellDelta: { studyLink: "/study/", baselinePagesWithStudyLink: fixture.shell.studyLinkBaselinePages, outputPagesWithStudyLink, allOutputPagesWithStudyLink, note: "The existing Study navigation link now points to the new static index; authored headings and ordinary articles were preserved." },
   publicProjection: { files: publicProjection.length, bytes: publicProjection.reduce((total, record) => total + record.bytes, 0), aggregateSha256: publicProjectionAggregate },
   checks: { baselineDependencyValues: true, baselineNonRootLockEntries: true, lockTopLevelFields: true, portablePublicFixture: true, publicProjectionManifest: true, outputPrivacyScan: scan, sourceGeneratorNoAmbientPath: true, editorDisabled: true, ownedOutputDriftRefusal: true, danglingLeafAndAncestorRefusal: true, intentionalSourceChangeRebuild: true, isolatedMutationProbes: true },
   boundaries: { browser: "not run", publicRunner: "not activated", mathematicalCorrectness: "not claimed", nativePython: "not run by this build test" },

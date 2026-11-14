@@ -1,0 +1,73 @@
+---
+id: goodrich-ch4-ex6-harmonic
+title: "Goodrich Chapter 4 Exercise 6 — recursive harmonic numbers"
+status: source-only-static-page
+provenance: ./goodrich-ch4-ex6.provenance.json
+---
+
+The nth harmonic number is the finite sum
+
+<Equation id="goodrich-ch4-ex6-harmonic-definition" tag="definition">
+
+$$
+H_n = \sum_{i=1}^{n} \frac{1}{i}
+$$
+
+</Equation>
+
+This page studies the selected recursive implementation of that definition.
+The maintained source has a positive-integer precondition: it stops at n
+equal to 1, and otherwise adds 1 divided by n to the result for n minus 1.
+
+<Exercise id="goodrich-ch4-ex6-harmonic" sourceLabel="Chapter 4 Exercise 6">
+
+<Solution id="goodrich-ch4-ex6-harmonic-solution" title="Recursive harmonic number">
+
+<CodeInclude includeId="goodrich-harmonic-source" label="Consumer-maintained source (static preview)" />
+
+The source algorithm is kept recognizable: the base case returns 1 for
+n equal to 1, and the recursive branch returns 1 divided by n plus the
+result for n minus 1. Each call reduces n by one, so a valid input reaches
+the base case after n minus 1 recursive calls.
+
+The consumer-owned host boundary validates before calling the recursive
+source. For this bounded pilot it accepts only an integer n that is not a
+Boolean and satisfies 1 ≤ n ≤ 8. Zero, negative, fractional, Boolean, string,
+null, and above-limit values are rejected before recursion. The raw recursive
+function is not called with n equal to 0; the bounded host entry rejects
+bounded_harmonic(0). The upper bound of 8 is new integration code, not a limit
+claimed by the authored source.
+
+<Equation id="goodrich-ch4-ex6-harmonic-guard" tag="pilot input contract">
+
+$$
+n \in \mathbb{Z}, \qquad n \geq 1, \qquad n \leq 8
+$$
+
+</Equation>
+
+### Bounded independent check
+
+For each n from 1 through 8, the native check compares the recursive result
+with an independently accumulated `math.fsum` using
+`math.isclose(rel_tol=0.0, abs_tol=1e-15)`. At n equal to 8, the recursive
+left-to-right sum differs from the correctly rounded `math.fsum` value by one
+ULP and is accepted by that stated tolerance. Binary floating-point stores
+many fractions approximately, so this comparison is a finite observation of
+the selected inputs, not a proof of the general definition.
+
+</Solution>
+
+</Exercise>
+
+## Scope and terms
+
+This page adapts the selected source while preserving its exercise identity
+and GPL-3.0 attribution. Textbook prompts, textbook prose, PDFs, slides,
+companion materials, and bulk content are excluded.
+
+The selected authored source is used under the owner’s explicit GPL-3.0
+authorization for this slice and is attributed to Samuel Lair. The local
+consumer copy preserves the selected source identity and revision; the
+separately marked host guard remains consumer integration. See the linked
+provenance manifest for the exact source history and treatment.

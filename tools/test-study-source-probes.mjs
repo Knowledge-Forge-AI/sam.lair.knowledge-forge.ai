@@ -14,14 +14,21 @@ import { join, resolve } from "node:path";
 const root = resolve(process.argv[2] ?? "");
 if (!existsSync(join(root, "tools/build-study-source.mjs"))) throw new Error("PROBE_ROOT_MISSING");
 const sourceBuilderPath = join(root, "tools/build-study-source.mjs");
+const slicesBuilderPath = join(root, "tools/build-study-slices13.mjs");
 const outputLockPath = join(root, "build/study-source-output-lock.json");
 const bindingPath = join(root, "build/study-source-binding.json");
+const slicesOutputLockPath = join(root, "build/study-slices13-output-lock.json");
+const slicesBindingPath = join(root, "build/study-slices13-binding.json");
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const hashFile = (path) => sha256(readFileSync(path));
 const check = (condition, code) => { if (!condition) throw new Error(code); };
 
 function runSourceBuilder() {
   return spawnSync(process.execPath, [sourceBuilderPath], { cwd: root, encoding: "utf8" });
+}
+
+function runSlicesBuilder() {
+  return spawnSync(process.execPath, [slicesBuilderPath], { cwd: root, encoding: "utf8" });
 }
 
 const ownedLockBeforeTests = readFileSync(outputLockPath);
@@ -89,6 +96,61 @@ const custodyParent = resolve(root, "..");
 expectDanglingLeafRefusal("src/study/generated-study.js", join(custodyParent, ".study-source-dangling-leaf-v1"), "DANGLING_LEAF", "OWNED_DERIVATIVE_SYMLINK");
 expectDanglingLeafRefusal("build/study-source-output-lock.json", join(custodyParent, ".study-source-dangling-lock-v1"), "DANGLING_LOCK", "OWNED_DERIVATIVE_SYMLINK");
 
+check(existsSync(slicesBuilderPath) && existsSync(slicesBindingPath) && existsSync(slicesOutputLockPath), "SLICES13_PROBE_INPUT_MISSING");
+const slicesLockBeforeTests = readFileSync(slicesOutputLockPath);
+const slicesRecords = JSON.parse(slicesLockBeforeTests).outputs;
+check(Array.isArray(slicesRecords) && slicesRecords.length === 4, "SLICES13_PROBE_OUTPUT_SET");
+const slicesSnapshot = new Map(slicesRecords.map((record) => [record.path, hashFile(join(root, record.path))]));
+
+function expectSlicesDriftRefusal(relativePath, label) {
+  const path = join(root, relativePath);
+  const original = readFileSync(path);
+  const tampered = Buffer.concat([original, Buffer.from("\nslices13-drift-probe\n")]);
+  try {
+    writeFileSync(path, tampered);
+    const result = runSlicesBuilder();
+    check(result.status !== 0, `${label}_DRIFT_ACCEPTED`);
+    check(`${result.stdout ?? ""}${result.stderr ?? ""}`.includes("SLICES13_OWNED_DERIVATIVE_DRIFT"), `${label}_DRIFT_CODE`);
+    check(readFileSync(path).equals(tampered), `${label}_DRIFT_REWRITTEN`);
+    for (const [ownedPath, beforeHash] of slicesSnapshot) {
+      if (ownedPath !== relativePath) check(hashFile(join(root, ownedPath)) === beforeHash, `${label}_OTHER_OUTPUT_WRITTEN`);
+    }
+    if (relativePath !== "build/study-slices13-output-lock.json") check(readFileSync(slicesOutputLockPath).equals(slicesLockBeforeTests), `${label}_LOCK_WRITTEN`);
+  } finally {
+    writeFileSync(path, original);
+  }
+  check(runSlicesBuilder().status === 0, `${label}_UNCHANGED_REBUILD`);
+}
+
+expectSlicesDriftRefusal("src/study/generated-slices13.js", "SLICES13_GENERATED_MODULE");
+expectSlicesDriftRefusal("public/study/provenance/goodrich-ch4-ex6-harmonic.json", "SLICES13_GOODRICH_PROVENANCE");
+
+function expectSlicesDanglingLeafRefusal(relativePath, target, label) {
+  check(lstatPresent(target) === null, `${label}_TARGET_PREEXISTING`);
+  const path = join(root, relativePath);
+  const original = readFileSync(path);
+  try {
+    unlinkSync(path);
+    symlinkSync(target, path);
+    const result = runSlicesBuilder();
+    check(result.status !== 0, `${label}_ACCEPTED`);
+    check(`${result.stdout ?? ""}${result.stderr ?? ""}`.includes("SLICES13_OWNED_OUTPUT_SYMLINK"), `${label}_CODE`);
+    check(lstatPresent(path)?.isSymbolicLink() === true && lstatPresent(target) === null, `${label}_TARGET_CREATED`);
+    for (const [ownedPath, beforeHash] of slicesSnapshot) {
+      if (ownedPath !== relativePath) check(hashFile(join(root, ownedPath)) === beforeHash, `${label}_OTHER_OUTPUT_WRITTEN`);
+    }
+    if (relativePath !== "build/study-slices13-output-lock.json") check(readFileSync(slicesOutputLockPath).equals(slicesLockBeforeTests), `${label}_LOCK_WRITTEN`);
+  } finally {
+    unlinkSync(path);
+    writeFileSync(path, original);
+  }
+  check(readFileSync(slicesOutputLockPath).equals(slicesLockBeforeTests), `${label}_LOCK_RESTORED`);
+  check(runSlicesBuilder().status === 0, `${label}_RESTORE_REBUILD`);
+}
+
+expectSlicesDanglingLeafRefusal("src/study/generated-slices13.js", join(custodyParent, ".study-slices13-dangling-leaf-v1"), "SLICES13_DANGLING_LEAF");
+expectSlicesDanglingLeafRefusal("build/study-slices13-output-lock.json", join(custodyParent, ".study-slices13-dangling-lock-v1"), "SLICES13_DANGLING_LOCK");
+
 const fontDirectory = join(root, "public/study/fonts");
 const fontDirectoryBackup = join(root, "public/study/.fonts-custody-backup-v1");
 const fontDirectoryTarget = join(custodyParent, ".study-source-dangling-font-directory-v1");
@@ -133,4 +195,4 @@ try {
   writeFileSync(provenancePath, originalProvenance);
 }
 check(runSourceBuilder().status === 0, "SOURCE_RESTORE_REJECTED");
-console.log(JSON.stringify({ status: "PASS", scope: "isolated-source-copy" }));
+console.log(JSON.stringify({ status: "PASS", scope: "isolated-source-copy-and-slices13" }));

@@ -1,0 +1,62 @@
+{
+  "schema": "personal-study-consumer-static-slice-provenance.v2",
+  "documentId": "goodrich-ch4-ex6-harmonic",
+  "page": {
+    "path": "src/study/goodrich-ch4-ex6.mdx",
+    "role": "consumer-owned static MDX page",
+    "status": "source-only-static-page",
+    "dynamicRun": false,
+    "editorInitialization": false,
+    "owner": "personal-study consumer",
+    "bytes": 2881,
+    "sha256": "76561bb3b6d431ee8642c6824a5515927bbabdad5996c9b44e4bd748e8f31255"
+  },
+  "sourceHistory": {
+    "treatment": "consumer-owned page adaptation; no article-level Python duplication",
+    "maintainedSlice": {
+      "path": "packages/study-components/lessons/goodrich-ch4-ex6-harmonic.mdx",
+      "sha256": "c9b96befa536418f49830453dc933dd0f3a24af59a36f97976941dcb4f88af0c",
+      "bytes": 2778,
+      "note": "Earlier maintained lesson identity; this consumer page owns its route and wording. Review on maintained-source hash drift."
+    },
+    "originalSource": {
+      "repository": "lair001/goodrich-dsa-python",
+      "revision": "6933caaf854cfe49e1c67cb383b4e279bd34ba77",
+      "path": "solutions/exercises/ch4/ex6/harmonic",
+      "url": "https://github.com/lair001/goodrich-dsa-python/blob/6933caaf854cfe49e1c67cb383b4e279bd34ba77/solutions/exercises/ch4/ex6/harmonic",
+      "gitBlob": "617fb927ce65d77c91c125388671a04e0aa663fd",
+      "bytes": 219,
+      "sha256": "2efd89d4e00bb5dfb68afaf8b298847a12cec22b8878f43d881a3c775686d2e0",
+      "exercise": "Chapter 4 Exercise 6",
+      "attribution": "Adapted from Samuel Lair's selected authored harmonic source.",
+      "license": "GPL-3.0",
+      "licenseScope": "Owner authorization covers the selected authored source algorithm only; prompt.tex, textbook-derived prose, PDFs, slides, companion materials, and broader repository metadata are excluded."
+    }
+  },
+  "codeIncludes": [
+    {
+      "includeId": "goodrich-harmonic-source",
+      "path": "src/study/goodrich-ch4-ex6.py",
+      "copiedFrom": "packages/study-components/examples/goodrich-harmonic.py",
+      "sourceSha256": "6bc850dd844a6568507dea5dd2a98a9dba4257e854d56df6701ec4ee85bd4fa9",
+      "sourceBytes": 947,
+      "sha256": "6bc850dd844a6568507dea5dd2a98a9dba4257e854d56df6701ec4ee85bd4fa9",
+      "bytes": 947,
+      "language": "python",
+      "entry": "bounded_harmonic",
+      "originalEntry": "harmonic",
+      "treatment": "exact byte copy of the admitted maintained adapter; its separately marked host guard remains integration code",
+      "pageUses": ["CodeInclude", "RunnableCode static fallback"],
+      "runtime": "not loaded; static build read only"
+    }
+  ],
+  "staticContract": {
+    "sourcePrecondition": "n is a positive integer; the selected recursive function has no authored invalid-input guard",
+    "pilotGuard": "consumer boundary accepts non-Boolean integers with 1 <= n <= 8 before recursion",
+    "rejectedInputs": ["0", "negative", "fractional", "Boolean", "string", "null", "above 8"],
+    "zeroBehavior": "raw harmonic(0) is not called; bounded_harmonic(0) is rejected by the host guard before recursion",
+    "recursionNote": "larger n is outside this bounded page pilot; no recursion-limit or general-performance claim"
+  },
+  "excluded": ["textbook prompts and bulk prose", "PDFs, slides, companion assets", "Python worker and interactive runtime", "browser/public deployment", "mathematical-correctness claim"],
+  "conversionDate": "2026-11-14"
+}
