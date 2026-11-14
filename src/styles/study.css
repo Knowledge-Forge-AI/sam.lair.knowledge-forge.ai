@@ -68,3 +68,17 @@
   }
   .study-mdx a[data-study-reference] { color: LinkText; }
 }
+
+/* The optional editor uses one bounded scroll surface; source text and the
+ * JSON input inherit the appearance instead of browser-default opaque fills. */
+.study-editor-slot [data-study-editor] { min-width: 0; }
+.study-editor-slot .cm-editor { max-width: 100%; border: 1px solid var(--line); border-radius: 4px; background: transparent; font: .85rem/1.55 var(--mono); }
+.study-editor-slot .cm-scroller { max-height: 30rem; overflow: auto; scrollbar-gutter: stable; }
+.study-editor-slot .cm-content { padding: 12px; caret-color: var(--text); }
+.study-editor-slot .cm-focused { outline: 2px solid var(--sam-site-accent); outline-offset: 3px; }
+.study-editor-slot .cm-selectionBackground { background: color-mix(in srgb, var(--sam-site-accent) 28%, transparent) !important; }
+.study-editor-slot [data-study-editor-controls] button:disabled { cursor: default; color: var(--sam-site-muted); background: var(--canvas); border-color: var(--line); }
+.study-editor-slot [data-study-editor-controls] button:focus-visible,
+.study-editor-slot [data-study-editor] textarea:focus-visible { outline: 2px solid var(--sam-site-accent); outline-offset: 3px; }
+@media(max-width:600px) { .study-editor-gate { padding: 18px; } .study-editor-slot .cm-scroller { max-height: 22rem; } }
+@media(forced-colors:active) { .study-editor-slot .cm-editor { border-color: CanvasText; color: CanvasText; background: Canvas; } .study-editor-slot .cm-focused { outline-color: Highlight; } }

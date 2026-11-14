@@ -134,6 +134,10 @@ class AdapterController {
             const watchdog = runtime.createSeparateOriginRuntimeWatchdog();
             if (this.#status !== "loading")
                 return;
+            if (this.#request.language === "typescript") {
+                this.finish(invalidResult(this.#request, { code: "INVALID_CONFIGURATION" }));
+                return;
+            }
             const controllerOptions = {
                 language: this.#request.language,
                 source: this.#request.source,
@@ -164,6 +168,8 @@ class AdapterController {
     preflightCode() {
         if (this.#request.language === "javascript" && this.#request.pythonEntry !== undefined)
             return "INVALID_ENTRY";
+        if (this.#request.language === "typescript")
+            return "INVALID_CONFIGURATION";
         if (this.#request.language === "python") {
             const entry = this.#request.pythonEntry?.entry;
             if (typeof entry !== "string" || !/^[A-Za-z_][A-Za-z0-9_]{0,63}$/u.test(entry)

@@ -1,9 +1,14 @@
 {
   "schema": "study-runner-consumer-boundary-v1",
-  "status": "static-not-active",
+  "status": "optional-pilot-on-run",
   "entry": "bounded_truth_value_array",
-  "inputBounds": { "minimum": 0, "maximum": 8 },
+  "inputBounds": {
+    "minimum": 0,
+    "maximum": 8
+  },
   "pyodideAssetsLoadedBeforeRun": false,
-  "editorStatus": "static-only",
-  "publicActivation": "not enabled"
+  "editorStatus": "optional-lehman-python",
+  "publicActivation": "explicit Run only",
+  "parentOrigin": "https://sam.lair.knowledge-forge.ai",
+  "runnerOrigin": "https://study-runner.knowledge-forge.ai"
 }

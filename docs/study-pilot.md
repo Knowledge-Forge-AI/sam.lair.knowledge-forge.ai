@@ -15,7 +15,7 @@ date. The published provenance file is generated from
 The adapted Python/TeX material and the site framework retain separate license
 boundaries. The selected GPL-3.0-only notice and the admitted KaTeX MIT notice
 are published at their linked paths. The source record is static; its optional
-editor seam is disabled in this candidate and does not start a runtime.
+optional Lehman editor initializes the separate-origin runtime only on Run; static reading starts no language runtime.
 
 An earlier private study reported a bounded standard-library Python readback.
 That historical observation is not part of this repository's build or source

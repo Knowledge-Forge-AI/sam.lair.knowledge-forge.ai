@@ -4,16 +4,17 @@ import { javascript } from "@codemirror/lang-javascript";
 import { Compartment, EditorState } from "@codemirror/state";
 import { EditorView, keymap } from "@codemirror/view";
 import { createStudyBrowserRunnerController, } from "./browser-runner.js";
+import { createStudyEditorExecutionRequest, } from "./study-editor-execution.js";
 import { useCallback, useEffect, useRef, useState, } from "react";
 export const STUDY_EDITOR_MAX_CHECKS = 16;
 const DEFAULT_LANGUAGE = "javascript";
 const DEFAULT_INPUT = "null";
 const LANGUAGE_CHANGE_STOP_NOTICE = "Run stopped because editor language support changed.";
 function executionUnavailable(language, execution, pythonEntry) {
-    if (language === "typescript") {
+    if (language === "typescript" && execution === undefined) {
         return {
             detail: "TypeScript execution is unavailable.",
-            diagnostic: "TypeScript source is not transpiled; connect a separate lazy transpiler before running.",
+            diagnostic: "This editor has TypeScript syntax support only; connect the lazy TypeScript execution adapter before running.",
         };
     }
     if (language === "python" && execution === undefined) {
@@ -510,16 +511,15 @@ export function StudyEditor(props) {
                     .then(normalizeLegacyOutcome);
             }
             else {
-                const executionLanguage = language === "python" ? "python" : "javascript";
-                const request = {
+                const executionLanguage = language;
+                const request = createStudyEditorExecutionRequest({
                     language: executionLanguage,
                     source: sourceSnapshot,
                     input: parsedInput,
                     sourceRevision,
                     inputRevision,
                     runToken: token,
-                    ...(pythonEntry === undefined ? {} : { pythonEntry }),
-                };
+                }, pythonEntry);
                 const executionController = execution.createController(request, {
                     onProbe: (probe) => {
                         if (runTokenRef.current !== token)
@@ -681,6 +681,7 @@ export function StudyEditor(props) {
         setStdout("");
         setStderr("");
         setCheckSnapshot(null);
+        setResultValue(undefined);
         if (hasActiveRun || controllerRef.current !== null || executionControllerRef.current !== null) {
             if (status === "running") {
                 setStatus("running");

@@ -141,7 +141,7 @@ check(Array.isArray(publicProjectionPaths) && publicProjectionPaths.includes("to
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 128 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1005337 && publicProjectionAggregate === "dd0cce52e2a074acf51295b3a5a0175cb8b1c841751ad35002fbfc2501fec37e", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 134 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1074927 && publicProjectionAggregate === "bcee5e37ffeba99e03a6154524512c1ecd33541a5ef07fc9324a80c382a48dd4", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -158,7 +158,7 @@ check(baselineLockDigest.count === fixture.lock.nonRootEntryCount && baselineLoc
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
-check(outputFiles.length === 150, "OUTPUT_FILE_COUNT");
+check(outputFiles.length === 159, "OUTPUT_FILE_COUNT");
 check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 47, "OUTPUT_HTML_COUNT");
 check(fixture.output.fileCount === 77 && fixture.output.htmlPages === 43, "BASELINE_OUTPUT_FACTS");
 check(sha256(Buffer.from(fixture.output.nonGeneratedPaths.join("\n") + "\n")) === fixture.output.nonGeneratedPathsSha256, "BASELINE_OUTPUT_PATHS_HASH");
@@ -181,7 +181,15 @@ const studyRoute = readFileSync(join(outputRoot, "study/lehman-ch3-p4/index.html
 check(studyRoute.includes('aria-current="page"') && studyRoute.includes(studyLink), "STUDY_LINK_ACTIVE");
 check(studyRoute.includes("data-study-kind=\"proof\"") && studyRoute.includes("data-study-kind=\"subproof\""), "STUDY_PROOF_MARKERS");
 check(studyRoute.includes('data-study-code-include="lehman-truth-assignments"'), "STUDY_CODE_INCLUDE");
-check(studyRoute.includes('class="study-editor-disabled"') && !studyRoute.includes("Activate optional editor"), "EDITOR_DISABLED");
+check(editorSourceForLayout().includes('study-editor-slot study-editor-gate'), "EDITOR_LAYOUT_SCOPE");
+function editorSourceForLayout() { return readFileSync(join(root, "src/study/LehmanCh3P4Interactive.tsx"), "utf8"); }
+check(readFileSync(join(root,"src/styles/study.css"),"utf8").includes("max-height: 30rem"), "EDITOR_BOUNDED_SCROLL");
+check(studyRoute.includes("Optional Python editor") && studyRoute.includes("LehmanCh3P4Interactive") && !studyRoute.includes('class="study-editor-disabled"'), "OPTIONAL_EDITOR_ISLAND");
+const editorSource = readFileSync(join(root, "src/study/LehmanCh3P4Interactive.tsx"), "utf8");
+const runnerConfig = readJson(join(root, "public/study/runner-config.json"));
+check(editorSource.includes(`LEHMAN_PARENT_ORIGIN = "${runnerConfig.parentOrigin}"`) && editorSource.includes(`LEHMAN_RUNNER_ORIGIN = "${runnerConfig.runnerOrigin}"`), "EDITOR_ORIGIN_BINDING");
+check(editorSource.includes("maxProgramMs: 3_000") && editorSource.includes("maxInitMs: 45_000") && editorSource.includes('pythonEntry={{ entry: "bounded_truth_value_array"'), "EDITOR_BOUNDED_ENTRY");
+check(studyRoute.includes('href="/study/licenses/codemirror-NOTICES.txt"') && outputByPath.has("study/licenses/codemirror-NOTICES.txt"), "EDITOR_LICENSE");
 check(studyRoute.includes("http://www.w3.org/1998/Math/MathML"), "STUDY_MATHML");
 for (const forbidden of ["new Worker", "fetch(", "pyodide"]) check(!studyRoute.includes(forbidden), `STUDY_RUNTIME_MARKER_${forbidden}`);
 for (const href of ["/study/content-terms.md", "/study/provenance/lehman-ch3-p4.json", "/study/licenses/katex-LICENSE.txt", "/study/licenses/lehman-GPL-3.0.txt"]) check(studyRoute.includes(`href=\"${href}\"`), `STUDY_LINK_${href}`);
@@ -216,7 +224,13 @@ for (const routeHtml of [goodrichRoute, rosenRoute]) {
   check(routeHtml.includes('href="/study/licenses/lehman-GPL-3.0.txt"')
     && routeHtml.includes('href="/study/licenses/katex-LICENSE.txt"'), "SLICES13_LICENSE_LINKS");
 }
-for (const outputPath of Object.keys(fixture.studySlices13.htmlSha256)) check(sha256(readFileSync(join(outputRoot, outputPath))) === fixture.studySlices13.htmlSha256[outputPath], `SLICES13_HTML_HASH_${outputPath}`);
+for (const [outputPath, expected] of Object.entries(fixture.studySlices13.htmlNormalizedStudyCssSha256)) {
+  const html = readFileSync(join(outputRoot, outputPath), "utf8");
+  const cssLinks = [...html.matchAll(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g)];
+  check(cssLinks.length === 1 && outputByPath.has(cssLinks[0][0].slice(1)), "SLICES13_STUDY_CSS_BINDING");
+  const normalized = html.replace(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g, "/_astro/study.CONTENT.css");
+  check(sha256(Buffer.from(normalized)) === expected, `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
+}
 
 check(binding.generated.studyModule.sha256 === hashFile(join(root, "src/study/generated-study.js")), "GENERATED_STUDY_HASH");
 check(binding.generated.provenance.sha256 === hashFile(join(root, "public/study/provenance/lehman-ch3-p4.json")), "GENERATED_PROVENANCE_HASH");
@@ -290,7 +304,7 @@ const receipt = {
   baseline: { files: fixture.output.fileCount, htmlPages: fixture.output.htmlPages, manifestSha256: fixture.output.manifestSha256 },
   intentionalShellDelta: { studyLink: "/study/", baselinePagesWithStudyLink: fixture.shell.studyLinkBaselinePages, outputPagesWithStudyLink, allOutputPagesWithStudyLink, note: "The existing Study navigation link now points to the new static index; authored headings and ordinary articles were preserved." },
   publicProjection: { files: publicProjection.length, bytes: publicProjection.reduce((total, record) => total + record.bytes, 0), aggregateSha256: publicProjectionAggregate },
-  checks: { baselineDependencyValues: true, baselineNonRootLockEntries: true, lockTopLevelFields: true, portablePublicFixture: true, publicProjectionManifest: true, outputPrivacyScan: scan, sourceGeneratorNoAmbientPath: true, editorDisabled: true, ownedOutputDriftRefusal: true, danglingLeafAndAncestorRefusal: true, intentionalSourceChangeRebuild: true, isolatedMutationProbes: true },
+  checks: { baselineDependencyValues: true, baselineNonRootLockEntries: true, lockTopLevelFields: true, portablePublicFixture: true, publicProjectionManifest: true, outputPrivacyScan: scan, sourceGeneratorNoAmbientPath: true, optionalEditorIsland: true, ownedOutputDriftRefusal: true, danglingLeafAndAncestorRefusal: true, intentionalSourceChangeRebuild: true, isolatedMutationProbes: true },
   boundaries: { browser: "not run", publicRunner: "not activated", mathematicalCorrectness: "not claimed", nativePython: "not run by this build test" },
 };
 mkdirSync(join(root, "build"), { recursive: true });

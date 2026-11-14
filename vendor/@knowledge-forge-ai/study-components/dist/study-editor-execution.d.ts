@@ -1,6 +1,6 @@
 import type { StudyRuntimeErrorCode, StudyRuntimeJsonValue, StudyRuntimeLimits, StudyRuntimeOutput, StudyRuntimeProbe, StudyRuntimeUsageCode } from "./study-runtime-protocol.js";
-/** Languages supported by the separate-origin editor execution boundary. */
-export type StudyEditorExecutionLanguage = "javascript" | "python";
+/** Languages supported by the editor execution adapter boundary. */
+export type StudyEditorExecutionLanguage = "javascript" | "typescript" | "python";
 /**
  * The named Python entry is lesson-owned metadata, not learner-provided
  * executable code. The generic runtime applies its own bounded identifier
@@ -15,12 +15,14 @@ export interface StudyEditorExecutionRequest {
     readonly source: string;
     /** The adapter/runtime validates and bounds this parsed JSON snapshot. */
     readonly input: unknown;
-    /** Required for Python and forbidden for JavaScript. */
+    /** Required for Python and forbidden for JavaScript/TypeScript. */
     readonly pythonEntry?: StudyEditorPythonEntryManifest;
     readonly sourceRevision: number;
     readonly inputRevision: number;
     readonly runToken: number;
 }
+/** Build the adapter request without leaking Python-only metadata to other languages. */
+export declare function createStudyEditorExecutionRequest(request: Omit<StudyEditorExecutionRequest, "pythonEntry">, pythonEntry: StudyEditorPythonEntryManifest | undefined): StudyEditorExecutionRequest;
 export type StudyEditorExecutionErrorCode = StudyRuntimeErrorCode | Extract<StudyRuntimeUsageCode, "INVALID_CONFIGURATION" | "INVALID_SOURCE" | "INVALID_INPUT" | "INVALID_ENTRY">;
 export type StudyEditorExecutionResult = Readonly<{
     kind: "completed";

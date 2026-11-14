@@ -10,10 +10,10 @@ Included paths are:
 
 - the existing root source/config/legal files;
 - the existing `src/`, `public/`, and site documentation trees;
-- the vendored study-components build-time package under
+- the vendored optional study-components package under
   `vendor/@knowledge-forge-ai/study-components/`;
 - `src/study/lehman-ch3-p4.mdx`, its reviewed Python/provenance/editor inputs,
-  the static study page, and the material stylesheet correction;
+  the static study pages, optional Lehman island, and material stylesheet correction;
 - `tools/build-study-source.mjs`, `tools/test-study-source.mjs`, and the
   isolated mutation-probe helper;
 - `test/fixtures/study-baseline.v1.json`;
@@ -27,7 +27,7 @@ It also excludes generated or installed state: `build/`, `dist/`, `.astro/`,
 installed only by the local build/test procedure and are never part of the
 source projection.
 
-The focused test verifies that every listed path is a regular non-symlink file
+The focused test verifies that every listed path is a regular file, except the preserved literal `CLAUDE.md` link to `AGENTS.md`,
 and that the exact projected path/hash aggregate, file count, and byte count
 remain stable. It does not traverse the checkout, read `.git` objects, or
 hash unknown ignored/local files such as `.DS_Store`, `.serena/`, `.env*`, or

@@ -1,6 +1,6 @@
 import { type Extension } from "@codemirror/state";
 import { type StudyBrowserRunnerController, type StudyBrowserRunnerHost, type StudyBrowserRunnerJsonValue, type StudyBrowserRunnerLimits, type StudyBrowserRunnerPrint, type StudyBrowserRunnerWatchdog } from "./browser-runner.js";
-import type { StudyEditorExecutionAdapterFactory, StudyEditorPythonEntryManifest } from "./study-editor-execution.js";
+import { type StudyEditorExecutionAdapterFactory, type StudyEditorPythonEntryManifest } from "./study-editor-execution.js";
 import type { StudyRuntimeJsonValue } from "./study-runtime-protocol.js";
 import { type ReactNode } from "react";
 /** Languages whose editor support can be supplied without importing runtimes here. */

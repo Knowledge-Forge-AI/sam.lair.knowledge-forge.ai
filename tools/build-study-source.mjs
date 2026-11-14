@@ -227,10 +227,11 @@ function assertProvenance(provenance, sourceFiles) {
 function validateStaticRunner() {
   const runner = readJson(paths.runnerConfig);
   check(runner.schema === "study-runner-consumer-boundary-v1", "RUNNER_SCHEMA");
-  check(runner.status === "static-not-active", "RUNNER_STATUS");
+  check(runner.status === "optional-pilot-on-run", "RUNNER_STATUS");
   check(runner.pyodideAssetsLoadedBeforeRun === false, "RUNNER_PRELOAD");
-  check(runner.editorStatus === "static-only", "RUNNER_EDITOR_STATUS");
-  check(runner.publicActivation === "not enabled", "RUNNER_ACTIVATION");
+  check(runner.editorStatus === "optional-lehman-python", "RUNNER_EDITOR_STATUS");
+  check(runner.publicActivation === "explicit Run only", "RUNNER_ACTIVATION");
+  check(runner.parentOrigin === "https://sam.lair.knowledge-forge.ai" && runner.runnerOrigin === "https://study-runner.knowledge-forge.ai", "RUNNER_ORIGIN_PAIR");
 }
 
 function buildKaTeXAssets() {
@@ -302,10 +303,10 @@ const lehmanLicense = readFileSync(paths.lehmanLicense, "utf8");
 check(lehmanLicense.startsWith("                    GNU GENERAL PUBLIC LICENSE\n                       Version 3, 29 June 2007"), "LEHMAN_LICENSE_HEADER");
 check(lehmanLicense.includes("END OF TERMS AND CONDITIONS"), "LEHMAN_LICENSE_BODY");
 
-const package4 = readJson(join(packageRoot, "package.json"));
-check(package4.name === "@knowledge-forge-ai/study-components" && package4.version === "0.0.0-private.0", "PACKAGE4_IDENTITY");
-check(package4.license === "AGPL-3.0-or-later", "PACKAGE4_LICENSE");
-for (const file of ["LICENSE", "NOTICE", "COMMERCIAL-LICENSE.md"]) ensureInput(join(packageRoot, file), "PACKAGE4_LEGAL_FILE");
+const package5 = readJson(join(packageRoot, "package.json"));
+check(package5.name === "@knowledge-forge-ai/study-components" && package5.version === "0.0.0-private.1", "PACKAGE5_IDENTITY");
+check(package5.license === "AGPL-3.0-or-later", "PACKAGE5_LICENSE");
+for (const file of ["LICENSE", "NOTICE", "COMMERCIAL-LICENSE.md"]) ensureInput(join(packageRoot, file), "PACKAGE5_LEGAL_FILE");
 const dependencies = {
   astro: readJson(join(root, "node_modules/astro/package.json")).version,
   mdx: readJson(join(root, "node_modules/@mdx-js/mdx/package.json")).version,
@@ -387,8 +388,8 @@ const binding = {
     lehmanLicenseSha256: hashFile(paths.lehmanLicense),
     editorSha256: hashFile(paths.editor),
   },
-  package4: {
-    version: package4.version,
+  package5: {
+    version: package5.version,
     packageJsonSha256: hashFile(join(packageRoot, "package.json")),
     licenseSha256: hashFile(join(packageRoot, "LICENSE")),
     noticeSha256: hashFile(join(packageRoot, "NOTICE")),
@@ -403,7 +404,7 @@ const binding = {
   },
   boundaries: {
     build: "normal package build invokes this source generator then the local Astro CLI",
-    runtime: "static editor disabled; no Python runtime assets loaded",
+    runtime: "static documents use no language runtime; optional Lehman pilot initializes its separate-origin Python frame only on Run",
     browser: "not run",
     mathematicalCorrectness: "not claimed",
   },
