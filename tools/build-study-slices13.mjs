@@ -227,13 +227,20 @@ for (const pageRecord of manifest.pages) {
   }
   const exportName = pageRecord.generatedMarkupExport;
   outputs.push(`export const ${exportName} = ${JSON.stringify(markup)};`);
+  const consumerEditor = provenance.interactiveConsumer ?? null;
+  check(consumerEditor === null || (typeof consumerEditor === "object" && !Array.isArray(consumerEditor)
+    && consumerEditor.route === pageRecord.route && consumerEditor.editorInitialization === true
+    && consumerEditor.dynamicRun === true && typeof consumerEditor.wrapper === "string"
+    && typeof consumerEditor.editorTrigger === "string" && typeof consumerEditor.runtimeTrigger === "string"), "SLICES13_CONSUMER_EDITOR_SCOPE");
   const publishedProvenance = {
     ...provenance,
     published: {
       route: pageRecord.route,
       sourceBinding: pageRecord.sourcePath,
       provenanceBinding: pageRecord.provenancePath,
-      staticOnly: true,
+      staticOnly: consumerEditor === null,
+      mdxSliceStaticOnly: true,
+      status: "generated-public-projection",
       generatedBy: "tools/build-study-slices13.mjs",
     },
   };
@@ -264,7 +271,7 @@ const binding = {
   source: records,
   generated: { path: "src/study/generated-slices13.js", bytes: Buffer.byteLength(generated), sha256: sha256(Buffer.from(generated)) },
   policy: {
-    runtime: "static only; no editor, Python worker, or dynamic runner initialization",
+    runtime: "static MDX slice generation only (src/study/generated-slices13.js); this generator initializes no editor or language runtime; optional sibling editor triggers are declared in public provenance",
     source: "one consumer-owned Python source file is read at build; page MDX has no Python source duplicate",
     math: "trusted first-party MDX input; only the two displayed Rosen finite truth-table equivalences are proof claims, with no general theorem-prover or unrelated mathematical claim",
     browser: "not run",

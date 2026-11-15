@@ -2,9 +2,11 @@
 import Site from '../../layouts/Site.astro';
 import '../../styles/study.css';
 import { goodrichMarkup } from '../../study/generated-slices13.js';
+import { GoodrichCh4Ex6Interactive } from '../../study/GoodrichCh4Ex6Interactive';
+import lessonSource from '../../study/goodrich-ch4-ex6.py?raw';
 
 const title = 'Chapter 4 Exercise 6 — Recursive harmonic numbers — Sam Lair';
-const description = 'A static, bounded rendering of a selected recursive harmonic-number source slice.';
+const description = 'Study recursive harmonic numbers with source-linked Python and an optional editor.';
 ---
 
 <Site title={title} description={description}>
@@ -15,13 +17,14 @@ const description = 'A static, bounded rendering of a selected recursive harmoni
     <h1>Chapter 4 Exercise 6 — Recursive harmonic numbers</h1>
     <p class="article-lead">The recursive definition, its implementation, and a bounded input contract.</p>
     <section class="study-notice" aria-labelledby="goodrich-example-title">
-      <h2 id="goodrich-example-title">Read-only example</h2>
-      <p>Browser execution is not enabled yet; this page presents the algorithm and its finite floating-point behavior for study.</p>
+      <h2 id="goodrich-example-title">Static lesson and optional editor</h2>
+      <p>Read the lesson first, or try the optional editor below. Python loads only when you press Run.</p>
     </section>
     <section class="study-mdx" aria-label="Compiled Goodrich study page" set:html={goodrichMarkup}></section>
+    <GoodrichCh4Ex6Interactive client:visible source={lessonSource} />
     <section class="study-provenance" aria-labelledby="goodrich-provenance-title">
       <h2 id="goodrich-provenance-title">Source and attribution</h2>
-      <p>The selected source is attributed to Samuel Lair under GPL-3.0. The exact revision, blob, copied bytes, and input guard are recorded in the provenance manifest.</p>
+      <p>The selected source is attributed to Samuel Lair under GPL-3.0. The provenance manifest separates the static MDX lesson from the optional editor and records the exact source revision and input guard.</p>
       <p><a href="/study/provenance/goodrich-ch4-ex6-harmonic.json">Read the Goodrich provenance manifest</a></p>
       <p><a href="/study/licenses/lehman-GPL-3.0.txt">GPL-3.0 source license</a> · <a href="/study/licenses/katex-LICENSE.txt">KaTeX license</a></p>
     </section>

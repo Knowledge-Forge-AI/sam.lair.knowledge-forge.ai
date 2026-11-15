@@ -141,7 +141,7 @@ check(Array.isArray(publicProjectionPaths) && publicProjectionPaths.includes("to
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 137 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1078307 && publicProjectionAggregate === "b99dc10654f445f283b3d8fab76f5ae728510c69dc52ef0713f0dd3b145ad23f", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 139 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1085728 && publicProjectionAggregate === "4b9c93d66b836b1f104740593755bc84e6dc4c6a49e6545f6dee148e0b1b9e5f", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -213,6 +213,18 @@ check(studyIndex.includes("Three pages on a recurrence")
   && !studyIndex.includes("new Worker") && !studyIndex.includes("pyodide"), "SLICES13_INDEX_CONTENT");
 const goodrichRoute = readFileSync(join(outputRoot, "study/goodrich-ch4-ex6-harmonic/index.html"), "utf8");
 const rosenRoute = readFileSync(join(outputRoot, "study/rosen-1-3-ex5-6/index.html"), "utf8");
+const goodrichPublished = readJson(join(root, "public/study/provenance/goodrich-ch4-ex6-harmonic.json"));
+const rosenPublished = readJson(join(root, "public/study/provenance/rosen-1-3-ex5-6.json"));
+check(goodrichPublished.published.staticOnly === false && goodrichPublished.published.mdxSliceStaticOnly === true
+  && goodrichPublished.interactiveConsumer.route === "/study/goodrich-ch4-ex6-harmonic/"
+  && rosenPublished.published.staticOnly === true && rosenPublished.published.mdxSliceStaticOnly === true, "SLICES13_ROUTE_RUNTIME_SCOPE");
+const goodrichEditorSource = readFileSync(join(root,"src/study/GoodrichCh4Ex6Interactive.tsx"),"utf8");
+check(goodrichEditorSource.includes(`GOODRICH_PARENT_ORIGIN = "${runnerConfig.parentOrigin}"`)
+  && goodrichEditorSource.includes(`GOODRICH_RUNNER_ORIGIN = "${runnerConfig.runnerOrigin}"`)
+  && goodrichEditorSource.includes("study-editor-slot study-editor-gate")
+  && goodrichRoute.includes('href="/study/licenses/codemirror-NOTICES.txt"')
+  && goodrichRoute.includes('href="/study/provenance/goodrich-ch4-ex6-harmonic.json"'), "GOODRICH_EDITOR_CONSUMER_BINDING");
+
 check((goodrichRoute.match(/data-study-code-include="goodrich-harmonic-source"/g) ?? []).length === 1
   && !goodrichRoute.includes("data-study-runnable")
   && (goodrichRoute.match(/<h1>/g) ?? []).length === 1
@@ -228,7 +240,9 @@ for (const routeHtml of [goodrichRoute, rosenRoute]) {
   check(routeHtml.includes('href="/study/licenses/lehman-GPL-3.0.txt"')
     && routeHtml.includes('href="/study/licenses/katex-LICENSE.txt"'), "SLICES13_LICENSE_LINKS");
 }
-for (const [outputPath, expected] of Object.entries(fixture.studySlices13.htmlNormalizedStudyCssSha256)) {
+check(fixture.goodrichEditor.schema === "personal-study-goodrich-editor.v1" && fixture.goodrichEditor.route === "study/goodrich-ch4-ex6-harmonic/index.html" && fixture.goodrichEditor.positiveIntegerMaximum === 8, "GOODRICH_EDITOR_FIXTURE");
+for (const [outputPath, historicalExpected] of Object.entries(fixture.studySlices13.htmlNormalizedStudyCssSha256)) {
+  const expected = outputPath === fixture.goodrichEditor.route ? fixture.goodrichEditor.htmlNormalizedStudyCssSha256 : historicalExpected;
   const html = readFileSync(join(outputRoot, outputPath), "utf8");
   const cssLinks = [...html.matchAll(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g)];
   check(cssLinks.length === 1 && outputByPath.has(cssLinks[0][0].slice(1)), "SLICES13_STUDY_CSS_BINDING");

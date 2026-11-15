@@ -9,7 +9,8 @@
     "editorInitialization": false,
     "owner": "personal-study consumer",
     "bytes": 2881,
-    "sha256": "76561bb3b6d431ee8642c6824a5515927bbabdad5996c9b44e4bd748e8f31255"
+    "sha256": "76561bb3b6d431ee8642c6824a5515927bbabdad5996c9b44e4bd748e8f31255",
+    "scope": "Static MDX document only; the sibling optional editor is described in interactiveConsumer."
   },
   "sourceHistory": {
     "treatment": "consumer-owned page adaptation; no article-level Python duplication",
@@ -46,17 +47,56 @@
       "entry": "bounded_harmonic",
       "originalEntry": "harmonic",
       "treatment": "exact byte copy of the admitted maintained adapter; its separately marked host guard remains integration code",
-      "pageUses": ["CodeInclude", "RunnableCode static fallback"],
-      "runtime": "not loaded; static build read only"
+      "pageUses": [
+        "CodeInclude"
+      ],
+      "runtime": "Static MDX compilation reads source without loading Python; the separately opted-in sibling editor loads the existing runner only on Run."
     }
   ],
   "staticContract": {
     "sourcePrecondition": "n is a positive integer; the selected recursive function has no authored invalid-input guard",
     "pilotGuard": "consumer boundary accepts non-Boolean integers with 1 <= n <= 8 before recursion",
-    "rejectedInputs": ["0", "negative", "fractional", "Boolean", "string", "null", "above 8"],
+    "rejectedInputs": [
+      "0",
+      "negative",
+      "fractional",
+      "Boolean",
+      "string",
+      "null",
+      "above 8"
+    ],
     "zeroBehavior": "raw harmonic(0) is not called; bounded_harmonic(0) is rejected by the host guard before recursion",
     "recursionNote": "larger n is outside this bounded page pilot; no recursion-limit or general-performance claim"
   },
-  "excluded": ["textbook prompts and bulk prose", "PDFs, slides, companion assets", "Python worker and interactive runtime", "browser/public deployment", "mathematical-correctness claim"],
-  "conversionDate": "2026-11-14"
+  "excluded": [
+    "textbook prompts and bulk prose",
+    "PDFs, slides, companion assets",
+    "browser/public deployment",
+    "mathematical-correctness claim",
+    "Python worker and interactive execution from static MDX compilation; optional sibling editor scope is declared in interactiveConsumer"
+  ],
+  "conversionDate": "2026-11-14",
+  "interactiveConsumer": {
+    "route": "/study/goodrich-ch4-ex6-harmonic/",
+    "wrapper": "src/study/GoodrichCh4Ex6Interactive.tsx",
+    "editorInitialization": true,
+    "dynamicRun": true,
+    "sourceImport": "src/study/goodrich-ch4-ex6.py?raw",
+    "entry": "bounded_harmonic",
+    "sourceRevision": "6933caaf854cfe49e1c67cb383b4e279bd34ba77",
+    "runtimeBoundary": "existing separate-origin StudyEditor adapter; no new runtime or dependency",
+    "check": {
+      "id": "goodrich-harmonic-independent-sum",
+      "inputDomain": "positive integer 1..8",
+      "tolerance": 1e-15,
+      "qualification": "finite teaching aid; browser acceptance is recorded separately",
+      "reference": "independent JavaScript loop sum, distinct from the static MDX native Python math.fsum observation"
+    },
+    "scope": "Optional sibling editor configured on the published route; page fields describe only the static MDX document.",
+    "editorTrigger": "client:visible initializes CodeMirror and its Python syntax support",
+    "runtimeTrigger": "Run initializes the existing separate-origin Python runtime",
+    "notices": "/study/licenses/codemirror-NOTICES.txt",
+    "routeSource": "src/pages/study/goodrich-ch4-ex6-harmonic.astro",
+    "status": "configured-for-route; browser acceptance is reported separately"
+  }
 }
