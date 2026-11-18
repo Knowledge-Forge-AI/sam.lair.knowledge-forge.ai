@@ -1,0 +1,23 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/study.css';
+import { lehmanNestedMarkup } from '../../study/generated-slices13.js';
+
+const title = 'Surjections and injective relations';
+const description = 'Lehman Chapter 4, Problem 22(b), with nested proofs and linked equations.';
+---
+<Site title={`${title} — Sam Lair`} description={description}>
+  <article class="study-article" data-study-document="lehman-ch4-p22b">
+    <link rel="stylesheet" href="/study/katex.css" />
+    <a class="study-backlink" href="/study/">← Study materials</a>
+    <div class="study-kicker"><span>Study</span><span>Lehman Chapter 4, Problem 22(b)</span></div>
+    <h1>{title}</h1>
+    <section class="study-mdx" set:html={lehmanNestedMarkup}></section>
+    <section class="study-provenance">
+      <h2>Source and attribution</h2>
+      <p>Adapted from the TeX solution attributed to Samuel Lair.</p>
+      <p><a href="/study/provenance/lehman-ch4-p22b.json">Source and adaptation record</a></p>
+      <p><a href="/study/licenses/lehman-GPL-3.0.txt">GPL-3.0 source terms</a> · <a href="/study/licenses/katex-LICENSE.txt">KaTeX notice</a></p>
+    </section>
+  </article>
+</Site>

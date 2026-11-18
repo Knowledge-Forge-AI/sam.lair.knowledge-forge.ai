@@ -99,7 +99,7 @@ expectDanglingLeafRefusal("build/study-source-output-lock.json", join(custodyPar
 check(existsSync(slicesBuilderPath) && existsSync(slicesBindingPath) && existsSync(slicesOutputLockPath), "SLICES13_PROBE_INPUT_MISSING");
 const slicesLockBeforeTests = readFileSync(slicesOutputLockPath);
 const slicesRecords = JSON.parse(slicesLockBeforeTests).outputs;
-check(Array.isArray(slicesRecords) && slicesRecords.length === 5, "SLICES13_PROBE_OUTPUT_SET");
+check(Array.isArray(slicesRecords) && slicesRecords.length === 6, "SLICES13_PROBE_OUTPUT_SET");
 const slicesSnapshot = new Map(slicesRecords.map((record) => [record.path, hashFile(join(root, record.path))]));
 
 function expectSlicesDriftRefusal(relativePath, label) {

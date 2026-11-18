@@ -167,13 +167,12 @@ function sourceProvenanceFor(provenance) {
 
 const manifest = readJson(manifestPath);
 check(manifest.schema === "personal-study-consumer-static-slices13/v1", "SLICES13_MANIFEST_SCHEMA");
-check(Array.isArray(manifest.pages) && manifest.pages.length === 3, "SLICES13_PAGE_COUNT");
+const expectedPageIds = [
+  "goodrich-ch4-ex6-harmonic", "rosen-1-3-ex5-6", "sedgewick-ch1-s4-ex10", "lehman-ch4-p22b",
+];
+check(Array.isArray(manifest.pages) && manifest.pages.length === expectedPageIds.length, "SLICES13_PAGE_COUNT");
 const pageIds = manifest.pages.map((page) => page.documentId);
-check(new Set(pageIds).size === pageIds.length && pageIds.every((id) =>
-  id === "goodrich-ch4-ex6-harmonic" || id === "rosen-1-3-ex5-6" || id === "sedgewick-ch1-s4-ex10"), "SLICES13_PAGE_IDS");
-check(pageIds.includes("goodrich-ch4-ex6-harmonic")
-  && pageIds.includes("rosen-1-3-ex5-6")
-  && pageIds.includes("sedgewick-ch1-s4-ex10"), "SLICES13_PAGE_SET");
+check(new Set(pageIds).size === pageIds.length && expectedPageIds.every((id) => pageIds.includes(id)), "SLICES13_PAGE_SET");
 const { compileStudyMdxDocument } = await import("@knowledge-forge-ai/study-components/mdx");
 const { createStudySemanticComponents } = await import("@knowledge-forge-ai/study-components/semantic");
 const reactRuntime = await import("react/jsx-runtime");
@@ -233,6 +232,9 @@ for (const pageRecord of manifest.pages) {
     source: stripFrontmatter(pageSource),
     documentId: provenance.documentId,
     provenance: sourceProvenanceFor(provenance),
+    ...(pageRecord.documentId === "lehman-ch4-p22b" ? {
+      macros: { "\\surj": "\\mathrel{\\text{surj}}", "\\inj": "\\mathrel{\\text{inj}}" },
+    } : {}),
   });
   const semantic = createStudySemanticComponents({
     registry: compiled.registry,
@@ -257,6 +259,11 @@ for (const pageRecord of manifest.pages) {
     check(pageRecord.codeIncludes.length === 0, "SLICES13_ROSEN_NO_CODE_INCLUDE");
     check((markup.match(/<table/g) ?? []).length === 2, "SLICES13_ROSEN_TABLES");
     check((markup.match(/data-study-reference=/g) ?? []).length === 4, "SLICES13_ROSEN_REFERENCES");
+  } else if (pageRecord.documentId === "lehman-ch4-p22b") {
+    check(codeIncludes.length === 0, "SLICES13_LEHMAN_NO_CODE_INCLUDE");
+    check((markup.match(/data-study-kind="proof"/g) ?? []).length === 1
+      && (markup.match(/data-study-kind="subproof"/g) ?? []).length === 2,
+      "SLICES13_LEHMAN_PROOF_STRUCTURE");
   } else {
     check(pageRecord.codeIncludes.length === 1
       && pageRecord.codeIncludes[0] === "sedgewick-first-match-java", "SLICES13_SEDGEWICK_INCLUDE");
@@ -315,7 +322,7 @@ const binding = {
   policy: {
     runtime: "static MDX slice generation only (src/study/generated-slices13.js); this generator initializes no editor or language runtime; optional sibling editor triggers are declared in public provenance",
     source: "consumer-owned static Python/Java source includes are read at build; page MDX has no duplicated algorithm source",
-    math: "trusted first-party MDX input; only the two displayed Rosen finite truth-table equivalences are proof claims, with no general theorem-prover or unrelated mathematical claim",
+    math: "trusted first-party MDX. Rosen uses exhaustive truth tables and Lehman uses the selected inverse-relation proof.",
     browser: "not run",
   },
 };

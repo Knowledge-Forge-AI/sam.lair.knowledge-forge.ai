@@ -147,7 +147,7 @@ check(Array.isArray(publicProjectionPaths)
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 146 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1118293 && publicProjectionAggregate === "907bc47ea607b230704cad9b6ecdff8dbc2f98d2a2dfd2f4b2d16177be0ca538", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 149 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1127003 && publicProjectionAggregate === "db48002473ac9d27608e28f29543eb1a976bd91641e9b0c1fe7070b0c99ea94e", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -167,8 +167,8 @@ check(lessonChecks.status === 0 && lessonChecks.stdout.includes('"status":"PASS"
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
-check(outputFiles.length === 161, "OUTPUT_FILE_COUNT");
-check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 48, "OUTPUT_HTML_COUNT");
+check(outputFiles.length === 163, "OUTPUT_FILE_COUNT");
+check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 49, "OUTPUT_HTML_COUNT");
 check(fixture.output.fileCount === 77 && fixture.output.htmlPages === 43, "BASELINE_OUTPUT_FACTS");
 check(sha256(Buffer.from(fixture.output.nonGeneratedPaths.join("\n") + "\n")) === fixture.output.nonGeneratedPathsSha256, "BASELINE_OUTPUT_PATHS_HASH");
 for (const path of fixture.output.nonGeneratedPaths) check(outputByPath.has(path), `BASELINE_OUTPUT_MISSING_${path}`);
@@ -185,7 +185,7 @@ for (const record of outputFiles.filter((item) => item.path.endsWith(".html"))) 
   const outputHtml = readFileSync(join(outputRoot, record.path), "utf8");
   if (outputHtml.includes(studyLink)) outputPagesWithStudyLink += 1;
 }
-check(outputPagesWithStudyLink === 42 && fixture.sedgewickStatic.studyLinkPages === outputPagesWithStudyLink, "OUTPUT_STUDY_LINK_COUNT");
+check(outputPagesWithStudyLink === 43 && fixture.lehmanNestedStatic.studyLinkPages === outputPagesWithStudyLink, "OUTPUT_STUDY_LINK_COUNT");
 const studyRoute = readFileSync(join(outputRoot, "study/lehman-ch3-p4/index.html"), "utf8");
 check(studyRoute.includes('aria-current="page"') && studyRoute.includes(studyLink), "STUDY_LINK_ACTIVE");
 check(studyRoute.includes("data-study-kind=\"proof\"") && studyRoute.includes("data-study-kind=\"subproof\""), "STUDY_PROOF_MARKERS");
@@ -209,14 +209,15 @@ const slicesBinding = readJson(slicesBindingPath);
 const slicesOutputLock = readJson(slicesOutputLockPath);
 check(slicesBinding.schema === "personal-study-slices13-build.v1" && slicesBinding.status === "passed-consumer-static-source-generation", "SLICES13_BINDING_STATUS");
 check(slicesBinding.generated.sha256 === hashFile(join(root, slicesBinding.generated.path)), "SLICES13_GENERATED_HASH");
-check(slicesOutputLock.schema === "personal-study-slices13-output-lock.v1" && slicesOutputLock.outputs.length === 5, "SLICES13_OUTPUT_LOCK");
+check(slicesOutputLock.schema === "personal-study-slices13-output-lock.v1" && slicesOutputLock.outputs.length === 6, "SLICES13_OUTPUT_LOCK");
 for (const record of slicesOutputLock.outputs) check(hashFile(join(root, record.path)) === record.sha256, `SLICES13_OUTPUT_HASH_${record.path}`);
 const studyIndex = readFileSync(join(outputRoot, "study/index.html"), "utf8");
-for (const href of ["/study/lehman-ch3-p4/", "/study/goodrich-ch4-ex6-harmonic/", "/study/rosen-1-3-ex5-6/", "/study/sedgewick-ch1-s4-ex10/"]) check(studyIndex.includes(`href=\"${href}\"`), `SLICES13_INDEX_LINK_${href}`);
-check(studyIndex.includes("Four pages on a recurrence")
+for (const href of ["/study/lehman-ch3-p4/", "/study/goodrich-ch4-ex6-harmonic/", "/study/rosen-1-3-ex5-6/", "/study/sedgewick-ch1-s4-ex10/", "/study/lehman-ch4-p22b/"]) check(studyIndex.includes(`href=\"${href}\"`), `SLICES13_INDEX_LINK_${href}`);
+check(studyIndex.includes("Five pages on recurrences")
   && studyIndex.includes("Recursive harmonic numbers")
   && studyIndex.includes("Truth assignments")
-  && studyIndex.includes("lower-bound binary search")
+  && studyIndex.includes("Lower-bound binary search")
+  && studyIndex.includes("inverse relations")
   && !studyIndex.includes("new Worker") && !studyIndex.includes("pyodide"), "SLICES13_INDEX_CONTENT");
 const goodrichRoute = readFileSync(join(outputRoot, "study/goodrich-ch4-ex6-harmonic/index.html"), "utf8");
 const rosenRoute = readFileSync(join(outputRoot, "study/rosen-1-3-ex5-6/index.html"), "utf8");
@@ -234,6 +235,19 @@ check(goodrichPublished.published.staticOnly === false && goodrichPublished.publ
   && sedgewickPublished.page.path === "src/study/sedgewick-ch1-s4-ex10.mdx"
   && sedgewickPublished.codeIncludes.length === 1
   && sedgewickPublished.codeIncludes[0].includeId === "sedgewick-first-match-java", "SLICES13_ROUTE_RUNTIME_SCOPE");
+const lehmanNested = readFileSync(join(outputRoot, fixture.lehmanNestedStatic.route), "utf8");
+check(sha256(Buffer.from(lehmanNested)) === fixture.lehmanNestedStatic.routeHtmlSha256
+  && (lehmanNested.match(/data-study-kind="proof"/g) ?? []).length === 1
+  && (lehmanNested.match(/data-study-kind="subproof"/g) ?? []).length === 2
+  && (lehmanNested.match(/data-study-scope="local"/g) ?? []).length === 3
+  && lehmanNested.includes("http://www.w3.org/1998/Math/MathML")
+  && lehmanNested.includes('href="/study/provenance/lehman-ch4-p22b.json"')
+  && !lehmanNested.includes("<astro-island"), "LEHMAN_NESTED_STATIC_ROUTE");
+const lehmanNestedProvenance = readJson(join(outputRoot, "study/provenance/lehman-ch4-p22b.json"));
+check(lehmanNestedProvenance.published.staticOnly === true
+  && lehmanNestedProvenance.published.route === "/study/lehman-ch4-p22b/"
+  && lehmanNestedProvenance.sourceHistory.originalSource.license === "GPL-3.0",
+  "LEHMAN_NESTED_PROVENANCE");
 const goodrichEditorSource = readFileSync(join(root,"src/study/GoodrichCh4Ex6Interactive.tsx"),"utf8");
 check(goodrichEditorSource.includes(`GOODRICH_PARENT_ORIGIN = "${runnerConfig.parentOrigin}"`)
   && goodrichEditorSource.includes(`GOODRICH_RUNNER_ORIGIN = "${runnerConfig.runnerOrigin}"`)
@@ -278,8 +292,8 @@ check(fixture.studySlices13.htmlNormalizedStudyCssSha256[fixture.goodrichEditor.
 check(hashFile(goodrichUidHelperPath) === "9a948295f99b3813f82a23150f65792aa2d771dd20416ab266927d1b1dca377d", "GOODRICH_UID_HELPER_BINDING");
 check(fixture.sedgewickStatic.schema === "personal-study-sedgewick-static.v1"
   && fixture.sedgewickStatic.route === "study/sedgewick-ch1-s4-ex10/index.html"
-  && fixture.sedgewickStatic.distFiles === outputFiles.length
-  && fixture.sedgewickStatic.htmlPages === outputFiles.filter((record) => record.path.endsWith(".html")).length
+  && fixture.lehmanNestedStatic.distFiles === outputFiles.length
+  && fixture.lehmanNestedStatic.htmlPages === outputFiles.filter((record) => record.path.endsWith(".html")).length
   && fixture.sedgewickStatic.staticOnly === true
   && fixture.sedgewickStatic.runtimeExecution === false
   && fixture.sedgewickStatic.editorInitialization === false, "SEDGEWICK_STATIC_FIXTURE");
@@ -287,8 +301,11 @@ check(hashFile(join(root, fixture.sedgewickStatic.sourcePath)) === fixture.sedge
   && hashFile(join(root, fixture.sedgewickStatic.provenancePath)) === fixture.sedgewickStatic.provenanceSha256
   && hashFile(join(root, fixture.sedgewickStatic.javaPath)) === fixture.sedgewickStatic.javaSha256, "SEDGEWICK_STATIC_SOURCE_BINDING");
 check(sha256(Buffer.from(sedgewickRoute)) === fixture.sedgewickStatic.routeHtmlSha256
-  && sha256(Buffer.from(studyIndex)) === fixture.sedgewickStatic.indexHtmlSha256, "SEDGEWICK_STATIC_OUTPUT_BINDING");
-const currentStudyCss = fixture.sedgewickStatic.normalizedStudyCssSha256;
+  && sha256(Buffer.from(studyIndex)) === fixture.lehmanNestedStatic.indexHtmlSha256, "STUDY_INDEX_AND_SEDGEWICK_OUTPUT_BINDING");
+const currentStudyCss = {
+  ...fixture.sedgewickStatic.normalizedStudyCssSha256,
+  "study/index.html": fixture.lehmanNestedStatic.indexHtmlNormalizedStudyCssSha256,
+};
 const historicalStudyCss = fixture.studySlices13.htmlNormalizedStudyCssSha256;
 for (const [outputPath, historicalExpected] of Object.entries(historicalStudyCss)) {
   const expected = outputPath === fixture.goodrichEditor.route ? fixture.goodrichEditor.htmlNormalizedStudyCssSha256
@@ -348,12 +365,12 @@ function runIsolatedMutationProbes() {
     });
     const slicesLock = readJson(slicesOutputLockPath);
     check(slicesLock.schema === "personal-study-slices13-output-lock.v1"
-      && Array.isArray(slicesLock.outputs) && slicesLock.outputs.length === 5, "PROBE_SLICES13_OUTPUT_LOCK");
+      && Array.isArray(slicesLock.outputs) && slicesLock.outputs.length === 6, "PROBE_SLICES13_OUTPUT_LOCK");
     const slicesGeneratedPaths = slicesLock.outputs.map((record) => {
       check(typeof record.path === "string" && (
         record.path === "build/study-slices13-binding.json"
         || record.path === "src/study/generated-slices13.js"
-        || /^public\/study\/provenance\/(goodrich-ch4-ex6-harmonic|rosen-1-3-ex5-6|sedgewick-ch1-s4-ex10)\.json$/.test(record.path)
+        || /^public\/study\/provenance\/(goodrich-ch4-ex6-harmonic|rosen-1-3-ex5-6|sedgewick-ch1-s4-ex10|lehman-ch4-p22b)\.json$/.test(record.path)
       ), "PROBE_SLICES13_OUTPUT_PATH");
       return record.path;
     });

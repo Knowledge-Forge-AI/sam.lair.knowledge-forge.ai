@@ -1,0 +1,105 @@
+---
+id: lehman-ch4-p22b
+title: "Chapter 4 Problem 22(b) — surjections and injections"
+status: static-study-page
+provenance: ./lehman-ch4-p22b.provenance.json
+---
+
+Reversing the arrows of a relation exchanges its incoming and outgoing conditions. In this exercise, a function has at most one arrow leaving each input. A total function has exactly one. A surjective function in this sense may be undefined at some inputs.
+
+<Exercise id="lehman-ch4-p22b" sourceLabel="Chapter 4 — Problem 22(b)">
+
+<Solution id="lehman-ch4-p22b-solution" title="Surjection/injection equivalence">
+
+The selected source states the claim:
+
+<Equation id="lehman-ch4-p22b-claim" tag="p22bclaim">
+
+$$
+A \surj B \iff B \inj A
+$$
+
+</Equation>
+
+<Proof id="lehman-ch4-p22b-proof" title="Proof by inverse relations">
+
+The source proves the claim through two implications:
+
+<Equation id="lehman-ch4-p22b-lemma1" tag="p22blemma1">
+
+$$
+A \surj B \implies B \inj A
+$$
+
+</Equation>
+
+<Equation id="lehman-ch4-p22b-lemma2" tag="p22blemma2">
+
+$$
+B \inj A \implies A \surj B
+$$
+
+</Equation>
+
+<Subproof id="lehman-ch4-p22b-lemma1-proof" title="Proof of p22blemma1">
+
+The proof is by contradiction. Suppose that $A \surj B$ is true but
+$B \inj A$ is false. Then there is a surjective function
+$f : A \rightarrow B$.
+
+Suppose that the inverse relation $f^{-1}: B \rightarrow A$ is not total.
+Then there is a $b \in B$ such that no arrows of $f^{-1}$ originate from
+$b$. This would imply that no arrows of $f$ terminate at $b$, contradicting
+that $f$ is surjective. Hence, $f^{-1}$ must be total.
+
+Suppose that $f^{-1}: B \rightarrow A$ is not injective. Then there is an
+$a \in A$ such that more than one arrow of $f^{-1}$ terminates at $a$. This
+would imply that more than one arrow of $f$ originates at $a$, contradicting
+that $f$ is a function. Hence, $f^{-1}$ must be injective.
+
+Since $f^{-1}$ is both total and injective, it is an injective total relation.
+Thus the supposition that $B \inj A$ is false is contradicted, and
+<EquationRef id="lehman-ch4-p22b-lemma1">p22blemma1</EquationRef> holds.
+
+</Subproof>
+
+<Subproof id="lehman-ch4-p22b-lemma2-proof" title="Proof of p22blemma2">
+
+The proof is by contradiction. Suppose that $B \inj A$ is true but
+$A \surj B$ is false. Then there is an injective total relation
+$g : B \rightarrow A$.
+
+Suppose that $g^{-1}: A \rightarrow B$ is not surjective. Then there is a
+$b \in B$ such that no arrows of $g^{-1}$ terminate at $b$. This would imply
+that no arrows of $g$ originate at $b$, contradicting that $g$ is total.
+Hence, $g^{-1}$ must be surjective.
+
+Suppose that $g^{-1}$ is not a function. Then there is an $a \in A$ such
+that more than one arrow of $g^{-1}$ originates at $a$. This would imply
+that more than one arrow of $g$ terminates at $a$, contradicting that $g$ is
+injective. Hence, $g^{-1}$ must be a function.
+
+Since $g^{-1}$ is both surjective and a function, it is a surjective
+function. Thus the supposition that $A \surj B$ is false is contradicted, and
+<EquationRef id="lehman-ch4-p22b-lemma2">p22blemma2</EquationRef> holds.
+
+</Subproof>
+
+The two implications are established, so
+<EquationRef id="lehman-ch4-p22b-claim">p22bclaim</EquationRef> follows.
+
+</Proof>
+
+</Solution>
+
+</Exercise>
+
+## Scope and terms
+
+The selected claim, implication lemmas, inverse-relation reasoning, and
+source labels are adapted from the pinned GPL-3.0 TeX solution. The MDX
+boundaries, semantic identities, local equation references, and explanatory
+wording are new project-authored integration. The two inverse-relation lines
+add an explicit domain/codomain colon, and line 478 corrects the source's
+uppercase $B$ referent to the bound $b$; these are disclosed notation/fidelity
+corrections, not new proof steps. The provenance record links the exact TeX lines and records the source terms.
