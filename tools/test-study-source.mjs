@@ -147,7 +147,7 @@ check(Array.isArray(publicProjectionPaths)
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 145 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1113061 && publicProjectionAggregate === "8e1f24b97301766161d787c510ecc8cc691be770a0f4638801977bd2fe57ddc5", "PUBLIC_PROJECTION_MANIFEST");
+check(publicProjection.length === 146 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1118293 && publicProjectionAggregate === "907bc47ea607b230704cad9b6ecdff8dbc2f98d2a2dfd2f4b2d16177be0ca538", "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");

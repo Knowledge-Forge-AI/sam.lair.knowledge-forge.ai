@@ -22,11 +22,56 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Install, build, verify, and upload site
-        uses: withastro/action@v6
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22.23.4"
-          build-cmd: npm run build && npm run test:study-source
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Check tracked inputs before install
+        id: capture_install
+        run: node .github/study-input-drift.mjs install
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Refuse install tracked-input drift
+        if: ${{ !cancelled() && steps.capture_install.outcome == 'success' }}
+        run: node .github/study-input-drift.mjs install
+
+      - name: Restore Astro cache
+        id: astro-cache-restore
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules/.astro
+          key: astro-cache-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            astro-cache-${{ runner.os }}-
+
+      - name: Check tracked inputs before build
+        id: capture_build
+        run: node .github/study-input-drift.mjs build
+
+      - name: Build and verify study source
+        run: npm run build && npm run test:study-source
+
+      - name: Refuse build tracked-input drift
+        if: ${{ !cancelled() && steps.capture_build.outcome == 'success' }}
+        run: node .github/study-input-drift.mjs build
+
+      - name: Save Astro cache
+        if: steps.astro-cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules/.astro
+          key: ${{ steps.astro-cache-restore.outputs.cache-primary-key }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: ./dist/
+          include-hidden-files: true
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

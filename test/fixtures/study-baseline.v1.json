@@ -3,6 +3,7 @@
   "source": "portable baseline facts only; generated assets, private tools, research copies, and node_modules are excluded",
   "publicProjectionPaths": [
     ".github/pull_request_template.md",
+    ".github/study-input-drift.mjs",
     ".github/workflows/deploy.yml",
     ".gitignore",
     "AGENTS.md",
