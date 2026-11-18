@@ -3,15 +3,15 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -22,12 +22,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Install, build, and upload site
+      - name: Install, build, verify, and upload site
         uses: withastro/action@v6
+        with:
+          node-version: "22.23.4"
+          build-cmd: npm run build && npm run test:study-source
 
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     environment:
       name: github-pages

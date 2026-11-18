@@ -20,6 +20,11 @@ const lessons = [
     title: 'Rosen Section 1.3, Exercises 5 and 6',
     summary: 'Truth assignments for the distributive and De Morgan laws.',
   },
+  {
+    href: '/study/sedgewick-ch1-s4-ex10/',
+    title: 'Sedgewick 1.4, Exercise 10',
+    summary: 'Lower-bound binary search and the first matching index.',
+  },
 ];
 ---
 
@@ -28,7 +33,7 @@ const lessons = [
     <a class="back-link" href="/">← Sam Lair home</a>
     <div class="article-meta"><span>Study</span><span>Algorithms and logic</span></div>
     <h1>Selected study pages</h1>
-    <p class="article-lead">Three pages on a recurrence, recursive harmonic numbers, and finite propositional logic.</p>
+    <p class="article-lead">Four pages on a recurrence, recursive harmonic numbers, finite propositional logic, and lower-bound binary search.</p>
     <nav aria-label="Study pages">
       <ul>
         {lessons.map((lesson) => <li><a href={lesson.href}><strong>{lesson.title}</strong></a><p>{lesson.summary}</p></li>)}

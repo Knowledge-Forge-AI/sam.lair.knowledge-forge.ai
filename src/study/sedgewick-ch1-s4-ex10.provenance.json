@@ -1,0 +1,86 @@
+{
+  "schema": "personal-study-consumer-static-slice-provenance.v2",
+  "documentId": "sedgewick-ch1-s4-ex10",
+  "page": {
+    "path": "src/study/sedgewick-ch1-s4-ex10.mdx",
+    "role": "consumer-owned static MDX page",
+    "status": "source-only-static-page",
+    "dynamicRun": false,
+    "editorInitialization": false,
+    "owner": "personal-study consumer",
+    "bytes": 2914,
+    "sha256": "059acfe09f5ae7932e15430c4cb728cb1c020199701aa4abcaa0425d7e95b17d",
+    "scope": "Static MDX document only; no Java runtime or browser compiler is initialized."
+  },
+  "sourceHistory": {
+    "treatment": "consumer-owned page adaptation; the Java algorithm appears only through a bound static CodeInclude",
+    "maintainedSlice": {
+      "path": "src/study/sedgewick-ch1-s4-ex10.mdx",
+      "sha256": "059acfe09f5ae7932e15430c4cb728cb1c020199701aa4abcaa0425d7e95b17d",
+      "bytes": 2914,
+      "note": "Consumer-owned relative source identity for this page, prepared with the exact bytes above; no shared-package installation or canonical promotion is claimed."
+    },
+    "originalSource": {
+      "repository": "lair001/sedgewick-algs4",
+      "revision": "7ade7f51594a3002124cc71a52b06b52a5837fcc",
+      "path": "examples-and-solutions/src/main/com/sllair/sedg/algs4/solutions/exercises/ch1/s4/Ex10.java",
+      "url": "https://github.com/lair001/sedgewick-algs4/blob/7ade7f51594a3002124cc71a52b06b52a5837fcc/examples-and-solutions/src/main/com/sllair/sedg/algs4/solutions/exercises/ch1/s4/Ex10.java",
+      "gitBlob": "992710de6c00de8a202f7aae0c5ae931e0ebe9ef",
+      "bytes": 1208,
+      "sha256": "a81ec4238bbcc1d7eed36b9a1dc1b3d0e9969b4e9ee3f7029c114b83811c3576",
+      "exercise": "Chapter 1 Section 1.4 Exercise 10",
+      "attribution": "Adapted from Samuel Lair's selected authored Java source.",
+      "license": "GPL-3.0",
+      "licenseScope": "The selected authored source is covered by GPL-3.0; the source does not state or later. The underlying exercise copyright owner is not established by retained records.",
+      "sourceDate": null
+    }
+  },
+  "codeIncludes": [
+    {
+      "includeId": "sedgewick-first-match-java",
+      "path": "src/study/sedgewick-first-match.java",
+      "copiedFrom": "the selected Ex10.java BinarySearchMinIndex.rank source at the pinned revision",
+      "sourceSha256": "85f22dd709fb7bf402b0a11f4559a195f4a5c2035f9109ad9ed4acc0fd16865e",
+      "sourceBytes": 770,
+      "sha256": "85f22dd709fb7bf402b0a11f4559a195f4a5c2035f9109ad9ed4acc0fd16865e",
+      "bytes": 770,
+      "language": "java",
+      "entry": "BinarySearchMinIndex.rank",
+      "originalEntry": "BinarySearchMinIndex.rank",
+      "treatment": "I/O-free static source view; repository interfaces and main method removed while the algorithm body remains byte-equivalent to the prepared source view",
+      "pageUses": ["CodeInclude"],
+      "runtime": "Static MDX compilation reads source text only; Java/browser compilation and runtime execution are unqualified."
+    }
+  ],
+  "staticContract": {
+    "sourcePrecondition": "ascending, non-empty int[]; the source assumes the array is sorted and does not define an empty-array guard",
+    "intervalInvariant": "closed inclusive candidate interval [lo, hi], with lo = 0 and hi = a.length - 1",
+    "progress": "key > a[mid] advances lo to mid + 1; otherwise hi becomes mid; while (lo < hi) converges to a singleton",
+    "duplicateBehavior": "returns the smallest index containing key when duplicates exist",
+    "missingBehavior": "returns -1 after the final equality check",
+    "emptyBehavior": "empty input reaches a[lo] with lo = 0 after hi = -1 and raises Java's array-bounds exception",
+    "complexity": "O(log n) comparisons under the stated precondition",
+    "mutation": "does not modify the input array",
+    "languageBoundary": "Java int is signed 32-bit; this static slice does not claim Python/JavaScript equivalence, overflow emulation, or exception-class equivalence"
+  },
+  "excluded": [
+    "textbook prompts and bulk prose",
+    "PDFs, slides, companion-site assets, and unrelated repository sources",
+    "algs4.jar and lib/LICENSE_FOR_ALGS4_JAR",
+    "browser or native Java execution",
+    "editable Java compiler, TeaVM, and runtime assets",
+    "Python fallback and Python runtime dependencies",
+    "mathematical-proof claim"
+  ],
+  "qualification": {
+    "status": "source-only candidate",
+    "static_source_checks": "performed with standard-library hashing, JSON parsing and exact-copy comparisons",
+    "syntax_check": "pinned Node syntax check applies to the generator; MDX/Java rendering and compilation remain parent integration work",
+    "native_execution": "unqualified",
+    "browser_execution": "unqualified",
+    "java_execution": "unqualified",
+    "python_execution": "not part of this slice",
+    "conversionDate": "2026-11-17"
+  },
+  "conversionDate": "2026-11-17"
+}
