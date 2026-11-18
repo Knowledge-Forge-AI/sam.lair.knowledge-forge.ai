@@ -6,6 +6,11 @@ const title = 'Study — algorithms and logic — Sam Lair';
 const description = 'Selected study pages on recursive algorithms and propositional logic.';
 const lessons = [
   {
+    href: '/study/lehman-ch4-p22b/',
+    title: 'Lehman Chapter 4, Problem 22(b)',
+    summary: 'Surjections and injective relations, proved by reversing arrows.',
+  },
+  {
     href: '/study/lehman-ch3-p4/',
     title: 'Lehman Chapter 3, Problem 4',
     summary: 'A proof study of a mixed-row recurrence.',
@@ -33,7 +38,7 @@ const lessons = [
     <a class="back-link" href="/">← Sam Lair home</a>
     <div class="article-meta"><span>Study</span><span>Algorithms and logic</span></div>
     <h1>Selected study pages</h1>
-    <p class="article-lead">Four pages on a recurrence, recursive harmonic numbers, finite propositional logic, and lower-bound binary search.</p>
+    <p class="article-lead">Five pages on recurrences, recursive harmonic numbers, propositional logic, binary search, and inverse relations.</p>
     <nav aria-label="Study pages">
       <ul>
         {lessons.map((lesson) => <li><a href={lesson.href}><strong>{lesson.title}</strong></a><p>{lesson.summary}</p></li>)}

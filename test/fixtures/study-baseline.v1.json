@@ -81,6 +81,7 @@
     "src/pages/study/goodrich-ch4-ex6-harmonic.astro",
     "src/pages/study/index.astro",
     "src/pages/study/lehman-ch3-p4.astro",
+    "src/pages/study/lehman-ch4-p22b.astro",
     "src/pages/study/rosen-1-3-ex5-6.astro",
     "src/pages/study/sedgewick-ch1-s4-ex10.astro",
     "src/study/GoodrichCh4Ex6Interactive.tsx",
@@ -93,6 +94,8 @@
     "src/study/lehman-ch3-p4.mdx",
     "src/study/lehman-ch3-p4.provenance.json",
     "src/study/lehman-ch3-p4.py",
+    "src/study/lehman-ch4-p22b.mdx",
+    "src/study/lehman-ch4-p22b.provenance.json",
     "src/study/lehman-checks.d.mts",
     "src/study/lehman-checks.mjs",
     "src/study/rosen-1-3-ex5-6.mdx",
@@ -381,5 +384,14 @@
     "runtimeInitialization": "Run only",
     "editorInitialization": "client:visible",
     "mathematicalProof": false
+  },
+  "lehmanNestedStatic": {
+    "route": "study/lehman-ch4-p22b/index.html",
+    "routeHtmlSha256": "b5a07ee0d145b22534f89d3301d9021ace40d03b39bdd5a48de9bfedee8059b5",
+    "indexHtmlSha256": "72325dfa5e013ed42cc4f1bd4a1c1f1d5c20c9f4a8b6f369152e158373fa3a73",
+    "indexHtmlNormalizedStudyCssSha256": "c6b21a0d5fc15ab60a3cb61b865ad102613cfcf92a0686b1a2fca42b0d201807",
+    "distFiles": 163,
+    "htmlPages": 49,
+    "studyLinkPages": 43
   }
 }

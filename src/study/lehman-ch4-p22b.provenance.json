@@ -1,0 +1,77 @@
+{
+  "schema": "personal-study-consumer-static-slice-provenance.v2",
+  "documentId": "lehman-ch4-p22b",
+  "page": {
+    "path": "src/study/lehman-ch4-p22b.mdx",
+    "bytes": 3805,
+    "sha256": "1d7fa9953b6a078b5fce8585ab405fee63d9ead3e519bcecdde26c85e6147964",
+    "role": "consumer-owned static MDX page"
+  },
+  "sourceHistory": {
+    "treatment": "Selected TeX proof adapted to semantic MDX with local equation links.",
+    "maintainedSlice": {
+      "path": "src/study/lehman-ch4-p22b.mdx",
+      "sha256": "1d7fa9953b6a078b5fce8585ab405fee63d9ead3e519bcecdde26c85e6147964",
+      "bytes": 3805
+    },
+    "reviewedMdxPreimage": {
+      "sha256": "14e0871fb1c38d20be2b082740b6c5389fbeb63efdeb5ee6d4bf9c1c433bc0df",
+      "bytes": 4092
+    },
+    "originalSource": {
+      "repository": "lair001/lehman-math-cs",
+      "revision": "23ac35dd77d923f45137fa3ccce7599890056c70",
+      "path": "solutions/book/p1/ch4-sol.tex",
+      "url": "https://github.com/lair001/lehman-math-cs/blob/23ac35dd77d923f45137fa3ccce7599890056c70/solutions/book/p1/ch4-sol.tex#L453-L486",
+      "gitBlob": "7565d4052266d61fb795acce9ac029e71cce3109",
+      "sha256": "5a69d9506132680479a84eb5b1ad2b03beeb332e9c8264aa906794aa1c861359",
+      "bytes": 22552,
+      "sourceLines": [
+        453,
+        486
+      ],
+      "attribution": "Adapted from the TeX solution attributed to Samuel Lair.",
+      "license": "GPL-3.0",
+      "sourceDate": "2022-09",
+      "edition": null
+    }
+  },
+  "sourceCorrections": [
+    {
+      "source_lines": [
+        468
+      ],
+      "original": "f^{-1} B \\rightarrow A",
+      "candidate": "f^{-1}: B \\rightarrow A",
+      "kind": "explicit-domain-codomain-notation",
+      "effect": "notation-only; no new inference"
+    },
+    {
+      "source_lines": [
+        470
+      ],
+      "original": "f^{-1} B \\rightarrow A",
+      "candidate": "f^{-1}: B \\rightarrow A",
+      "kind": "explicit-domain-codomain-notation",
+      "effect": "notation-only; no new inference"
+    },
+    {
+      "source_lines": [
+        478
+      ],
+      "original": "g^{-1} : A \\rightarrow B",
+      "candidate": "g^{-1}: A \\rightarrow B",
+      "kind": "whitespace-and-referent-correction",
+      "source_referent": "terminate at B",
+      "candidate_referent": "terminate at b",
+      "effect": "fidelity correction; no new inference"
+    }
+  ],
+  "editorialTreatment": [
+    "The route supplies the single page heading.",
+    "The introduction makes explicit the source's distinction between functionality and totality.",
+    "Document-local surjection and injection display macros are authored for this page."
+  ],
+  "conversionDate": "2026-11-14",
+  "codeIncludes": []
+}
