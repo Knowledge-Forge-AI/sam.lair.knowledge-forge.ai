@@ -1,0 +1,24 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/study.css';
+import { sedgewickMarkup } from '../../study/generated-slices13.js';
+
+const title = 'Sedgewick 1.4 Exercise 10 — First matching index — Sam Lair';
+const description = 'A static rendering of a selected Sedgewick first-match binary-search source slice.';
+---
+<Site title={title} description={description}>
+  <article class="study-article" data-study-document="sedgewick-ch1-s4-ex10">
+    <link rel="stylesheet" href="/study/katex.css" />
+    <a class="study-backlink" href="/study/">← Study materials</a>
+    <div class="study-kicker"><span>Study</span><span>Static Java source</span></div>
+    <h1>{title}</h1>
+    <p class="article-lead">A source-bound explanation of lower-bound binary search and its first-match contract.</p>
+    <section class="study-mdx" set:html={sedgewickMarkup}></section>
+    <section class="study-provenance">
+      <h2>Source and attribution</h2>
+      <p>This page preserves the selected algorithm as static text; it does not execute Java or initialize a browser compiler.</p>
+      <p><a href="/study/provenance/sedgewick-ch1-s4-ex10.json">View source and treatment record</a></p>
+      <p><a href="/study/licenses/lehman-GPL-3.0.txt">GPL-3.0 source terms</a> · <a href="/study/licenses/katex-LICENSE.txt">KaTeX notice</a></p>
+    </section>
+  </article>
+</Site>

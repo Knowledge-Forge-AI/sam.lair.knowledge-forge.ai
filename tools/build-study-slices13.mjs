@@ -143,6 +143,11 @@ function sourceProvenanceFor(provenance) {
       && maintained.bytes === 2778
       && maintained.sha256 === "c9b96befa536418f49830453dc933dd0f3a24af59a36f97976941dcb4f88af0c", "SLICES13_MAINTAINED_SLICE_BINDING");
   }
+  if (provenance.documentId === "sedgewick-ch1-s4-ex10") {
+    check(maintained.path === "src/study/sedgewick-ch1-s4-ex10.mdx"
+      && maintained.bytes === 2914
+      && maintained.sha256 === "059acfe09f5ae7932e15430c4cb728cb1c020199701aa4abcaa0425d7e95b17d", "SLICES13_SEDGEWICK_MAINTAINED_SLICE_BINDING");
+  }
   const original = provenance.sourceHistory?.originalSource;
   check(original && typeof original.repository === "string", "SLICES13_SOURCE_HISTORY");
   check(/^[0-9a-f]{40}$/.test(original.revision), "SLICES13_SOURCE_REVISION");
@@ -162,7 +167,13 @@ function sourceProvenanceFor(provenance) {
 
 const manifest = readJson(manifestPath);
 check(manifest.schema === "personal-study-consumer-static-slices13/v1", "SLICES13_MANIFEST_SCHEMA");
-check(Array.isArray(manifest.pages) && manifest.pages.length === 2, "SLICES13_PAGE_COUNT");
+check(Array.isArray(manifest.pages) && manifest.pages.length === 3, "SLICES13_PAGE_COUNT");
+const pageIds = manifest.pages.map((page) => page.documentId);
+check(new Set(pageIds).size === pageIds.length && pageIds.every((id) =>
+  id === "goodrich-ch4-ex6-harmonic" || id === "rosen-1-3-ex5-6" || id === "sedgewick-ch1-s4-ex10"), "SLICES13_PAGE_IDS");
+check(pageIds.includes("goodrich-ch4-ex6-harmonic")
+  && pageIds.includes("rosen-1-3-ex5-6")
+  && pageIds.includes("sedgewick-ch1-s4-ex10"), "SLICES13_PAGE_SET");
 const { compileStudyMdxDocument } = await import("@knowledge-forge-ai/study-components/mdx");
 const { createStudySemanticComponents } = await import("@knowledge-forge-ai/study-components/semantic");
 const reactRuntime = await import("react/jsx-runtime");
@@ -183,10 +194,17 @@ for (const pageRecord of manifest.pages) {
   check(provenance.page.path === pageRecord.sourcePath, "SLICES13_PROVENANCE_PAGE_PATH");
   declaredPageHash(provenance.page, pagePath);
   check(!pageSource.includes("def harmonic") && !pageSource.includes("MAX_N ="), "SLICES13_PAGE_DUPLICATES_PYTHON");
+  check(Array.isArray(pageRecord.codeIncludes)
+    && new Set(pageRecord.codeIncludes).size === pageRecord.codeIncludes.length, "SLICES13_CODE_INCLUDE_IDS");
+  const codeSourceRecords = new Map((manifest.codeSources ?? []).map((record) => [record.includeId, record]));
   const codeIncludes = [];
   for (const includeId of pageRecord.codeIncludes) {
     const include = (provenance.codeIncludes ?? []).find((item) => item.includeId === includeId);
+    const declared = codeSourceRecords.get(includeId);
     check(include !== undefined, "SLICES13_CODE_INCLUDE_RECORD");
+    check(declared !== undefined && declared.path === include.path
+      && declared.entry === include.entry && declared.language === include.language
+      && declared.staticBuildOnly === true, "SLICES13_CODE_SOURCE_DECLARATION");
     check(Number.isInteger(include.bytes) && include.bytes > 0 && typeof include.sha256 === "string"
       && /^[0-9a-f]{64}$/.test(include.sha256), "SLICES13_CODE_INCLUDE_DIGEST");
     const codePath = join(root, include.path);
@@ -194,7 +212,21 @@ for (const pageRecord of manifest.pages) {
     const codeSource = readText(codePath);
     const codeHash = hashFile(codePath);
     check(codeHash === include.sha256 && Buffer.byteLength(codeSource) === include.bytes, "SLICES13_CODE_HASH");
-    check(codeHash === "6bc850dd844a6568507dea5dd2a98a9dba4257e854d56df6701ec4ee85bd4fa9", "SLICES13_CODE_NOT_ADMITTED");
+    if (includeId === "goodrich-harmonic-source") {
+      check(pageRecord.documentId === "goodrich-ch4-ex6-harmonic"
+        && include.path === "src/study/goodrich-ch4-ex6.py"
+        && include.entry === "bounded_harmonic"
+        && include.language === "python"
+        && codeHash === "6bc850dd844a6568507dea5dd2a98a9dba4257e854d56df6701ec4ee85bd4fa9", "SLICES13_CODE_NOT_ADMITTED");
+    } else if (includeId === "sedgewick-first-match-java") {
+      check(pageRecord.documentId === "sedgewick-ch1-s4-ex10"
+        && include.path === "src/study/sedgewick-first-match.java"
+        && include.entry === "BinarySearchMinIndex.rank"
+        && include.language === "java"
+        && codeHash === "85f22dd709fb7bf402b0a11f4559a195f4a5c2035f9109ad9ed4acc0fd16865e", "SLICES13_CODE_NOT_ADMITTED");
+    } else {
+      fail("SLICES13_CODE_NOT_ADMITTED");
+    }
     codeIncludes.push({ includeId, source: codeSource, language: include.language, entry: include.entry });
   }
   const compiled = await compileStudyMdxDocument({
@@ -221,9 +253,19 @@ for (const pageRecord of manifest.pages) {
     check(codeIncludeCount === 1, "SLICES13_GOODRICH_SINGLE_INCLUDE");
     check(!markup.includes("data-study-runnable"), "SLICES13_GOODRICH_NO_RUNNABLE_FALLBACK");
     check(markup.includes("bounded_harmonic"), "SLICES13_GOODRICH_ENTRY");
-  } else {
+  } else if (pageRecord.documentId === "rosen-1-3-ex5-6") {
+    check(pageRecord.codeIncludes.length === 0, "SLICES13_ROSEN_NO_CODE_INCLUDE");
     check((markup.match(/<table/g) ?? []).length === 2, "SLICES13_ROSEN_TABLES");
     check((markup.match(/data-study-reference=/g) ?? []).length === 4, "SLICES13_ROSEN_REFERENCES");
+  } else {
+    check(pageRecord.codeIncludes.length === 1
+      && pageRecord.codeIncludes[0] === "sedgewick-first-match-java", "SLICES13_SEDGEWICK_INCLUDE");
+    check((markup.match(/data-study-code-include="sedgewick-first-match-java"/g) ?? []).length === 1, "SLICES13_SEDGEWICK_SINGLE_INCLUDE");
+    check(!markup.includes("data-study-runnable") && !markup.includes("data-study-editor"), "SLICES13_SEDGEWICK_STATIC_ONLY");
+    check((markup.match(/<math\b/g) ?? []).length === 1, "SLICES13_SEDGEWICK_MATH");
+    check(!pageSource.includes("class BinarySearchMinIndex")
+      && !pageSource.includes("\n        while (lo < hi) {")
+      && !pageSource.includes("static int rank"), "SLICES13_SEDGEWICK_NO_DUPLICATED_ALGORITHM");
   }
   const exportName = pageRecord.generatedMarkupExport;
   outputs.push(`export const ${exportName} = ${JSON.stringify(markup)};`);
@@ -272,7 +314,7 @@ const binding = {
   generated: { path: "src/study/generated-slices13.js", bytes: Buffer.byteLength(generated), sha256: sha256(Buffer.from(generated)) },
   policy: {
     runtime: "static MDX slice generation only (src/study/generated-slices13.js); this generator initializes no editor or language runtime; optional sibling editor triggers are declared in public provenance",
-    source: "one consumer-owned Python source file is read at build; page MDX has no Python source duplicate",
+    source: "consumer-owned static Python/Java source includes are read at build; page MDX has no duplicated algorithm source",
     math: "trusted first-party MDX input; only the two displayed Rosen finite truth-table equivalences are proof claims, with no general theorem-prover or unrelated mathematical claim",
     browser: "not run",
   },
@@ -295,3 +337,4 @@ const outputLockBytes = Buffer.from(JSON.stringify({
 }, null, 2) + "\n");
 writeOwnedOutputs(expectedOutputs, outputLockBytes);
 console.log(JSON.stringify({ status: binding.status, pages: records.length, generated: binding.generated }));
+

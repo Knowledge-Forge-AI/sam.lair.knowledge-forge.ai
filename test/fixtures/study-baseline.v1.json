@@ -3,6 +3,7 @@
   "source": "portable baseline facts only; generated assets, private tools, research copies, and node_modules are excluded",
   "publicProjectionPaths": [
     ".github/pull_request_template.md",
+    ".github/study-input-drift.mjs",
     ".github/workflows/deploy.yml",
     ".gitignore",
     "AGENTS.md",
@@ -81,6 +82,7 @@
     "src/pages/study/index.astro",
     "src/pages/study/lehman-ch3-p4.astro",
     "src/pages/study/rosen-1-3-ex5-6.astro",
+    "src/pages/study/sedgewick-ch1-s4-ex10.astro",
     "src/study/GoodrichCh4Ex6Interactive.tsx",
     "src/study/LehmanCh3P4Editor.tsx",
     "src/study/LehmanCh3P4Interactive.tsx",
@@ -95,6 +97,9 @@
     "src/study/lehman-checks.mjs",
     "src/study/rosen-1-3-ex5-6.mdx",
     "src/study/rosen-1-3-ex5-6.provenance.json",
+    "src/study/sedgewick-ch1-s4-ex10.mdx",
+    "src/study/sedgewick-ch1-s4-ex10.provenance.json",
+    "src/study/sedgewick-first-match.java",
     "src/study/static-slices13.manifest.json",
     "src/styles/legacy.css",
     "src/styles/material.css",
@@ -105,7 +110,9 @@
     "test/fixtures/study-baseline.v1.json",
     "tools/build-study-slices13.mjs",
     "tools/build-study-source.mjs",
+    "tools/study-goodrich-island-uid.mjs",
     "tools/test-lehman-checks.mjs",
+    "tools/test-study-goodrich-uid.mjs",
     "tools/test-study-source-probes.mjs",
     "tools/test-study-source.mjs",
     "tsconfig.json",
@@ -320,6 +327,46 @@
       "study/goodrich-ch4-ex6-harmonic/index.html": "dba4e3d635b94876bfc3eeedc582f620492818374f1623e7c1976cf56db8ab9e",
       "study/rosen-1-3-ex5-6/index.html": "63dd68b971770498b918b8c0d342762fe2561c72a3b11d40012eff9fada37636"
     }
+  },
+  "sedgewickStatic": {
+    "schema": "personal-study-sedgewick-static.v1",
+    "scope": "current measured static output facts; prior studySlices13 records remain historical",
+    "route": "study/sedgewick-ch1-s4-ex10/index.html",
+    "indexRoute": "study/index.html",
+    "sourcePath": "src/study/sedgewick-ch1-s4-ex10.mdx",
+    "provenancePath": "src/study/sedgewick-ch1-s4-ex10.provenance.json",
+    "javaPath": "src/study/sedgewick-first-match.java",
+    "sourceSha256": "059acfe09f5ae7932e15430c4cb728cb1c020199701aa4abcaa0425d7e95b17d",
+    "provenanceSha256": "48f6c5c9725dc0f799518333414ed53a68bcc43c4b1f5cad4709e1efabfde8b8",
+    "javaSha256": "85f22dd709fb7bf402b0a11f4559a195f4a5c2035f9109ad9ed4acc0fd16865e",
+    "codeInclude": "sedgewick-first-match-java",
+    "routeHtmlSha256": "57f82f58d5561b27a6b72874958d26ee0187f935e234db15aeba895e304cee65",
+    "indexHtmlSha256": "29bce77bc8bbd159d8e83c9a446fdfd26689159d843cb84cb068073e919dc78f",
+    "normalizedStudyCssSha256": {
+      "study/index.html": "7ed5ea81eb9cd330c9c86abbf09733e33ee5d699b191f4a7eafd433164c0ab57",
+      "study/sedgewick-ch1-s4-ex10/index.html": "2583527c8b125cbd411ed1bfda4b53b39795cc6bb817ae455fa9915f58107d13"
+    },
+    "distFiles": 161,
+    "htmlPages": 48,
+    "studyLinkPages": 42,
+    "staticOnly": true,
+    "runtimeExecution": false,
+    "editorInitialization": false
+  },
+  "goodrichUidPolicy": {
+    "schema": "personal-study-goodrich-uid-comparison.v1",
+    "scope": "bounded comparison-only normalization of one measured Goodrich Astro island; historical output hashes remain unchanged",
+    "route": "study/goodrich-ch4-ex6-harmonic/index.html",
+    "targetComponentUrl": "/_astro/GoodrichCh4Ex6Interactive.DJUwVDno.js",
+    "targetComponentExport": "GoodrichCh4Ex6Interactive",
+    "canonicalUidSentinel": "GoodrichUid",
+    "normalizedStudyCssThenUidBytes": 24748,
+    "normalizedStudyCssThenUidSha256": "7a03303074df77fe49e7600a0fb87fcdeac8dfb610df1bf31b282e9bc1ef0b91",
+    "normalizationOrder": [
+      "existing study CSS filename normalization",
+      "target Goodrich UID comparison normalization"
+    ],
+    "servedRuntimeOutput": false
   },
   "shell": {
     "studyLinkBaselinePages": 0

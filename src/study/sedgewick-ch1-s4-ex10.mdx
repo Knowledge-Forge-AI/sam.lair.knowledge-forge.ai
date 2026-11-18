@@ -1,0 +1,70 @@
+---
+id: sedgewick-ch1-s4-ex10
+title: "Sedgewick 1.4 — Exercise 10: the first matching index"
+status: source-only-static-page
+provenance: ./sedgewick-ch1-s4-ex10.provenance.json
+---
+
+This static lesson adapts the selected **Algorithms, 4th Edition** solution
+at Chapter 1, Section 1.4, Exercise 10. The source exercise asks binary search
+to return the smallest index containing a key. This page preserves that
+identity without copying textbook, PDF, companion-site, or prompt material.
+
+<Exercise id="sedgewick-ch1-s4-ex10" sourceLabel="Chapter 1 Section 1.4 — Exercise 10">
+
+<Solution id="sedgewick-ch1-s4-ex10-solution">
+
+## Lower-bound binary search
+
+The Java method searches an inclusive candidate interval
+`[lo, hi]`, initially covering the non-empty array. If the key is greater
+than the midpoint value, every position through the midpoint can be
+discarded, so the lower bound becomes `lo = mid + 1`. Otherwise the
+midpoint may still be the first matching position, so the upper bound becomes
+`hi = mid`. Because the loop runs while `lo < hi`, each iteration reduces the
+interval until it converges on one candidate index.
+
+The midpoint is computed as follows:
+
+<Equation id="sedgewick-ch1-s4-ex10-midpoint" tag="midpoint">
+
+$$
+mid = lo + \left\lfloor \frac{hi - lo}{2} \right\rfloor
+$$
+
+</Equation>
+
+After convergence, the final equality check returns the candidate index or
+`-1` when the key is absent. For a sorted array with duplicates, retaining
+`hi = mid` when the midpoint is equal preserves the possibility of an earlier
+match. The search performs `O(log n)` comparisons under the source's
+ascending, non-empty `int[]` precondition and does not modify the array.
+
+<CodeInclude includeId="sedgewick-first-match-java" label="Static Java algorithm source" />
+
+The included Java is an I/O-free static source view of the selected method.
+It is not executed here; browser compilation, native Java execution, and an
+editable Java compiler remain unqualified.
+
+## Contract and adaptation boundary
+
+The pinned Java source requires an ascending, non-empty `int[]`. An empty
+array is not a source-defined input: `hi` becomes `-1`, the loop is skipped,
+and the final access to `a[lo]` raises Java's array-bounds exception. Java
+`int` values are signed 32-bit integers; this static page does not claim
+Python or JavaScript equivalence, overflow emulation, or exception-class
+equivalence.
+
+</Solution>
+
+</Exercise>
+
+## Scope and terms
+
+The selected Java source is adapted from Samuel Lair's GPL-3.0 source at the
+pinned repository revision recorded in the provenance manifest. The source
+file has no individual license header, and the underlying exercise copyright
+owner is not established by retained records. The separate `algs4.jar`
+notice is not used or included. Source dates remain unknown. No Java runtime,
+browser compiler, textbook bulk, PDF, slides, or companion assets are part
+of this static slice.
