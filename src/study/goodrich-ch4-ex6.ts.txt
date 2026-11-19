@@ -1,0 +1,10 @@
+// Adapted from Samuel Lair's recursive harmonic-number solution.
+// SPDX-License-Identifier: GPL-3.0-only
+(n: unknown): number => {
+  if (typeof n !== "number" || !Number.isInteger(n) || n < 1 || n > 8) {
+    throw new Error("Expected an integer from 1 through 8.");
+  }
+
+  const sum = (k: number): number => k === 1 ? 1 : 1 / k + sum(k - 1);
+  return sum(n);
+}

@@ -1,0 +1,38 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/study.css';
+import source from '../../study/goodrich-ch4-ex6.ts.txt?raw';
+import {
+  GoodrichCh4Ex6TypeScript,
+  TYPESCRIPT_RUNNER,
+} from '../../study/GoodrichCh4Ex6TypeScript';
+
+const title = 'Recursive harmonic numbers in TypeScript — Sam Lair';
+const description = 'Try the recursive harmonic-number exercise with an optional TypeScript editor.';
+const contentSecurityPolicy = [
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "worker-src blob:",
+  "connect-src 'self' " + TYPESCRIPT_RUNNER,
+  "frame-src " + TYPESCRIPT_RUNNER,
+].join('; ');
+---
+
+<Site title={title} description={description} contentSecurityPolicy={contentSecurityPolicy}>
+  <article class="article study-article glass">
+    <a class="back-link" href="/study/goodrich-ch4-ex6-harmonic/">← Recursive harmonic numbers in Python</a>
+    <h1>Recursive harmonic numbers in TypeScript</h1>
+    <p class="article-lead">Compare the same recursive calculation in TypeScript. The editor checks syntax and runs the program.</p>
+    <details>
+      <summary>Read the starter code</summary>
+      <pre><code>{source}</code></pre>
+    </details>
+    <GoodrichCh4Ex6TypeScript client:visible source={source} />
+    <section class="study-provenance" aria-labelledby="typescript-provenance">
+      <h2 id="typescript-provenance">Source and licensing</h2>
+      <p>Adapted from Samuel Lair’s <a href="https://github.com/lair001/goodrich-dsa-python/blob/6933caaf854cfe49e1c67cb383b4e279bd34ba77/solutions/exercises/ch4/ex6/harmonic">Python solution to Goodrich Chapter 4 Exercise 6</a> under <a href="/study/licenses/lehman-GPL-3.0.txt">GPL-3.0</a>.</p>
+      <p><a href="/study/licenses/codemirror-NOTICES.txt">CodeMirror notices</a> · <a href={TYPESCRIPT_RUNNER + '/assets/typescript-5.9.3-LICENSE.txt'}>TypeScript license</a> · <a href={TYPESCRIPT_RUNNER + '/assets/typescript-5.9.3-ThirdPartyNoticeText.txt'}>TypeScript notices</a></p>
+    </section>
+  </article>
+</Site>

@@ -4,7 +4,7 @@ import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, re
 import { join, relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { normalizeGoodrichIslandUid } from "./study-goodrich-island-uid.mjs";
+import { normalizeGoodrichIslandUid, normalizeGoodrichTypescriptSuccessorUid } from "./study-goodrich-island-uid.mjs";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const outputRoot = join(root, "dist");
@@ -16,6 +16,7 @@ const receiptPath = join(root, "build/study-build-receipt.json");
 const packageJsonPath = join(root, "package.json");
 const packageLockPath = join(root, "package-lock.json");
 const fixturePath = join(root, "test/fixtures/study-baseline.v1.json");
+const successorFixturePath = "test/fixtures/study-typescript-successor.v1.json";
 const sourceBuilderPath = join(root, "tools/build-study-source.mjs");
 const slicesBuilderPath = join(root, "tools/build-study-slices13.mjs");
 const goodrichUidTestPath = join(root, "tools/test-study-goodrich-uid.mjs");
@@ -129,6 +130,16 @@ const binding = readJson(bindingPath);
 const packageJson = readJson(packageJsonPath);
 const packageLock = readJson(packageLockPath);
 const fixture = readJson(fixturePath);
+const successorBytes = existsSync(join(root, successorFixturePath)) ? publicSourceBytes(successorFixturePath) : null;
+if (successorBytes) {
+  check(sha256(successorBytes) === "74905b05beaa558e94171f32386f7d305f7482937efe017a9fb8ceecf9e82ea7", "TYPESCRIPT_SUCCESSOR_FIXTURE_HASH");
+}
+const successor = successorBytes ? JSON.parse(successorBytes) : null;
+if (successor) {
+  check(successor.schema === "personal-study-typescript-successor.v1"
+    && process.version === successor.toolchain.node
+    && binding.dependencies.astro === successor.toolchain.astro, "TYPESCRIPT_SUCCESSOR_TOOLCHAIN");
+}
 const sourceBuild = readFileSync(join(root, "tools/build-study-source.mjs"), "utf8");
 
 check(packageJson.scripts.predev === "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs"
@@ -138,7 +149,7 @@ for (const forbidden of ["/Users/", "/home/", "pinnedNode", "astroClosure", "kno
 check(fixture.schema === "personal-study-public-fixture.v1", "PUBLIC_FIXTURE_SCHEMA");
 for (const forbiddenPath of ["tools/private", "research", "study-pilot-binding.json"]) check(!existsSync(join(root, forbiddenPath)), `PUBLIC_PRIVATE_PATH_${forbiddenPath}`);
 check(existsSync(sourceBuilderPath) && existsSync(slicesBuilderPath) && existsSync(join(root, "tools/test-study-source.mjs")), "PUBLIC_TEST_FILES_MISSING");
-const publicProjectionPaths = fixture.publicProjectionPaths;
+const publicProjectionPaths = [...fixture.publicProjectionPaths, ...(successor?.newProjectionPaths ?? [])];
 check(Array.isArray(publicProjectionPaths)
   && publicProjectionPaths.includes("tools/test-study-source.mjs")
   && publicProjectionPaths.includes("tools/study-goodrich-island-uid.mjs")
@@ -147,7 +158,12 @@ check(Array.isArray(publicProjectionPaths)
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-check(publicProjection.length === 149 && publicProjection.reduce((total, record) => total + record.bytes, 0) === 1127003 && publicProjectionAggregate === "db48002473ac9d27608e28f29543eb1a976bd91641e9b0c1fe7070b0c99ea94e", "PUBLIC_PROJECTION_MANIFEST");
+const expectedProjection = successor
+  ? { count: 153, bytes: 1161902, sha256: "c299c709237818e768991f2077bf7f8b6c9237fbdfc1df58f62fd6fabee8c663" }
+  : { count: 149, bytes: 1127003, sha256: "db48002473ac9d27608e28f29543eb1a976bd91641e9b0c1fe7070b0c99ea94e" };
+check(publicProjection.length === expectedProjection.count
+  && publicProjection.reduce((total, record) => total + record.bytes, 0) === expectedProjection.bytes
+  && publicProjectionAggregate === expectedProjection.sha256, "PUBLIC_PROJECTION_MANIFEST");
 check(binding.schema === "personal-study-source-build.v1", "SOURCE_BINDING_SCHEMA");
 check(binding.status === "passed-source-generation", "SOURCE_BINDING_STATUS");
 check(packageLock.name === fixture.lock.topLevel.name && packageLock.lockfileVersion === fixture.lock.topLevel.lockfileVersion, "LOCK_TOP_LEVEL_FIELDS");
@@ -167,8 +183,35 @@ check(lessonChecks.status === 0 && lessonChecks.stdout.includes('"status":"PASS"
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
-check(outputFiles.length === 163, "OUTPUT_FILE_COUNT");
-check(outputFiles.filter((record) => record.path.endsWith(".html")).length === 49, "OUTPUT_HTML_COUNT");
+check(outputFiles.length === (successor?.output.fileCount ?? 163), "OUTPUT_FILE_COUNT");
+check(outputFiles.filter((record) => record.path.endsWith(".html")).length === (successor?.output.htmlPages ?? 49), "OUTPUT_HTML_COUNT");
+if (successor) {
+  const pins = new Map(Object.entries(successor.output.files));
+  check(pins.size === outputFiles.length, "TYPESCRIPT_SUCCESSOR_OUTPUT_INVENTORY");
+  for (const record of outputFiles) {
+    const pinned = pins.get(record.path);
+    let actual = record;
+    if (record.path === successor.goodrichUidPolicy.route) {
+      const html = readFileSync(join(outputRoot, record.path), "utf8");
+      const canonical = Buffer.from(normalizeGoodrichTypescriptSuccessorUid(html));
+      actual = { bytes: canonical.byteLength, sha256: sha256(canonical) };
+    }
+    check(pinned?.bytes === actual.bytes && pinned.sha256 === actual.sha256, "TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
+  }
+  const pilot = successor.pilot;
+  const adapter = readFileSync(join(root, "src/study/GoodrichCh4Ex6TypeScript.tsx"), "utf8");
+  const html = readFileSync(join(outputRoot, pilot.route), "utf8");
+  const policy = `object-src 'none'; base-uri 'self'; form-action 'self'; worker-src blob:; connect-src 'self' ${pilot.runner}; frame-src ${pilot.runner}`;
+  check(pilot.compilerUrl === `${pilot.runner}/assets/typescript-${pilot.compilerVersion}.js`
+    && adapter.includes(`url: TYPESCRIPT_RUNNER + "/assets/typescript-${pilot.compilerVersion}.js"`)
+    && adapter.includes(`version: "${pilot.compilerVersion}"`)
+    && adapter.includes(`sha256: "${pilot.compilerSha256}"`)
+    && adapter.includes(`TYPESCRIPT_PARENT = "${pilot.parent}"`)
+    && adapter.includes(`TYPESCRIPT_RUNNER = "${pilot.runner}"`)
+    && html.includes(`<head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${policy}">`)
+    && html.includes('component-export="GoodrichCh4Ex6TypeScript"')
+    && !html.includes(pilot.compilerUrl), "TYPESCRIPT_SUCCESSOR_PILOT_BINDING");
+}
 check(fixture.output.fileCount === 77 && fixture.output.htmlPages === 43, "BASELINE_OUTPUT_FACTS");
 check(sha256(Buffer.from(fixture.output.nonGeneratedPaths.join("\n") + "\n")) === fixture.output.nonGeneratedPathsSha256, "BASELINE_OUTPUT_PATHS_HASH");
 for (const path of fixture.output.nonGeneratedPaths) check(outputByPath.has(path), `BASELINE_OUTPUT_MISSING_${path}`);
@@ -185,7 +228,8 @@ for (const record of outputFiles.filter((item) => item.path.endsWith(".html"))) 
   const outputHtml = readFileSync(join(outputRoot, record.path), "utf8");
   if (outputHtml.includes(studyLink)) outputPagesWithStudyLink += 1;
 }
-check(outputPagesWithStudyLink === 43 && fixture.lehmanNestedStatic.studyLinkPages === outputPagesWithStudyLink, "OUTPUT_STUDY_LINK_COUNT");
+check(outputPagesWithStudyLink === (successor?.output.pagesWithStudyLink ?? 43)
+  && fixture.lehmanNestedStatic.studyLinkPages === 43, "OUTPUT_STUDY_LINK_COUNT");
 const studyRoute = readFileSync(join(outputRoot, "study/lehman-ch3-p4/index.html"), "utf8");
 check(studyRoute.includes('aria-current="page"') && studyRoute.includes(studyLink), "STUDY_LINK_ACTIVE");
 check(studyRoute.includes("data-study-kind=\"proof\"") && studyRoute.includes("data-study-kind=\"subproof\""), "STUDY_PROOF_MARKERS");
@@ -289,11 +333,13 @@ check(fixture.goodrichUidPolicy.schema === "personal-study-goodrich-uid-comparis
   && fixture.goodrichUidPolicy.servedRuntimeOutput === false, "GOODRICH_UID_POLICY_FIXTURE");
 check(fixture.studySlices13.htmlNormalizedStudyCssSha256[fixture.goodrichEditor.route] === "dba4e3d635b94876bfc3eeedc582f620492818374f1623e7c1976cf56db8ab9e"
   && fixture.goodrichEditor.htmlNormalizedStudyCssSha256 === "c304c4ce002e85ea6ce2c2932e516607527cd59a8070e93fe43a3c9359912406", "GOODRICH_HISTORICAL_HASH_PINS");
-check(hashFile(goodrichUidHelperPath) === "9a948295f99b3813f82a23150f65792aa2d771dd20416ab266927d1b1dca377d", "GOODRICH_UID_HELPER_BINDING");
+check(hashFile(goodrichUidHelperPath) === (successor
+  ? "d3375f5786aa6e29f3b7a893b352a813532530367ffef2989fbfb4526e162417"
+  : "9a948295f99b3813f82a23150f65792aa2d771dd20416ab266927d1b1dca377d"), "GOODRICH_UID_HELPER_BINDING");
 check(fixture.sedgewickStatic.schema === "personal-study-sedgewick-static.v1"
   && fixture.sedgewickStatic.route === "study/sedgewick-ch1-s4-ex10/index.html"
-  && fixture.lehmanNestedStatic.distFiles === outputFiles.length
-  && fixture.lehmanNestedStatic.htmlPages === outputFiles.filter((record) => record.path.endsWith(".html")).length
+  && fixture.lehmanNestedStatic.distFiles === 163
+  && fixture.lehmanNestedStatic.htmlPages === 49
   && fixture.sedgewickStatic.staticOnly === true
   && fixture.sedgewickStatic.runtimeExecution === false
   && fixture.sedgewickStatic.editorInitialization === false, "SEDGEWICK_STATIC_FIXTURE");
@@ -315,9 +361,10 @@ for (const [outputPath, historicalExpected] of Object.entries(historicalStudyCss
   check(cssLinks.length === 1 && outputByPath.has(cssLinks[0][0].slice(1)), "SLICES13_STUDY_CSS_BINDING");
   const normalized = html.replace(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g, "/_astro/study.CONTENT.css");
   if (outputPath === fixture.goodrichUidPolicy.route) {
-    const uidNormalized = normalizeGoodrichIslandUid(normalized);
-    check(Buffer.byteLength(uidNormalized) === fixture.goodrichUidPolicy.normalizedStudyCssThenUidBytes
-      && sha256(Buffer.from(uidNormalized)) === fixture.goodrichUidPolicy.normalizedStudyCssThenUidSha256, "GOODRICH_UID_NORMALIZED_HASH");
+    const policy = successor?.goodrichUidPolicy ?? fixture.goodrichUidPolicy;
+    const uidNormalized = successor ? normalizeGoodrichTypescriptSuccessorUid(normalized) : normalizeGoodrichIslandUid(normalized);
+    check(Buffer.byteLength(uidNormalized) === policy.normalizedStudyCssThenUidBytes
+      && sha256(Buffer.from(uidNormalized)) === policy.normalizedStudyCssThenUidSha256, "GOODRICH_UID_NORMALIZED_HASH");
   } else {
     check(sha256(Buffer.from(normalized)) === expected, `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
   }
@@ -331,7 +378,8 @@ for (const [outputPath, expected] of Object.entries(currentStudyCss)) {
   check(sha256(Buffer.from(normalized)) === expected, `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
 }
 
-const goodrichUidTest = spawnSync(process.execPath, [goodrichUidTestPath, root], { cwd: root, encoding: "utf8" });
+const goodrichUidTestArgs = [goodrichUidTestPath, root, ...(successor ? ["--typescript-successor"] : [])];
+const goodrichUidTest = spawnSync(process.execPath, goodrichUidTestArgs, { cwd: root, encoding: "utf8" });
 check(goodrichUidTest.status === 0 && goodrichUidTest.stdout.includes('"status":"PASS"'), "GOODRICH_UID_POLICY_TEST");
 
 check(binding.generated.studyModule.sha256 === hashFile(join(root, "src/study/generated-study.js")), "GENERATED_STUDY_HASH");
