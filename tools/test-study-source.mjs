@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync, writeSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -188,6 +188,9 @@ check(outputFiles.filter((record) => record.path.endsWith(".html")).length === (
 if (successor) {
   const pins = new Map(Object.entries(successor.output.files));
   check(pins.size === outputFiles.length, "TYPESCRIPT_SUCCESSOR_OUTPUT_INVENTORY");
+  const pinnedMismatches = [];
+  const knownGeneratedAlternates = [];
+  let unexpectedCount = 0;
   for (const record of outputFiles) {
     const pinned = pins.get(record.path);
     let actual = record;
@@ -196,7 +199,24 @@ if (successor) {
       const canonical = Buffer.from(normalizeGoodrichTypescriptSuccessorUid(html));
       actual = { bytes: canonical.byteLength, sha256: sha256(canonical) };
     }
-    check(pinned?.bytes === actual.bytes && pinned.sha256 === actual.sha256, "TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
+    if (!pinned) {
+      unexpectedCount += 1;
+      if (/^_astro\/middleware\.[A-Za-z0-9_-]{8}\.css$/.test(record.path) && knownGeneratedAlternates.length < 4) {
+        knownGeneratedAlternates.push({ path: record.path, bytes: actual.bytes, sha256: actual.sha256 });
+      }
+    } else if (pinned.bytes !== actual.bytes || pinned.sha256 !== actual.sha256) {
+      pinnedMismatches.push({ path: record.path, expected: pinned, actual: { bytes: actual.bytes, sha256: actual.sha256 } });
+    }
+  }
+  if (pinnedMismatches.length || unexpectedCount) {
+    writeSync(2, JSON.stringify({
+      marker: "TYPESCRIPT_SUCCESSOR_OUTPUT_DRIFT",
+      pinnedMismatchCount: pinnedMismatches.length,
+      pinnedMismatches: pinnedMismatches.slice(0, 16),
+      unexpectedCount,
+      knownGeneratedAlternates,
+    }) + "\n");
+    fail("TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
   }
   const pilot = successor.pilot;
   const adapter = readFileSync(join(root, "src/study/GoodrichCh4Ex6TypeScript.tsx"), "utf8");
