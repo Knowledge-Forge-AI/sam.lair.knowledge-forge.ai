@@ -1,0 +1,53 @@
+{
+  "schema": "personal-study-typescript-ubuntu-delta.v1",
+  "platform": "linux",
+  "arch": "x64",
+  "baseFixtureSha256": "74905b05beaa558e94171f32386f7d305f7482937efe017a9fb8ceecf9e82ea7",
+  "remove": "_astro/middleware.4bgLrSS-.css",
+  "files": {
+    "_astro/middleware.CZXRk3QU.css": {
+      "bytes": 85437,
+      "sha256": "1de3d287dacd445f68602c12fe1078f4f791bcd29b0c042cf36b109aea271383"
+    },
+    "blog/index.html": {
+      "bytes": 32644,
+      "sha256": "7b7b36d70fefb51c668cfea5dadf30763df1bcda10001b234e9609a8f10c8ff3"
+    },
+    "blog/personal-apg-v030-release-reflection/index.html": {
+      "bytes": 56489,
+      "sha256": "89b577bc628f1ef3320d62ba69e31af1e81ad11285040e77d0d242a78950d4c9"
+    },
+    "blog/tags/agentic-engineering/index.html": {
+      "bytes": 33092,
+      "sha256": "0455d0e46b1295cc8360d1941cbcec9895f8eb5d07313b538162cff3641615e2"
+    },
+    "blog/tags/open-source/index.html": {
+      "bytes": 32996,
+      "sha256": "fd54846ad2656bde17c8375c87cc3723153dcb48b70727b7aa82ed61aa8e68fe"
+    },
+    "blog/tags/release/index.html": {
+      "bytes": 32948,
+      "sha256": "8088a4142b2b1faf3c94d30787608731f7694a74e5d149b2d0a3d07403a16aeb"
+    },
+    "blog/tags/software-engineering/index.html": {
+      "bytes": 33104,
+      "sha256": "b3e0f14a81ec52c63fef730e6080775635518dbf0d7978b6b9f73c272034de26"
+    },
+    "pagefind/wasm.en.pagefind": {
+      "bytes": 72209,
+      "sha256": "bb16c9e6d3d214d4d05cccca51df7b487b86b3657318da767f6ca9e0a2e7259d"
+    },
+    "pagefind/wasm.unknown.pagefind": {
+      "bytes": 68024,
+      "sha256": "3a74cefceacd066e8d3bc8c52e7bc1c869544ca3d9031b44a9b7136356d5d7f4"
+    },
+    "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+      "bytes": 13643,
+      "sha256": "65a5d49dfd2b86ec410e5ca394b30dca1d93dbb97dd8ce7a6246f6bb830c59e3"
+    },
+    "study/lehman-ch3-p4/index.html": {
+      "bytes": 37570,
+      "sha256": "bb5c13bcaaf7573268cd48596b1518a68270548eac6de9617d9a90ce9f5e9389"
+    }
+  }
+}

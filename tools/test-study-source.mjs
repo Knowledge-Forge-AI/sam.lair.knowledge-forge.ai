@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync, writeSync } from "node:fs";
+import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -17,6 +17,7 @@ const packageJsonPath = join(root, "package.json");
 const packageLockPath = join(root, "package-lock.json");
 const fixturePath = join(root, "test/fixtures/study-baseline.v1.json");
 const successorFixturePath = "test/fixtures/study-typescript-successor.v1.json";
+const ubuntuFixturePath = "test/fixtures/study-typescript-ubuntu.v1.json";
 const sourceBuilderPath = join(root, "tools/build-study-source.mjs");
 const slicesBuilderPath = join(root, "tools/build-study-slices13.mjs");
 const goodrichUidTestPath = join(root, "tools/test-study-goodrich-uid.mjs");
@@ -135,7 +136,18 @@ if (successorBytes) {
   check(sha256(successorBytes) === "74905b05beaa558e94171f32386f7d305f7482937efe017a9fb8ceecf9e82ea7", "TYPESCRIPT_SUCCESSOR_FIXTURE_HASH");
 }
 const successor = successorBytes ? JSON.parse(successorBytes) : null;
+let ubuntuDelta = null;
+const host = process.platform + "/" + process.arch;
 if (successor) {
+  const ubuntuBytes = publicSourceBytes(ubuntuFixturePath);
+  check(sha256(ubuntuBytes) === "59c52f6f56d157e32ec0ce93cb831fec0cdcb704fa9b44abd9b9f04606f43761", "TYPESCRIPT_UBUNTU_FIXTURE_HASH");
+  const fixture = JSON.parse(ubuntuBytes);
+  check(fixture.schema === "personal-study-typescript-ubuntu-delta.v1"
+    && fixture.platform === "linux" && fixture.arch === "x64"
+    && fixture.baseFixtureSha256 === sha256(successorBytes), "TYPESCRIPT_UBUNTU_FIXTURE_BINDING");
+  const ubuntuHost = fixture.platform + "/" + fixture.arch;
+  check(host === "darwin/arm64" || host === ubuntuHost, "TYPESCRIPT_SUCCESSOR_HOST");
+  if (host === ubuntuHost) ubuntuDelta = fixture;
   check(successor.schema === "personal-study-typescript-successor.v1"
     && process.version === successor.toolchain.node
     && binding.dependencies.astro === successor.toolchain.astro, "TYPESCRIPT_SUCCESSOR_TOOLCHAIN");
@@ -149,7 +161,8 @@ for (const forbidden of ["/Users/", "/home/", "pinnedNode", "astroClosure", "kno
 check(fixture.schema === "personal-study-public-fixture.v1", "PUBLIC_FIXTURE_SCHEMA");
 for (const forbiddenPath of ["tools/private", "research", "study-pilot-binding.json"]) check(!existsSync(join(root, forbiddenPath)), `PUBLIC_PRIVATE_PATH_${forbiddenPath}`);
 check(existsSync(sourceBuilderPath) && existsSync(slicesBuilderPath) && existsSync(join(root, "tools/test-study-source.mjs")), "PUBLIC_TEST_FILES_MISSING");
-const publicProjectionPaths = [...fixture.publicProjectionPaths, ...(successor?.newProjectionPaths ?? [])];
+const publicProjectionPaths = [...fixture.publicProjectionPaths,
+  ...(successor ? [...successor.newProjectionPaths, ubuntuFixturePath] : [])];
 check(Array.isArray(publicProjectionPaths)
   && publicProjectionPaths.includes("tools/test-study-source.mjs")
   && publicProjectionPaths.includes("tools/study-goodrich-island-uid.mjs")
@@ -159,7 +172,7 @@ const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
 const expectedProjection = successor
-  ? { count: 153, bytes: 1161902, sha256: "c299c709237818e768991f2077bf7f8b6c9237fbdfc1df58f62fd6fabee8c663" }
+  ? { count: 154, bytes: 1163874, sha256: "c6602e00e6924b086cd03bd8d6ce49784c13087c5aa6cbef8c14a43c6154bfdd" }
   : { count: 149, bytes: 1127003, sha256: "db48002473ac9d27608e28f29543eb1a976bd91641e9b0c1fe7070b0c99ea94e" };
 check(publicProjection.length === expectedProjection.count
   && publicProjection.reduce((total, record) => total + record.bytes, 0) === expectedProjection.bytes
@@ -187,10 +200,11 @@ check(outputFiles.length === (successor?.output.fileCount ?? 163), "OUTPUT_FILE_
 check(outputFiles.filter((record) => record.path.endsWith(".html")).length === (successor?.output.htmlPages ?? 49), "OUTPUT_HTML_COUNT");
 if (successor) {
   const pins = new Map(Object.entries(successor.output.files));
+  if (ubuntuDelta) {
+    check(pins.delete(ubuntuDelta.remove), "TYPESCRIPT_UBUNTU_REPLACED_OUTPUT");
+    for (const [path, pin] of Object.entries(ubuntuDelta.files)) pins.set(path, pin);
+  }
   check(pins.size === outputFiles.length, "TYPESCRIPT_SUCCESSOR_OUTPUT_INVENTORY");
-  const pinnedMismatches = [];
-  const knownGeneratedAlternates = [];
-  let unexpectedCount = 0;
   for (const record of outputFiles) {
     const pinned = pins.get(record.path);
     let actual = record;
@@ -199,24 +213,7 @@ if (successor) {
       const canonical = Buffer.from(normalizeGoodrichTypescriptSuccessorUid(html));
       actual = { bytes: canonical.byteLength, sha256: sha256(canonical) };
     }
-    if (!pinned) {
-      unexpectedCount += 1;
-      if (/^_astro\/middleware\.[A-Za-z0-9_-]{8}\.css$/.test(record.path) && knownGeneratedAlternates.length < 4) {
-        knownGeneratedAlternates.push({ path: record.path, bytes: actual.bytes, sha256: actual.sha256 });
-      }
-    } else if (pinned.bytes !== actual.bytes || pinned.sha256 !== actual.sha256) {
-      pinnedMismatches.push({ path: record.path, expected: pinned, actual: { bytes: actual.bytes, sha256: actual.sha256 } });
-    }
-  }
-  if (pinnedMismatches.length || unexpectedCount) {
-    writeSync(2, JSON.stringify({
-      marker: "TYPESCRIPT_SUCCESSOR_OUTPUT_DRIFT",
-      pinnedMismatchCount: pinnedMismatches.length,
-      pinnedMismatches: pinnedMismatches.slice(0, 16),
-      unexpectedCount,
-      knownGeneratedAlternates,
-    }) + "\n");
-    fail("TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
+    check(pinned?.bytes === actual.bytes && pinned.sha256 === actual.sha256, "TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
   }
   const pilot = successor.pilot;
   const adapter = readFileSync(join(root, "src/study/GoodrichCh4Ex6TypeScript.tsx"), "utf8");
@@ -470,6 +467,7 @@ const receipt = {
   status: "passed-normal-source-build",
   toolchain: { node: process.version, astro: finalBinding.dependencies.astro },
   sourceBinding: finalBinding,
+  ...(successor ? { typescriptSuccessor: { host, ubuntuOutputPins: Boolean(ubuntuDelta) } } : {}),
   output: { files: outputFiles.length, htmlPages: outputFiles.filter((record) => record.path.endsWith(".html")).length, manifestSha256: outputManifestSha256 },
   baseline: { files: fixture.output.fileCount, htmlPages: fixture.output.htmlPages, manifestSha256: fixture.output.manifestSha256 },
   intentionalShellDelta: { studyLink: "/study/", baselinePagesWithStudyLink: fixture.shell.studyLinkBaselinePages, outputPagesWithStudyLink, allOutputPagesWithStudyLink, note: "The existing Study navigation link now points to the new static index; authored headings and ordinary articles were preserved." },
