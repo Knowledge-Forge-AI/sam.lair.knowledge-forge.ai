@@ -1,4 +1,5 @@
 const TARGET_COMPONENT_URL = "/_astro/GoodrichCh4Ex6Interactive.DJUwVDno.js";
+const TYPESCRIPT_SUCCESSOR_COMPONENT_URL = "/_astro/GoodrichCh4Ex6Interactive.C0EQ8S1T.js";
 const TARGET_COMPONENT_EXPORT = "GoodrichCh4Ex6Interactive";
 const NORMALIZED_UID = "GoodrichUid";
 const MAX_HTML_CODE_UNITS = 2_000_000;
@@ -121,7 +122,7 @@ function targetAttribute(attributes, name) {
  * transform, not a served HTML transform: the fixed UID is intentionally a
  * stable sentinel, while input UIDs must be bounded Astro-style alphanumerics.
  */
-export function normalizeGoodrichIslandUid(html) {
+function normalizeKnownGoodrichIslandUid(html, targetUrl) {
   validateInput(html);
   const tags = scanAstroIslandTags(html);
   const targets = [];
@@ -129,7 +130,7 @@ export function normalizeGoodrichIslandUid(html) {
     const attributes = parseTag(tag.raw);
     const componentUrl = targetAttribute(attributes, "component-url");
     const componentExport = targetAttribute(attributes, "component-export");
-    if (componentUrl?.value !== TARGET_COMPONENT_URL || componentExport?.value !== TARGET_COMPONENT_EXPORT) continue;
+    if (componentUrl?.value !== targetUrl || componentExport?.value !== TARGET_COMPONENT_EXPORT) continue;
     targets.push({ tag, attributes });
   }
   if (targets.length !== 1) fail("GOODRICH_TARGET_COUNT");
@@ -144,4 +145,12 @@ export function normalizeGoodrichIslandUid(html) {
   const replacementStart = tag.start + uid.valueStart;
   const replacementEnd = tag.start + uid.valueEnd;
   return html.slice(0, replacementStart) + NORMALIZED_UID + html.slice(replacementEnd);
+}
+
+export function normalizeGoodrichIslandUid(html) {
+  return normalizeKnownGoodrichIslandUid(html, TARGET_COMPONENT_URL);
+}
+
+export function normalizeGoodrichTypescriptSuccessorUid(html) {
+  return normalizeKnownGoodrichIslandUid(html, TYPESCRIPT_SUCCESSOR_COMPONENT_URL);
 }

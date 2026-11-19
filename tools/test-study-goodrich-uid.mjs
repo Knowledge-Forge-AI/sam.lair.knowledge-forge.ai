@@ -3,14 +3,25 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, resolve } from "node:path";
-import { normalizeGoodrichIslandUid } from "./study-goodrich-island-uid.mjs";
+import { normalizeGoodrichIslandUid, normalizeGoodrichTypescriptSuccessorUid } from "./study-goodrich-island-uid.mjs";
 
 const root = resolve(process.argv[2] ?? fileURLToPath(new URL("..", import.meta.url)));
 const relativeInput = "dist/study/goodrich-ch4-ex6-harmonic/index.html";
 const input = readFileSync(join(root, relativeInput), "utf8");
-const canonicalSha256 = "7a03303074df77fe49e7600a0fb87fcdeac8dfb610df1bf31b282e9bc1ef0b91";
-const targetUrl = "/_astro/GoodrichCh4Ex6Interactive.DJUwVDno.js";
-const targetExport = "GoodrichCh4Ex6Interactive";
+assert(process.argv.length <= 4 && [undefined, "--typescript-successor"].includes(process.argv[3]));
+const successor = process.argv[3] === "--typescript-successor";
+const policy = successor
+  ? JSON.parse(readFileSync(join(root, "test/fixtures/study-typescript-successor.v1.json"), "utf8")).goodrichUidPolicy
+  : {
+    targetComponentUrl: "/_astro/GoodrichCh4Ex6Interactive.DJUwVDno.js",
+    targetRendererUrl: "/_astro/client.Ccwj8Duh.js",
+    targetComponentExport: "GoodrichCh4Ex6Interactive",
+    normalizedStudyCssThenUidBytes: 24748,
+    normalizedStudyCssThenUidSha256: "7a03303074df77fe49e7600a0fb87fcdeac8dfb610df1bf31b282e9bc1ef0b91",
+  };
+const { targetComponentUrl: targetUrl, targetComponentExport: targetExport,
+  normalizedStudyCssThenUidSha256: canonicalSha256 } = policy;
+const normalizeIslandUid = successor ? normalizeGoodrichTypescriptSuccessorUid : normalizeGoodrichIslandUid;
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
 
@@ -67,42 +78,46 @@ function assertRejectsCode(fn, code) {
 const cssNormalized = normalizeStudyCssFilenames(input);
 assert.equal(targetTag(cssNormalized).includes(`component-url="${targetUrl}"`), true);
 assert.equal(targetTag(cssNormalized).includes(`component-export="${targetExport}"`), true);
-const canonical = normalizeGoodrichIslandUid(cssNormalized);
-assert.equal(Buffer.byteLength(canonical), 24748);
+const canonical = normalizeIslandUid(cssNormalized);
+assert.equal(Buffer.byteLength(canonical), policy.normalizedStudyCssThenUidBytes);
 assert.equal(sha256(canonical), canonicalSha256);
+assertRejectsCode(
+  () => (successor ? normalizeGoodrichIslandUid : normalizeGoodrichTypescriptSuccessorUid)(cssNormalized),
+  "GOODRICH_TARGET_COUNT",
+);
 
 for (const syntheticUid of ["a", "ZQdqUu"]) {
-  assert.equal(sha256(normalizeGoodrichIslandUid(replaceTargetUid(cssNormalized, syntheticUid))), canonicalSha256);
+  assert.equal(sha256(normalizeIslandUid(replaceTargetUid(cssNormalized, syntheticUid))), canonicalSha256);
 }
 
 for (const [label, changed] of [
   ["props", replaceFirstInTarget(cssNormalized, "maximum=MAX_N", "maximum=MAX_CHANGED")],
-  ["renderer", replaceFirstInTarget(cssNormalized, 'renderer-url="/_astro/client.Ccwj8Duh.js"', 'renderer-url="/_astro/client.changed.js"')],
+  ["renderer", replaceFirstInTarget(cssNormalized, `renderer-url="${policy.targetRendererUrl}"`, 'renderer-url="/_astro/client.changed.js"')],
   ["ssr", replaceFirstInTarget(cssNormalized, " ssr client=", ' ssr="changed" client=')],
   ["body", replaceFirstInTargetBody(cssNormalized, "Optional Goodrich Python editor", "Changed Goodrich Python editor")],
 ]) {
-  assert.notEqual(sha256(normalizeGoodrichIslandUid(changed)), canonicalSha256, `${label} change was hidden`);
+  assert.notEqual(sha256(normalizeIslandUid(changed)), canonicalSha256, `${label} change was hidden`);
 }
 
 assertRejectsCode(
-  () => normalizeGoodrichIslandUid(replaceOne(cssNormalized, targetUrl, "/_astro/OtherInteractive.js")),
+  () => normalizeIslandUid(replaceOne(cssNormalized, targetUrl, "/_astro/OtherInteractive.js")),
   "GOODRICH_TARGET_COUNT",
 );
 assertRejectsCode(
-  () => normalizeGoodrichIslandUid(replaceOne(cssNormalized, `component-export="${targetExport}"`, 'component-export="OtherExport"')),
+  () => normalizeIslandUid(replaceOne(cssNormalized, `component-export="${targetExport}"`, 'component-export="OtherExport"')),
   "GOODRICH_TARGET_COUNT",
 );
 const currentUid = uidFromTarget(cssNormalized);
 assertRejectsCode(
-  () => normalizeGoodrichIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, `uid="${currentUid}" uid="${currentUid}"`)),
+  () => normalizeIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, `uid="${currentUid}" uid="${currentUid}"`)),
   "ASTRO_ISLAND_ATTR_DUPLICATE",
 );
 assertRejectsCode(
-  () => normalizeGoodrichIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, "")),
+  () => normalizeIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, "")),
   "GOODRICH_UID_COUNT",
 );
 assertRejectsCode(
-  () => normalizeGoodrichIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, `uid="${currentUid}-x"`)),
+  () => normalizeIslandUid(replaceOne(cssNormalized, `uid="${currentUid}"`, `uid="${currentUid}-x"`)),
   "GOODRICH_UID_INVALID",
 );
 
