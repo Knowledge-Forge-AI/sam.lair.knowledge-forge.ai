@@ -1,0 +1,136 @@
+{
+  "schema": "personal-study-keyboard-semantics-delta.v1",
+  "baseFixtureSha256": "1ce4514d5fc1565be9c47eb6adfd4e90a4998e2af22ba45b9739ea8edb1aaded",
+  "remove": "_astro/study.Dq4somge.css",
+  "add": "_astro/study.DmfnnQmc.css",
+  "style": {
+    "bytes": 9089,
+    "sha256": "ccc8ac6fd1a9a222b31bbb94a0ceb5c3b6daff4479525a36a071a76a1112ea72"
+  },
+  "byHost": {
+    "darwin/arm64": {
+      "files": {
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13644,
+          "sha256": "f2fd7c3ea73164036f98248c64dbd503e2c37b9889506ffbe26951190b791fcb"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24777,
+          "sha256": "33e398a95a1d8f512f47045406934580ad9b64c2af7d83d3a5b94f884f5d4b80"
+        },
+        "study/index.html": {
+          "bytes": 5137,
+          "sha256": "9e2088fdefd926947027065a61adbe1ff8e0a2fdf08429e5c2a4834a27cb7e82"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37598,
+          "sha256": "5b4961e1189856aff22594a637f86fbcc19e779ae97d0d9c8ad8959ea1598f50"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48705,
+          "sha256": "20d62f6090c983b1c9ce14ae7bdbf3c42349ab2d16334850ed326ddbc2607686"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 28938,
+          "sha256": "78b013d9831cc1aa5fd5572b901ddf5b2baa9dc2850915a492636c6f224ee055"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12247,
+          "sha256": "e6e2df3c23013e2a82724712145d1fb85527603c5c266e1ca0cb32c4e6becc83"
+        }
+      },
+      "normalized": {
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13643,
+          "sha256": "3a4063dddedc35637939f891dca0ead01f897e2450ec94f597b1b16535fe5152"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24776,
+          "sha256": "ece3d9eda3a99bd664e926993325fbb2ac1e60f1b58a7af60d48d14472d77b72"
+        },
+        "study/index.html": {
+          "bytes": 5136,
+          "sha256": "c6b21a0d5fc15ab60a3cb61b865ad102613cfcf92a0686b1a2fca42b0d201807"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37597,
+          "sha256": "708874de8a1cb8e4ed913279fdd0ef50a3c3a97f60bb80c57bbdfca8944fc0a7"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48704,
+          "sha256": "107ccca135472ba29d78043fc67ddb61d65b50bb86f0f33e4c0b4d5e0cdafdaf"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 28937,
+          "sha256": "a8a6b83f72a6cae71d1f1fc7c7c2dcc90c9e862634ddbc7930429303c58d672f"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12246,
+          "sha256": "d11c1e6716da6f08c8f8c4a714b70d2e40c9dc6f3ce453d0ae2aee6731ffdce9"
+        }
+      }
+    },
+    "linux/x64": {
+      "files": {
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13643,
+          "sha256": "8421f3d1ef21c2928286a856034b692995389650f624d772504107bfeecdb5a3"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24777,
+          "sha256": "33e398a95a1d8f512f47045406934580ad9b64c2af7d83d3a5b94f884f5d4b80"
+        },
+        "study/index.html": {
+          "bytes": 5137,
+          "sha256": "9e2088fdefd926947027065a61adbe1ff8e0a2fdf08429e5c2a4834a27cb7e82"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37598,
+          "sha256": "d9407d52b80b50ec2acd819e4f045c9a86d96d0f3a03e6218601cf8cc1b238b2"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48705,
+          "sha256": "20d62f6090c983b1c9ce14ae7bdbf3c42349ab2d16334850ed326ddbc2607686"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 28938,
+          "sha256": "78b013d9831cc1aa5fd5572b901ddf5b2baa9dc2850915a492636c6f224ee055"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12247,
+          "sha256": "e6e2df3c23013e2a82724712145d1fb85527603c5c266e1ca0cb32c4e6becc83"
+        }
+      },
+      "normalized": {
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13642,
+          "sha256": "2a74a3d70351d7c2dbab430cd145aa6ea1362f8e9147a29fcc218ae4cb41023b"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24776,
+          "sha256": "ece3d9eda3a99bd664e926993325fbb2ac1e60f1b58a7af60d48d14472d77b72"
+        },
+        "study/index.html": {
+          "bytes": 5136,
+          "sha256": "c6b21a0d5fc15ab60a3cb61b865ad102613cfcf92a0686b1a2fca42b0d201807"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37597,
+          "sha256": "f3621bb88da5a6d6c606e2eb0b610232cfe67b82b81fa6066f70dae9f29aac38"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48704,
+          "sha256": "107ccca135472ba29d78043fc67ddb61d65b50bb86f0f33e4c0b4d5e0cdafdaf"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 28937,
+          "sha256": "a8a6b83f72a6cae71d1f1fc7c7c2dcc90c9e862634ddbc7930429303c58d672f"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12246,
+          "sha256": "d11c1e6716da6f08c8f8c4a714b70d2e40c9dc6f3ce453d0ae2aee6731ffdce9"
+        }
+      }
+    }
+  }
+}

@@ -88,7 +88,8 @@ function validateTruthTable(props) {
 }
 function TruthTableView(props) {
     validateTruthTable(props);
-    return (_jsx("div", { role: "region", tabIndex: 0, "aria-label": "Truth table; horizontal scrolling region", "data-study-overflow": "horizontal", style: { maxWidth: "100%", overflowX: "auto" }, children: _jsxs("table", { children: [_jsx("caption", { children: props.caption }), _jsx("thead", { children: _jsxs("tr", { children: [props.rowHeaders === undefined ? null : (_jsx("th", { scope: "col", children: props.rowHeaderLabel ?? "Row" })), props.headers.map((header, index) => _jsx("th", { scope: "col", children: header }, index))] }) }), _jsx("tbody", { children: props.rows.map((row, rowIndex) => (_jsxs("tr", { children: [props.rowHeaders === undefined ? null : (_jsx("th", { scope: "row", children: props.rowHeaders[rowIndex] })), row.map((cell, columnIndex) => _jsx("td", { children: cell }, columnIndex))] }, rowIndex))) })] }) }));
+    const regionLabel = typeof props.caption === "string" ? props.caption.trim() : "";
+    return (_jsx("div", { role: "region", tabIndex: 0, "aria-label": regionLabel || "Truth table; horizontal scrolling region", "data-study-overflow": "horizontal", style: { maxWidth: "100%", overflowX: "auto" }, children: _jsxs("table", { children: [_jsx("caption", { children: props.caption }), _jsx("thead", { children: _jsxs("tr", { children: [props.rowHeaders === undefined ? null : (_jsx("th", { scope: "col", children: props.rowHeaderLabel ?? "Row" })), props.headers.map((header, index) => _jsx("th", { scope: "col", children: header }, index))] }) }), _jsx("tbody", { children: props.rows.map((row, rowIndex) => (_jsxs("tr", { children: [props.rowHeaders === undefined ? null : (_jsx("th", { scope: "row", children: props.rowHeaders[rowIndex] })), row.map((cell, columnIndex) => _jsx("td", { children: cell }, columnIndex))] }, rowIndex))) })] }) }));
 }
 function CodeIncludeView(factory, props) {
     const binding = factory.codeIncludes.get(props.includeId) ?? fail("CODE_INCLUDE_NOT_FOUND");
@@ -129,7 +130,7 @@ export function createStudySemanticComponents(options) {
         Subproof: (props) => ProofView(factory, props, "Subproof"),
         Equation: (props) => {
             const equation = findEquation(factory.registry, factory.document.id, props.id);
-            return (_jsxs("figure", { id: equation.anchor, "data-study-kind": "equation", "data-study-identity": equation.identity, ...authorData(equation.authorTag), children: [_jsx("figcaption", { children: equation.authorTag === undefined ? `Equation ${equation.label}` : `${equation.authorTag}: Equation ${equation.label}` }), props.children] }));
+            return (_jsxs("figure", { id: equation.anchor, tabIndex: props.keyboardScroll === true ? 0 : -1, "data-study-kind": "equation", "data-study-identity": equation.identity, ...authorData(equation.authorTag), children: [_jsx("figcaption", { children: equation.authorTag === undefined ? `Equation ${equation.label}` : `${equation.authorTag}: Equation ${equation.label}` }), props.children] }));
         },
         EquationRef: (props) => {
             const targetDocumentId = props.documentId ?? factory.document.id;

@@ -24,9 +24,8 @@ Python file to this include; its bounded entry point is
 
 <CodeInclude includeId="lehman-truth-assignments" label="Maintained Python source" />
 
-<aside role="note" aria-label="Runnable code is not enabled" data-study-runnable="unqualified">
-Interactive execution is not enabled in this static lesson.
-</aside>
+In the optional Python editor below, enter `0` and press **Run**.
+The result is `[[]]`, one empty assignment.
 
 The preserved source function starts with one empty row, then copies the
 current partial row before appending `True` to one branch and `False` to the
@@ -36,7 +35,7 @@ input first; it rejects booleans, nonintegers, negatives, and values above the
 documented limit of 8 before the original function allocates its result or
 recurses.
 
-<Equation id="lehman-ch3-p4-row-count" tag="row count">
+<Equation id="lehman-ch3-p4-row-count" tag="row count" keyboardScroll>
 
 $$
 R_0 = 1, \qquad R_n = 2R_{n-1}, \qquad R_n = 2^n.
@@ -44,7 +43,7 @@ $$
 
 </Equation>
 
-<Equation id="lehman-ch3-p4-row-width" tag="row width">
+<Equation id="lehman-ch3-p4-row-width" tag="row width" keyboardScroll>
 
 $$
 W_0 = 0, \qquad W_n = W_{n-1} + 1, \qquad W_n = n.
@@ -88,13 +87,9 @@ each row:
 
 </Proof>
 
-The source-level observation is that `n = 0` yields one empty row and
-`n = 1..4` yields exactly `2^n` distinct rows of width `n`, in the order
-defined by the preserved recursive mutation. The pinned TeX solution records
-the corresponding `n = 4` sample output. An earlier private study performed a
-bounded standard-library readback of those rows and guard behavior; that
-readback is not part of this repository's build or source-verifier checks, so
-native behavior remains unverified here.
+For `n = 4`, the algorithm produces sixteen rows in the order shown in
+the pinned TeX solution. The optional editor uses the same maintained
+Python source as the listing above.
 
 </Exercise>
 

@@ -226,7 +226,8 @@ export function createStudyTypeScriptCompilerWorkerSource(asset) {
         || typeof scope.URL.revokeObjectURL !== "function") {
         throw new Error("compiler worker capabilities unavailable");
       }
-      const response = await scope.fetch(assetUrl, { credentials: "omit", cache: "no-store" });
+      // A fresh worker authenticates the response bytes even when the HTTP cache supplies them.
+      const response = await scope.fetch(assetUrl, { credentials: "omit", cache: "default" });
       if (!response || !response.ok) throw new Error("compiler asset unavailable");
       const bytes = new Uint8Array(await response.arrayBuffer());
       const actualSha256 = hexDigest(await scope.crypto.subtle.digest("SHA-256", bytes));

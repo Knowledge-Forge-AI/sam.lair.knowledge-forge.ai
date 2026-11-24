@@ -95,10 +95,8 @@ $$
 
 <Proof id="rosen-1-3-ex6-proof" title="Equivalence by exhaustive valuation">
 
-For all four valuations of `p` and `q`, the column for
-<EquationRef id="rosen-1-3-ex6-left">the left proposition</EquationRef> agrees
-with the column for
-<EquationRef id="rosen-1-3-ex6-right">the right proposition</EquationRef>.
+For all four valuations of `p` and `q`, the columns for the negated
+conjunction and the disjunction of negations agree.
 The exhaustive two-valued truth table therefore proves the displayed
 propositional equivalence for Exercise 6. That conclusion is specific to the
 finite valuations shown here; the page does not generalize it to unrelated
@@ -110,12 +108,50 @@ mathematics.
 
 </Exercise>
 
+## Worked example: when an implication is false
+
+<Proof id="rosen-1-3-negated-implication-proof" title="Derive the negation of an implication">
+
+Replace $q$ with $\neg q$ in the equivalence between
+<EquationRef id="rosen-1-3-ex6-left">Exercise 6’s negated conjunction</EquationRef>
+and <EquationRef id="rosen-1-3-ex6-right">its disjunction of negations</EquationRef>.
+Double negation removes the two negations on $q$. The resulting disjunction
+is the truth-functional definition of $p \to q$.
+
+<Equation id="rosen-1-3-implication-derivation" tag="Implication">
+
+$$
+\begin{aligned}
+\neg(p \land \neg q)
+  &\equiv \neg p \lor \neg\neg q \\
+  &\equiv \neg p \lor q \\
+  &\equiv p \to q
+\end{aligned}
+$$
+
+</Equation>
+
+Negate both ends of the displayed equivalence and simplify the resulting
+double negation.
+
+$$
+\neg(p \to q) \equiv p \land \neg q
+$$
+
+An implication is false exactly when its premise is true and its
+conclusion is false. For example, $p = \mathrm{false}$ cannot falsify it
+regardless of the value assigned to $q$.
+
+</Proof>
+
 ## Scope and terms
 
 This page preserves the selected exercise identities, equations, and
 valuation rows. No PDF, textbook bulk text, slides, or companion materials
 are copied. See the provenance manifest for source identity, license split,
 exercise scope, and conversion treatment.
+
+The worked example is an original supplement to the adapted solution.
 
 The two exhaustive tables prove the displayed finite propositional
 equivalences. The page makes no claim that a format conversion proves other

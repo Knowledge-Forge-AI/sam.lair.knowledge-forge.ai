@@ -8,8 +8,9 @@ import { normalizeGoodrichIslandUid, normalizeGoodrichTypescriptSuccessorUid } f
 const root = resolve(process.argv[2] ?? fileURLToPath(new URL("..", import.meta.url)));
 const relativeInput = "dist/study/goodrich-ch4-ex6-harmonic/index.html";
 const input = readFileSync(join(root, relativeInput), "utf8");
-assert(process.argv.length <= 4 && [undefined, "--typescript-successor"].includes(process.argv[3]));
+assert(process.argv.length <= 5 && [undefined, "--typescript-successor"].includes(process.argv[3]));
 const successor = process.argv[3] === "--typescript-successor";
+assert(process.argv[4] === undefined || (successor && process.argv[4] === "--keyboard-semantics"));
 const policy = successor
   ? JSON.parse(readFileSync(join(root, "test/fixtures/study-typescript-successor.v1.json"), "utf8")).goodrichUidPolicy
   : {
@@ -19,11 +20,17 @@ const policy = successor
     normalizedStudyCssThenUidBytes: 24748,
     normalizedStudyCssThenUidSha256: "7a03303074df77fe49e7600a0fb87fcdeac8dfb610df1bf31b282e9bc1ef0b91",
   };
-const { targetComponentUrl: targetUrl, targetComponentExport: targetExport,
-  normalizedStudyCssThenUidSha256: canonicalSha256 } = policy;
+const { targetComponentUrl: targetUrl, targetComponentExport: targetExport } = policy;
 const normalizeIslandUid = successor ? normalizeGoodrichTypescriptSuccessorUid : normalizeGoodrichIslandUid;
 
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
+let expected = { bytes: policy.normalizedStudyCssThenUidBytes, sha256: policy.normalizedStudyCssThenUidSha256 };
+if (process.argv[4] === "--keyboard-semantics") {
+  const fixture = readFileSync(join(root, "test/fixtures/study-keyboard-semantics.v1.json"));
+  assert.equal(sha256(fixture), "7c57ef87e1d1420a26c2ce2399ebf40e9d238cb327a6bf908a0ddafc86d72394");
+  expected = JSON.parse(fixture).byHost[process.platform + "/" + process.arch].normalized[relativeInput.slice(5)];
+}
+const canonicalSha256 = expected.sha256;
 
 function normalizeStudyCssFilenames(html) {
   const matches = [...html.matchAll(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g)];
@@ -79,7 +86,7 @@ const cssNormalized = normalizeStudyCssFilenames(input);
 assert.equal(targetTag(cssNormalized).includes(`component-url="${targetUrl}"`), true);
 assert.equal(targetTag(cssNormalized).includes(`component-export="${targetExport}"`), true);
 const canonical = normalizeIslandUid(cssNormalized);
-assert.equal(Buffer.byteLength(canonical), policy.normalizedStudyCssThenUidBytes);
+assert.equal(Buffer.byteLength(canonical), expected.bytes);
 assert.equal(sha256(canonical), canonicalSha256);
 assertRejectsCode(
   () => (successor ? normalizeGoodrichIslandUid : normalizeGoodrichTypescriptSuccessorUid)(cssNormalized),

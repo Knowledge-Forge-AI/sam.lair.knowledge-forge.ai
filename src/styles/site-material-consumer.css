@@ -166,6 +166,8 @@ main, .site-footer { position: relative; z-index: 1; }
 }
 @media (max-width: 600px) {
   html { scroll-padding-top: 170px; }
+  .transparency-control { flex-wrap: wrap; max-inline-size: calc(100% - 4px); }
+  .transparency-control select { max-inline-size: 100%; }
 }
 @media (max-width: 380px) {
   html { scroll-padding-top: 220px; }
