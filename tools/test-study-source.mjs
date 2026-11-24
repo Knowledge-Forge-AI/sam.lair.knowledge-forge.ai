@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readlinkSync, readdirSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { normalizeGoodrichIslandUid, normalizeGoodrichTypescriptSuccessorUid } from "./study-goodrich-island-uid.mjs";
@@ -18,6 +18,37 @@ const packageLockPath = join(root, "package-lock.json");
 const fixturePath = join(root, "test/fixtures/study-baseline.v1.json");
 const successorFixturePath = "test/fixtures/study-typescript-successor.v1.json";
 const ubuntuFixturePath = "test/fixtures/study-typescript-ubuntu.v1.json";
+const rosenFixturePath = "test/fixtures/study-rosen-derivation.v1.json";
+const typescriptCacheFixturePath = "test/fixtures/study-typescript-cache.v1.json";
+const keyboardFixturePath = "test/fixtures/study-keyboard-semantics.v1.json";
+const editorFixturePath = "test/fixtures/study-editor-lifecycle.v1.json";
+const editorFixtureSha256 = "8a07f5b6736d904aaf1397b07e3eb3bbc4680e7168f6afb3b936efbe570b6346";
+const joinedFixturePath = "test/fixtures/study-editor-rosen.v1.json";
+const joinedFixtureSha256 = "a18b6c8cc0a017e88dc19bcd7214955f9df168485aee3f0ceea5763e24c6771a";
+const rosenJavaScriptPaths = [
+  "src/pages/study/rosen-de-morgan-javascript.astro",
+  "src/study/RosenDeMorganInteractive.tsx",
+  "src/study/rosen-de-morgan.js.txt",
+];
+const keyboardFixtureSha256 = "7c57ef87e1d1420a26c2ce2399ebf40e9d238cb327a6bf908a0ddafc86d72394";
+const keyboardRoutes = [
+  "study/goodrich-ch4-ex6-harmonic-typescript/index.html",
+  "study/goodrich-ch4-ex6-harmonic/index.html",
+  "study/index.html",
+  "study/lehman-ch3-p4/index.html",
+  "study/lehman-ch4-p22b/index.html",
+  "study/rosen-1-3-ex5-6/index.html",
+  "study/sedgewick-ch1-s4-ex10/index.html",
+];
+const keyboardPreviousCss = "_astro/study.Dq4somge.css";
+const keyboardCurrentCss = "_astro/study.DmfnnQmc.css";
+const typescriptCachePage = "study/goodrich-ch4-ex6-harmonic-typescript/index.html";
+const previousTypeScriptBundle = "_astro/GoodrichCh4Ex6TypeScript.CwqPKT5w.js";
+const currentTypeScriptBundle = "_astro/GoodrichCh4Ex6TypeScript.DbZn80a0.js";
+const rosenOutputPaths = [
+  "study/rosen-1-3-ex5-6/index.html",
+  "study/provenance/rosen-1-3-ex5-6.json",
+];
 const sourceBuilderPath = join(root, "tools/build-study-source.mjs");
 const slicesBuilderPath = join(root, "tools/build-study-slices13.mjs");
 const goodrichUidTestPath = join(root, "tools/test-study-goodrich-uid.mjs");
@@ -137,6 +168,14 @@ if (successorBytes) {
 }
 const successor = successorBytes ? JSON.parse(successorBytes) : null;
 let ubuntuDelta = null;
+let rosenDelta = null;
+let typescriptCacheDelta = null;
+let keyboardDelta = null;
+let keyboardPins = null;
+let editorPins = null;
+let editorGoodrichUrl = null;
+let editorBasePins = null;
+let joinedProfile = false;
 const host = process.platform + "/" + process.arch;
 if (successor) {
   const ubuntuBytes = publicSourceBytes(ubuntuFixturePath);
@@ -148,10 +187,72 @@ if (successor) {
   const ubuntuHost = fixture.platform + "/" + fixture.arch;
   check(host === "darwin/arm64" || host === ubuntuHost, "TYPESCRIPT_SUCCESSOR_HOST");
   if (host === ubuntuHost) ubuntuDelta = fixture;
+  const rosenBytes = publicSourceBytes(rosenFixturePath);
+  check(sha256(rosenBytes) === "9d6cb57392e0e3a280ce0956be7e6e07329efca47e600ded03aefb1b716c6a63", "ROSEN_FIXTURE_HASH");
+  rosenDelta = JSON.parse(rosenBytes);
+  check(rosenDelta.schema === "personal-study-rosen-derivation-delta.v1"
+    && rosenDelta.baseFixtureSha256 === sha256(successorBytes)
+    && rosenDelta.ubuntuFixtureSha256 === sha256(ubuntuBytes)
+    && Object.keys(rosenDelta.files).length === rosenOutputPaths.length
+    && rosenOutputPaths.every((path) => Object.hasOwn(rosenDelta.files, path)), "ROSEN_FIXTURE_BINDING");
+  const typescriptCacheBytes = publicSourceBytes(typescriptCacheFixturePath);
+  check(sha256(typescriptCacheBytes) === "1ce4514d5fc1565be9c47eb6adfd4e90a4998e2af22ba45b9739ea8edb1aaded", "TYPESCRIPT_CACHE_FIXTURE_HASH");
+  typescriptCacheDelta = JSON.parse(typescriptCacheBytes);
+  check(typescriptCacheDelta.schema === "personal-study-typescript-cache-delta.v1"
+    && typescriptCacheDelta.baseFixtureSha256 === sha256(successorBytes)
+    && typescriptCacheDelta.ubuntuFixtureSha256 === sha256(ubuntuBytes)
+    && typescriptCacheDelta.priorRosenFixtureSha256 === sha256(rosenBytes)
+    && typescriptCacheDelta.remove === previousTypeScriptBundle
+    && typescriptCacheDelta.add === currentTypeScriptBundle
+    && Object.keys(typescriptCacheDelta.routeByHost).length === 2
+    && Object.hasOwn(typescriptCacheDelta.routeByHost, "darwin/arm64")
+    && Object.hasOwn(typescriptCacheDelta.routeByHost, ubuntuHost)
+    && successor.pilot.route === typescriptCachePage, "TYPESCRIPT_CACHE_FIXTURE_BINDING");
+  const keyboardBytes = publicSourceBytes(keyboardFixturePath);
+  check(sha256(keyboardBytes) === keyboardFixtureSha256, "KEYBOARD_FIXTURE_HASH");
+  keyboardDelta = JSON.parse(keyboardBytes);
+  check(keyboardDelta.schema === "personal-study-keyboard-semantics-delta.v1"
+    && keyboardDelta.baseFixtureSha256 === sha256(typescriptCacheBytes)
+    && keyboardDelta.remove === keyboardPreviousCss && keyboardDelta.add === keyboardCurrentCss
+    && Object.keys(keyboardDelta.byHost).length === 2
+    && Object.hasOwn(keyboardDelta.byHost, "darwin/arm64")
+    && Object.hasOwn(keyboardDelta.byHost, ubuntuHost), "KEYBOARD_FIXTURE_BINDING");
+  keyboardPins = keyboardDelta.byHost[host];
+  for (const pins of [keyboardPins.files, keyboardPins.normalized]) {
+    check(Object.keys(pins).length === keyboardRoutes.length
+      && keyboardRoutes.every(path => Object.hasOwn(pins, path)), "KEYBOARD_OUTPUT_SCOPE");
+  }
+  if (existsSync(join(root, editorFixturePath))) {
+    const editorBytes = publicSourceBytes(editorFixturePath);
+    check(sha256(editorBytes) === editorFixtureSha256, "EDITOR_FIXTURE_HASH");
+    const editor = JSON.parse(editorBytes);
+    check(editor.schema === "personal-study-editor-lifecycle.v1"
+      && editor.baseFixtureSha256 === sha256(keyboardBytes)
+      && Object.keys(editor.byHost).length === 2
+      && Object.hasOwn(editor.byHost, "darwin/arm64")
+      && Object.hasOwn(editor.byHost, ubuntuHost), "EDITOR_FIXTURE_BINDING");
+    editorPins = editor.byHost[host];
+    editorBasePins = editorPins;
+    editorGoodrichUrl = editor.goodrichComponentUrl;
+    if (existsSync(join(root, joinedFixturePath))) {
+      const joinedBytes = publicSourceBytes(joinedFixturePath);
+      check(sha256(joinedBytes) === joinedFixtureSha256, "EDITOR_ROSEN_FIXTURE_HASH");
+      const joined = JSON.parse(joinedBytes);
+      check(joined.schema === "personal-study-editor-rosen.v1"
+        && joined.baseFixtureSha256 === editorFixtureSha256
+        && Object.keys(joined.byHost).length === 2
+        && Object.hasOwn(joined.byHost, "darwin/arm64") && Object.hasOwn(joined.byHost, ubuntuHost),
+      "EDITOR_ROSEN_FIXTURE_BINDING");
+      joinedProfile = true;
+      editorPins = joined.byHost[host];
+      editorGoodrichUrl = editorPins.goodrichComponentUrl;
+    }
+  }
   check(successor.schema === "personal-study-typescript-successor.v1"
     && process.version === successor.toolchain.node
     && binding.dependencies.astro === successor.toolchain.astro, "TYPESCRIPT_SUCCESSOR_TOOLCHAIN");
 }
+check(!existsSync(join(root, joinedFixturePath)) || joinedProfile, "EDITOR_ROSEN_FIXTURE_WITHOUT_BASE");
 const sourceBuild = readFileSync(join(root, "tools/build-study-source.mjs"), "utf8");
 
 check(packageJson.scripts.predev === "node tools/build-study-source.mjs && node tools/build-study-slices13.mjs"
@@ -162,7 +263,9 @@ check(fixture.schema === "personal-study-public-fixture.v1", "PUBLIC_FIXTURE_SCH
 for (const forbiddenPath of ["tools/private", "research", "study-pilot-binding.json"]) check(!existsSync(join(root, forbiddenPath)), `PUBLIC_PRIVATE_PATH_${forbiddenPath}`);
 check(existsSync(sourceBuilderPath) && existsSync(slicesBuilderPath) && existsSync(join(root, "tools/test-study-source.mjs")), "PUBLIC_TEST_FILES_MISSING");
 const publicProjectionPaths = [...fixture.publicProjectionPaths,
-  ...(successor ? [...successor.newProjectionPaths, ubuntuFixturePath] : [])];
+  ...(successor ? [...successor.newProjectionPaths, ubuntuFixturePath, rosenFixturePath, typescriptCacheFixturePath, keyboardFixturePath] : []),
+  ...(editorPins ? [editorFixturePath] : []),
+  ...(joinedProfile ? [...rosenJavaScriptPaths, joinedFixturePath] : [])];
 check(Array.isArray(publicProjectionPaths)
   && publicProjectionPaths.includes("tools/test-study-source.mjs")
   && publicProjectionPaths.includes("tools/study-goodrich-island-uid.mjs")
@@ -171,8 +274,12 @@ check(Array.isArray(publicProjectionPaths)
 const publicProjection = explicitPublicProjection(publicProjectionPaths)
   .filter((record) => record.path !== "tools/test-study-source.mjs");
 const publicProjectionAggregate = sha256(Buffer.from(publicProjection.map((record) => `${record.sha256}  ${record.path}\n`).join("")));
-const expectedProjection = successor
-  ? { count: 154, bytes: 1163874, sha256: "c6602e00e6924b086cd03bd8d6ce49784c13087c5aa6cbef8c14a43c6154bfdd" }
+const expectedProjection = joinedProfile
+  ? { count: 162, bytes: 1283346, sha256: "4f6ab2f468b332f2005ac0c688bf814c2ee31931bf038aa77c87246c3afaae93" }
+  : editorPins
+  ? { count: 158, bytes: 1218139, sha256: "46b67b10812174264c06b16ee616140e5c5e196c3856f6cac12db00fd8e8d092" }
+  : successor
+  ? { count: 157, bytes: 1172893, sha256: "a51344cc1f5cc563b5518a4f8b759fb8363ddd191982016df97d57a3368d5918" }
   : { count: 149, bytes: 1127003, sha256: "db48002473ac9d27608e28f29543eb1a976bd91641e9b0c1fe7070b0c99ea94e" };
 check(publicProjection.length === expectedProjection.count
   && publicProjection.reduce((total, record) => total + record.bytes, 0) === expectedProjection.bytes
@@ -196,24 +303,46 @@ check(lessonChecks.status === 0 && lessonChecks.stdout.includes('"status":"PASS"
 
 const outputFiles = walkFiles(outputRoot);
 const outputByPath = new Map(outputFiles.map((record) => [record.path, record]));
-check(outputFiles.length === (successor?.output.fileCount ?? 163), "OUTPUT_FILE_COUNT");
-check(outputFiles.filter((record) => record.path.endsWith(".html")).length === (successor?.output.htmlPages ?? 49), "OUTPUT_HTML_COUNT");
+check(outputFiles.length === (joinedProfile ? 170 : successor?.output.fileCount ?? 163), "OUTPUT_FILE_COUNT");
+check(outputFiles.filter((record) => record.path.endsWith(".html")).length === (joinedProfile ? 51 : successor?.output.htmlPages ?? 49), "OUTPUT_HTML_COUNT");
 if (successor) {
-  const pins = new Map(Object.entries(successor.output.files));
-  if (ubuntuDelta) {
-    check(pins.delete(ubuntuDelta.remove), "TYPESCRIPT_UBUNTU_REPLACED_OUTPUT");
-    for (const [path, pin] of Object.entries(ubuntuDelta.files)) pins.set(path, pin);
-  }
-  check(pins.size === outputFiles.length, "TYPESCRIPT_SUCCESSOR_OUTPUT_INVENTORY");
-  for (const record of outputFiles) {
-    const pinned = pins.get(record.path);
-    let actual = record;
-    if (record.path === successor.goodrichUidPolicy.route) {
-      const html = readFileSync(join(outputRoot, record.path), "utf8");
-      const canonical = Buffer.from(normalizeGoodrichTypescriptSuccessorUid(html));
-      actual = { bytes: canonical.byteLength, sha256: sha256(canonical) };
+  if (editorPins) {
+    check(Object.keys(editorPins.files).length === outputFiles.length, "EDITOR_OUTPUT_INVENTORY");
+    for (const record of outputFiles) {
+      const pinned = Object.hasOwn(editorPins.files, record.path) ? editorPins.files[record.path] : undefined;
+      check(pinned?.bytes === record.bytes && pinned.sha256 === record.sha256, "EDITOR_OUTPUT_FILE");
     }
-    check(pinned?.bytes === actual.bytes && pinned.sha256 === actual.sha256, "TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
+  } else {
+    const pins = new Map(Object.entries(successor.output.files));
+    if (ubuntuDelta) {
+      check(pins.delete(ubuntuDelta.remove), "TYPESCRIPT_UBUNTU_REPLACED_OUTPUT");
+      for (const [path, pin] of Object.entries(ubuntuDelta.files)) pins.set(path, pin);
+    }
+    for (const path of rosenOutputPaths) {
+      check(pins.has(path) && !Object.hasOwn(ubuntuDelta?.files ?? {}, path), "ROSEN_FIXTURE_OUTPUT_SCOPE");
+      pins.set(path, rosenDelta.files[path]);
+    }
+    check(pins.delete(previousTypeScriptBundle) && !pins.has(currentTypeScriptBundle)
+      && pins.has(typescriptCachePage), "TYPESCRIPT_CACHE_OUTPUT_SCOPE");
+    pins.set(currentTypeScriptBundle, typescriptCacheDelta.bundle);
+    pins.set(typescriptCachePage, typescriptCacheDelta.routeByHost[host]);
+    check(pins.delete(keyboardPreviousCss) && !pins.has(keyboardCurrentCss), "KEYBOARD_CSS_SCOPE");
+    pins.set(keyboardCurrentCss, keyboardDelta.style);
+    for (const path of keyboardRoutes) {
+      check(pins.has(path), "KEYBOARD_ROUTE_SCOPE");
+      pins.set(path, keyboardPins.files[path]);
+    }
+    check(pins.size === outputFiles.length, "TYPESCRIPT_SUCCESSOR_OUTPUT_INVENTORY");
+    for (const record of outputFiles) {
+      const pinned = pins.get(record.path);
+      let actual = record;
+      if (record.path === successor.goodrichUidPolicy.route) {
+        const html = readFileSync(join(outputRoot, record.path), "utf8");
+        const canonical = Buffer.from(normalizeGoodrichTypescriptSuccessorUid(html));
+        actual = { bytes: canonical.byteLength, sha256: sha256(canonical) };
+      }
+      check(pinned?.bytes === actual.bytes && pinned.sha256 === actual.sha256, "TYPESCRIPT_SUCCESSOR_OUTPUT_FILE");
+    }
   }
   const pilot = successor.pilot;
   const adapter = readFileSync(join(root, "src/study/GoodrichCh4Ex6TypeScript.tsx"), "utf8");
@@ -245,7 +374,7 @@ for (const record of outputFiles.filter((item) => item.path.endsWith(".html"))) 
   const outputHtml = readFileSync(join(outputRoot, record.path), "utf8");
   if (outputHtml.includes(studyLink)) outputPagesWithStudyLink += 1;
 }
-check(outputPagesWithStudyLink === (successor?.output.pagesWithStudyLink ?? 43)
+check(outputPagesWithStudyLink === (joinedProfile ? editorPins.pagesWithStudyLink : successor?.output.pagesWithStudyLink ?? 43)
   && fixture.lehmanNestedStatic.studyLinkPages === 43, "OUTPUT_STUDY_LINK_COUNT");
 const studyRoute = readFileSync(join(outputRoot, "study/lehman-ch3-p4/index.html"), "utf8");
 check(studyRoute.includes('aria-current="page"') && studyRoute.includes(studyLink), "STUDY_LINK_ACTIVE");
@@ -296,8 +425,11 @@ check(goodrichPublished.published.staticOnly === false && goodrichPublished.publ
   && sedgewickPublished.page.path === "src/study/sedgewick-ch1-s4-ex10.mdx"
   && sedgewickPublished.codeIncludes.length === 1
   && sedgewickPublished.codeIncludes[0].includeId === "sedgewick-first-match-java", "SLICES13_ROUTE_RUNTIME_SCOPE");
+const staticStudyRouteSha = (path, historicalSha) => joinedProfile
+  ? editorPins.files[path].sha256
+  : keyboardPins?.files[path].sha256 ?? historicalSha;
 const lehmanNested = readFileSync(join(outputRoot, fixture.lehmanNestedStatic.route), "utf8");
-check(sha256(Buffer.from(lehmanNested)) === fixture.lehmanNestedStatic.routeHtmlSha256
+check(sha256(Buffer.from(lehmanNested)) === staticStudyRouteSha(fixture.lehmanNestedStatic.route, fixture.lehmanNestedStatic.routeHtmlSha256)
   && (lehmanNested.match(/data-study-kind="proof"/g) ?? []).length === 1
   && (lehmanNested.match(/data-study-kind="subproof"/g) ?? []).length === 2
   && (lehmanNested.match(/data-study-scope="local"/g) ?? []).length === 3
@@ -323,6 +455,19 @@ check((goodrichRoute.match(/data-study-code-include="goodrich-harmonic-source"/g
 check((rosenRoute.match(/<h1>/g) ?? []).length === 1
   && (rosenRoute.match(/<table/g) ?? []).length === 2
   && (rosenRoute.match(/data-study-reference=/g) ?? []).length === 4, "SLICES13_ROSEN_OUTPUT");
+if (joinedProfile) {
+  const lessonPath = "/study/rosen-de-morgan-javascript/";
+  const html = readFileSync(join(outputRoot, lessonPath, "index.html"), "utf8");
+  const adapter = readFileSync(join(root, rosenJavaScriptPaths[1]), "utf8");
+  check(!rosenRoute.includes("<astro-island")
+    && rosenRoute.includes(`href="${lessonPath}"`)
+    && html.includes('component-export="RosenDeMorganInteractive"')
+    && html.includes('client="visible"')
+    && html.includes(`frame-src ${runnerConfig.runnerOrigin}`)
+    && adapter.includes(`ROSEN_RUNNER = "${runnerConfig.runnerOrigin}"`)
+    && adapter.includes('language="javascript"')
+    && !html.includes("pyodide") && !html.includes("typescript-5"), "ROSEN_JAVASCRIPT_RUNTIME_BINDING");
+}
 check((sedgewickRoute.match(/<h1>/g) ?? []).length === 1
   && (sedgewickRoute.match(/data-study-code-include=\"sedgewick-first-match-java\"/g) ?? []).length === 1
   && !sedgewickRoute.includes("data-study-runnable")
@@ -363,25 +508,29 @@ check(fixture.sedgewickStatic.schema === "personal-study-sedgewick-static.v1"
 check(hashFile(join(root, fixture.sedgewickStatic.sourcePath)) === fixture.sedgewickStatic.sourceSha256
   && hashFile(join(root, fixture.sedgewickStatic.provenancePath)) === fixture.sedgewickStatic.provenanceSha256
   && hashFile(join(root, fixture.sedgewickStatic.javaPath)) === fixture.sedgewickStatic.javaSha256, "SEDGEWICK_STATIC_SOURCE_BINDING");
-check(sha256(Buffer.from(sedgewickRoute)) === fixture.sedgewickStatic.routeHtmlSha256
-  && sha256(Buffer.from(studyIndex)) === fixture.lehmanNestedStatic.indexHtmlSha256, "STUDY_INDEX_AND_SEDGEWICK_OUTPUT_BINDING");
+check(sha256(Buffer.from(sedgewickRoute)) === staticStudyRouteSha(fixture.sedgewickStatic.route, fixture.sedgewickStatic.routeHtmlSha256)
+  && sha256(Buffer.from(studyIndex)) === staticStudyRouteSha("study/index.html", fixture.lehmanNestedStatic.indexHtmlSha256), "STUDY_INDEX_AND_SEDGEWICK_OUTPUT_BINDING");
 const currentStudyCss = {
   ...fixture.sedgewickStatic.normalizedStudyCssSha256,
   "study/index.html": fixture.lehmanNestedStatic.indexHtmlNormalizedStudyCssSha256,
+  ...(rosenDelta ? { [rosenOutputPaths[0]]: rosenDelta.normalizedStudyCssSha256 } : {}),
 };
 const historicalStudyCss = fixture.studySlices13.htmlNormalizedStudyCssSha256;
 for (const [outputPath, historicalExpected] of Object.entries(historicalStudyCss)) {
-  const expected = outputPath === fixture.goodrichEditor.route ? fixture.goodrichEditor.htmlNormalizedStudyCssSha256
-    : currentStudyCss[outputPath] ?? historicalExpected;
+  const expected = editorPins?.normalizedStudyCss[outputPath]?.sha256
+    ?? keyboardPins?.normalized[outputPath]?.sha256
+    ?? (outputPath === fixture.goodrichEditor.route ? fixture.goodrichEditor.htmlNormalizedStudyCssSha256
+      : currentStudyCss[outputPath] ?? historicalExpected);
   const html = readFileSync(join(outputRoot, outputPath), "utf8");
   const cssLinks = [...html.matchAll(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g)];
   check(cssLinks.length === 1 && outputByPath.has(cssLinks[0][0].slice(1)), "SLICES13_STUDY_CSS_BINDING");
   const normalized = html.replace(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g, "/_astro/study.CONTENT.css");
-  if (outputPath === fixture.goodrichUidPolicy.route) {
+  if (outputPath === fixture.goodrichUidPolicy.route && !editorPins) {
     const policy = successor?.goodrichUidPolicy ?? fixture.goodrichUidPolicy;
     const uidNormalized = successor ? normalizeGoodrichTypescriptSuccessorUid(normalized) : normalizeGoodrichIslandUid(normalized);
-    check(Buffer.byteLength(uidNormalized) === policy.normalizedStudyCssThenUidBytes
-      && sha256(Buffer.from(uidNormalized)) === policy.normalizedStudyCssThenUidSha256, "GOODRICH_UID_NORMALIZED_HASH");
+    const uidPin = keyboardPins?.normalized[outputPath];
+    check(Buffer.byteLength(uidNormalized) === (uidPin?.bytes ?? policy.normalizedStudyCssThenUidBytes)
+      && sha256(Buffer.from(uidNormalized)) === (uidPin?.sha256 ?? policy.normalizedStudyCssThenUidSha256), "GOODRICH_UID_NORMALIZED_HASH");
   } else {
     check(sha256(Buffer.from(normalized)) === expected, `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
   }
@@ -392,11 +541,51 @@ for (const [outputPath, expected] of Object.entries(currentStudyCss)) {
   const cssLinks = [...html.matchAll(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g)];
   check(cssLinks.length === 1 && outputByPath.has(cssLinks[0][0].slice(1)), "SLICES13_STUDY_CSS_BINDING");
   const normalized = html.replace(/\/_astro\/study\.[A-Za-z0-9_-]+\.css/g, "/_astro/study.CONTENT.css");
-  check(sha256(Buffer.from(normalized)) === expected, `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
+  check(sha256(Buffer.from(normalized)) === ((joinedProfile ? editorPins.normalizedStudyCss[outputPath]?.sha256 : undefined)
+    ?? keyboardPins?.normalized[outputPath]?.sha256 ?? expected), `SLICES13_HTML_NORMALIZED_HASH_${outputPath}`);
 }
 
-const goodrichUidTestArgs = [goodrichUidTestPath, root, ...(successor ? ["--typescript-successor"] : [])];
-const goodrichUidTest = spawnSync(process.execPath, goodrichUidTestArgs, { cwd: root, encoding: "utf8" });
+function runGoodrichUidRegression() {
+  const flags = successor ? ["--typescript-successor", "--keyboard-semantics"] : [];
+  const invoke = (inputRoot) => spawnSync(process.execPath, [goodrichUidTestPath, inputRoot, ...flags], {
+    cwd: root, encoding: "utf8",
+  });
+  if (!editorPins) return invoke(root);
+
+  // The full exact artifact has already passed. Reconstruct the old selector
+  // only for the existing historical UID mutation tests, never for acceptance.
+  const probe = mkdtempSync(join(tmpdir(), "personal-study-goodrich-history-"));
+  try {
+    const route = successor.goodrichUidPolicy.route;
+    const target = join(probe, "dist", route);
+    const html = readFileSync(join(outputRoot, route), "utf8");
+    const marker = `component-url="${editorGoodrichUrl}"`;
+    const historical = `component-url="${successor.goodrichUidPolicy.targetComponentUrl}"`;
+    check(html.split(marker).length === 2, "EDITOR_HISTORICAL_UID_TARGET");
+    mkdirSync(dirname(target), { recursive: true });
+    let historicalHtml = html.replace(marker, historical);
+    if (joinedProfile) {
+      const layoutStylesheets = (profile) => Object.keys(profile.files)
+        .filter((path) => /^_astro\/Site\.[A-Za-z0-9_-]+\.css$/.test(path));
+      const activeStylesheets = layoutStylesheets(editorPins);
+      const priorStylesheets = layoutStylesheets(editorBasePins);
+      check(activeStylesheets.length === 1 && priorStylesheets.length === 1, "EDITOR_HISTORICAL_LAYOUT_STYLESHEET");
+      const layoutLink = `href="/${activeStylesheets[0]}"`;
+      check(historicalHtml.split(layoutLink).length === 2, "EDITOR_HISTORICAL_LAYOUT_LINK");
+      historicalHtml = historicalHtml.replace(layoutLink, `href="/${priorStylesheets[0]}"`);
+    }
+    writeFileSync(target, historicalHtml);
+    for (const path of [successorFixturePath, keyboardFixturePath]) {
+      const fixtureTarget = join(probe, path);
+      mkdirSync(dirname(fixtureTarget), { recursive: true });
+      writeFileSync(fixtureTarget, publicSourceBytes(path));
+    }
+    return invoke(probe);
+  } finally {
+    rmSync(probe, { recursive: true, force: true });
+  }
+}
+const goodrichUidTest = runGoodrichUidRegression();
 check(goodrichUidTest.status === 0 && goodrichUidTest.stdout.includes('"status":"PASS"'), "GOODRICH_UID_POLICY_TEST");
 
 check(binding.generated.studyModule.sha256 === hashFile(join(root, "src/study/generated-study.js")), "GENERATED_STUDY_HASH");
@@ -468,6 +657,7 @@ const receipt = {
   toolchain: { node: process.version, astro: finalBinding.dependencies.astro },
   sourceBinding: finalBinding,
   ...(successor ? { typescriptSuccessor: { host, ubuntuOutputPins: Boolean(ubuntuDelta) } } : {}),
+  ...(editorPins ? { editorLifecycle: { host, comparison: "exact-bytes", ...(joinedProfile ? { rosenJavaScript: true } : {}) } } : {}),
   output: { files: outputFiles.length, htmlPages: outputFiles.filter((record) => record.path.endsWith(".html")).length, manifestSha256: outputManifestSha256 },
   baseline: { files: fixture.output.fileCount, htmlPages: fixture.output.htmlPages, manifestSha256: fixture.output.manifestSha256 },
   intentionalShellDelta: { studyLink: "/study/", baselinePagesWithStudyLink: fixture.shell.studyLinkBaselinePages, outputPagesWithStudyLink, allOutputPagesWithStudyLink, note: "The existing Study navigation link now points to the new static index; authored headings and ordinary articles were preserved." },

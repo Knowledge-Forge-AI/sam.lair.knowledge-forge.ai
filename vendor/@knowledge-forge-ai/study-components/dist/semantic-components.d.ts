@@ -41,6 +41,8 @@ export interface ProofProps {
 }
 export interface EquationProps {
     readonly id: string;
+    /** Include wide, scrollable equations in sequential keyboard navigation. */
+    readonly keyboardScroll?: boolean;
     readonly children?: ReactNode;
 }
 export interface EquationRefProps {

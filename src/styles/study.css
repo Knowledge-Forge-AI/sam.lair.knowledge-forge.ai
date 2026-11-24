@@ -82,3 +82,9 @@
 .study-editor-slot [data-study-editor] textarea:focus-visible { outline: 2px solid var(--sam-site-accent); outline-offset: 3px; }
 @media(max-width:600px) { .study-editor-gate { padding: 18px; } .study-editor-slot .cm-scroller { max-height: 22rem; } }
 @media(forced-colors:active) { .study-editor-slot .cm-editor { border-color: CanvasText; color: CanvasText; background: Canvas; } .study-editor-slot .cm-focused { outline-color: Highlight; } }
+
+.study-mdx figure[data-study-kind="equation"][tabindex="0"]:focus-visible,
+.study-mdx figure[data-study-kind="equation"]:target {
+  outline: 3px solid var(--cyan);
+  outline-offset: 6px;
+}

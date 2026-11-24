@@ -1,0 +1,1414 @@
+{
+  "baseFixtureSha256": "8a07f5b6736d904aaf1397b07e3eb3bbc4680e7168f6afb3b936efbe570b6346",
+  "byHost": {
+    "darwin/arm64": {
+      "files": {
+        "404.html": {
+          "bytes": 4326,
+          "sha256": "333e880b93ac1d4e8f79a21f15555c58b6a7c3daff63c19e0a71df65e6936fe3"
+        },
+        "CNAME": {
+          "bytes": 28,
+          "sha256": "54605ad2cf50102998abb815a083b417a5c4818b5dc3c0cd2653f8e1c570b0c8"
+        },
+        "_astro/GoodrichCh4Ex6Interactive.BHct71Co.js": {
+          "bytes": 2080,
+          "sha256": "e10a50ece381d32314c0b30c34df43597927116121336b5e6183d20a59be9e0b"
+        },
+        "_astro/GoodrichCh4Ex6TypeScript.D0fntbfW.js": {
+          "bytes": 14115,
+          "sha256": "eaa2033614502d045dcecf157bf0e1e2e415b6c2e94fd8f5973380aedd021c17"
+        },
+        "_astro/LehmanCh3P4Interactive.B4c01knJ.js": {
+          "bytes": 2645,
+          "sha256": "00080e637e7b430ac98d18676a408d3625fa5cc21f5babaa3e7005489edb4260"
+        },
+        "_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.BcSo_yiZ.js": {
+          "bytes": 622,
+          "sha256": "dd7cc171c64ce739999d62aae6c7052ae2b45ce190713b35cf8919dde04abfd8"
+        },
+        "_astro/RosenDeMorganInteractive.BL2J5hK_.js": {
+          "bytes": 1818,
+          "sha256": "02bced5f997c5a501b34e5a7548b12bde374e01307d9352a19e74d6be6303032"
+        },
+        "_astro/Search.astro_astro_type_script_index_0_lang.CM1HKbUQ.js": {
+          "bytes": 1812,
+          "sha256": "dc3edd5d773f77ee68a3455ddd7db535cc530f8e9586a32c9ab9f71aaf036036"
+        },
+        "_astro/Site.DlX3LmZP.css": {
+          "bytes": 40400,
+          "sha256": "377e7d84274b4343f100b030531ae89f194f2835b97a81cf846cfd72d33c7562"
+        },
+        "_astro/TableOfContents.astro_astro_type_script_index_0_lang.Csloo1VZ.js": {
+          "bytes": 36,
+          "sha256": "f1c9743eceea19c4cada60524019ee9214c22a257a35bdfd184e85f9006264c0"
+        },
+        "_astro/client.CExsrO6E.js": {
+          "bytes": 184105,
+          "sha256": "3479dc8c559e6d6439e4d774d27bd687bebae1c0a7dc9bd50d0aa6a2d4a76752"
+        },
+        "_astro/dist.BBACsGst.js": {
+          "bytes": 44514,
+          "sha256": "2677dd06a9ef2c10bb38292e3a503661234340fd9c89696fa9a537bd015097ff"
+        },
+        "_astro/dist.D9I8oDcF.js": {
+          "bytes": 279765,
+          "sha256": "6c3d9d1b63810b407828736e0c001a2b8bc18fdeda0b063741078a6ec0fd2227"
+        },
+        "_astro/ec.0vx5m.js": {
+          "bytes": 2523,
+          "sha256": "182e98b9acfcfd358ea486967bd17dcaddd5930b8d092bc0653fd26ddbb11e37"
+        },
+        "_astro/ec.w36nc.css": {
+          "bytes": 18292,
+          "sha256": "1db272cd2e2bc5dfbc63c332f5d5f04bb4ba104065e894f951405e7bdddf5dcb"
+        },
+        "_astro/goodrich-harmonic-check.C7JaRLSk.js": {
+          "bytes": 200,
+          "sha256": "39784ad13be8c8feb98933fecb0de3ca6c7960cf8497f42cf5a9d7b3b261cd4c"
+        },
+        "_astro/middleware.CxzV8Qi6.css": {
+          "bytes": 85437,
+          "sha256": "ffe442c030559f397f0fde44d8d58ed8bed5f2927351c3fabfb33f47bd641b23"
+        },
+        "_astro/page.LAbJoB63.js": {
+          "bytes": 2484,
+          "sha256": "2249d35f5717d6bbcbcfb726c90df27ae4bfeb1765521dbaf052e4a62e565cf0"
+        },
+        "_astro/preload-helper.CxFQXtKk.js": {
+          "bytes": 1342,
+          "sha256": "b39ea8a0a9ff7dd6b08f09d4cc161bbfc41f2039d1606fecbaed8f165af4070d"
+        },
+        "_astro/print.B4cXCJEv.css": {
+          "bytes": 5011,
+          "sha256": "c80382ebe942814bc051e027d0e9c8c66bf1bd220af6d37e4a977910fa498813"
+        },
+        "_astro/react.DJx7QJrC.js": {
+          "bytes": 7706,
+          "sha256": "894c84fd083c0d1407ada08b77c4bcdc8c71ab6a9a5e5b7ff00c272efc872432"
+        },
+        "_astro/separate-origin-runtime-host.DMnYYv6k.js": {
+          "bytes": 5942,
+          "sha256": "0b87513bb440d84b34216f4069989bd9f2938e72010a710e7c2690cbf28cdd7d"
+        },
+        "_astro/starlight-toc.CTCQXEge.js": {
+          "bytes": 1981,
+          "sha256": "2a08da9f380dd1395e0072dbd1b35e1e2b0af6072f0e40417865318271f9b342"
+        },
+        "_astro/study-runtime-controller.C4xdxDv4.js": {
+          "bytes": 5443,
+          "sha256": "a7a6ddcb75c035e7ad560fdf44f40f74e6a7825ec1f19b92b59cd478f89ea6d9"
+        },
+        "_astro/study-runtime-editor-adapter.CUbrDOUE.js": {
+          "bytes": 138413,
+          "sha256": "b263f073d47714f0549758b251ca40a667793ff41970b48d205e012e182f06d8"
+        },
+        "_astro/study-runtime-protocol.D-PK65xU.js": {
+          "bytes": 7268,
+          "sha256": "f9749570f257752158e01cfe835ecc14df70f9720d846252f4f7f3afb18a33dc"
+        },
+        "_astro/study.DqBQcz0b.css": {
+          "bytes": 9164,
+          "sha256": "99bdd993125a803925e1fb3ab77596ae440985040d5ff754017a254e7e90a47b"
+        },
+        "_astro/ui-core.C2azTrwe.js": {
+          "bytes": 94253,
+          "sha256": "ded9abe3aebe1f74c034021496c98e69d1baa19e8a4a85f786d25e4aa650167c"
+        },
+        "blog/index.html": {
+          "bytes": 32644,
+          "sha256": "ae2472e246aa8c42ab96ce0d08aa5fc611e74899ecf5bcfcae2734150c1fa7b8"
+        },
+        "blog/personal-apg-v030-release-reflection/index.html": {
+          "bytes": 56489,
+          "sha256": "9837b5fa53c727892eba6aea3b1ee228d949235d764ec751d14f96ed5b7569ac"
+        },
+        "blog/rss.xml": {
+          "bytes": 15306,
+          "sha256": "9bd811276b0558180766b41bd71579596a1e6aed8256124f724224c7b1a39de4"
+        },
+        "blog/tags/agentic-engineering/index.html": {
+          "bytes": 33092,
+          "sha256": "11c2328a94ada7362b5838f44246a6d1852bb02bf540430ab991d45ce03cf6b5"
+        },
+        "blog/tags/open-source/index.html": {
+          "bytes": 32996,
+          "sha256": "300b5dd78cb76bd9f3c19661f4fefb053442e1a704da093f2b364af6ba20dad6"
+        },
+        "blog/tags/release/index.html": {
+          "bytes": 32948,
+          "sha256": "e9fdaf48ef9173c4c6325d04f72628ae485154c2b033fb5975fd2ce16562350e"
+        },
+        "blog/tags/software-engineering/index.html": {
+          "bytes": 33104,
+          "sha256": "b4a9499a07c32c9c8dec6ac04a37d225fa67e6768e1a681c2e33ccdfada7d3b9"
+        },
+        "favicon.svg": {
+          "bytes": 250,
+          "sha256": "434b2d68afd79206081bf72091433e4bd619b6469aa549c92bcbcf8ae8ddb9a3"
+        },
+        "index.html": {
+          "bytes": 10468,
+          "sha256": "b3bdfa5a86e47e000b3e0a9e54568e96207098b38f90a6fc1cea76b877f63fe1"
+        },
+        "journal/apgr-0-1-0/index.html": {
+          "bytes": 5561,
+          "sha256": "c7513ee86207a9f2fc57699fb168ef5a6e9e20569f844790d4067127e8860ac2"
+        },
+        "journal/apgr-0-10-0/index.html": {
+          "bytes": 5655,
+          "sha256": "898b8c7f7d9d2698bb5119bbedeec41f357b8a7b2b49549bdb3a3997be97cd78"
+        },
+        "journal/apgr-0-11-0/index.html": {
+          "bytes": 5620,
+          "sha256": "21f08e0b8de92a7659d70865b6f1f17e2b0c13fe3d80d7654ec83be9997b35ec"
+        },
+        "journal/apgr-0-12-0/index.html": {
+          "bytes": 5566,
+          "sha256": "7b6337317d2ec43b45d13dcbd2fecd61996125a90b5005b61a9c219a108f9d68"
+        },
+        "journal/apgr-0-13-0/index.html": {
+          "bytes": 5939,
+          "sha256": "75ff33fd68d6c9eb0940dd0a1310f0157b6165511cef041eb7860155afcf495b"
+        },
+        "journal/apgr-0-13-1/index.html": {
+          "bytes": 5786,
+          "sha256": "e149d5014ae2e5e984682e8ff792990ebeeac5d250c34d06cade217e088183be"
+        },
+        "journal/apgr-0-2-0/index.html": {
+          "bytes": 5645,
+          "sha256": "20b8a9a80478e223f895c348074e43d29360d343718d60826fbe359c2b9319b9"
+        },
+        "journal/apgr-0-4-0/index.html": {
+          "bytes": 5492,
+          "sha256": "994f5ecdc6593fa773d69e1032c17ab69dd56bd542098f3d268e8242c689aee7"
+        },
+        "journal/apgr-0-5-0/index.html": {
+          "bytes": 5578,
+          "sha256": "624c30921710498b58bc7b9beb62715bebe36d7e73619a3bfba5ebf3ba02df58"
+        },
+        "journal/apgr-0-6-0/index.html": {
+          "bytes": 5660,
+          "sha256": "c4fa870f7fe1869aa81301e9bde74d6d58f89a3ca6d55e5a0b965e77f920971c"
+        },
+        "journal/apgr-0-7-0/index.html": {
+          "bytes": 5578,
+          "sha256": "5d8def74797906c9914f318ed481a5d4a24c73d745a2c1caaf561f5cecffedf9"
+        },
+        "journal/apgr-0-8-1/index.html": {
+          "bytes": 5495,
+          "sha256": "7b691c0c3784398821f757dfc8fa25b8a30a10b4a78dc1cae7caba87168b3f8a"
+        },
+        "journal/apgr-0-9-0/index.html": {
+          "bytes": 5625,
+          "sha256": "2b2fd26b0b980bf2e441726b1c88ba94b2059ef5576bab334e1be6bd2f3c4d93"
+        },
+        "journal/dinas-2026-10-22/index.html": {
+          "bytes": 5867,
+          "sha256": "182d18a9fbc15b759008b6044bbe594ee933f527d57cd86907b103247ba2e045"
+        },
+        "journal/dinas-browser-2026-10-20/index.html": {
+          "bytes": 5743,
+          "sha256": "d984c7a458e6bc1b8e05bb343b69583342ad76b03e5faddcfd0b6a0410eaa8b8"
+        },
+        "journal/index.html": {
+          "bytes": 23321,
+          "sha256": "69c692cfdd11ca5ccf6513880f7555c1121015348ee619cf50b22ba15db7c716"
+        },
+        "journal/repomap-toward-common-lore-index/index.html": {
+          "bytes": 5972,
+          "sha256": "85978d78ad328dd600023fe7f0a054629a8bf47f5668ea826ed8dc0c0c382a3e"
+        },
+        "journal/rss.xml": {
+          "bytes": 15038,
+          "sha256": "69d3f7691775d017825c6b2abffb9d4a184c1e59a9d50ff2e2bb9f9cf7a25e71"
+        },
+        "journal/theme-forge-2026-08-22/index.html": {
+          "bytes": 5634,
+          "sha256": "43d3a73a0a3ec62257c8fc914a83a46b709b727f251d44788c1c12395b397eed"
+        },
+        "journal/theme-forge-2026-08-23/index.html": {
+          "bytes": 5678,
+          "sha256": "f194da5a17165eedab4ea0b9a57f56d3cc9d6baf7ec4d175c6ab9a550eb31df7"
+        },
+        "journal/theme-forge-2026-08-24/index.html": {
+          "bytes": 5626,
+          "sha256": "147aec7267e77a6c41d70543810e2099ddc22011510b4224cd31b8aa954dc487"
+        },
+        "journal/theme-forge-2026-09-06/index.html": {
+          "bytes": 5909,
+          "sha256": "b882c64aed80fef6f9d833169a30292db266c65292c970719c6c6ef23d249525"
+        },
+        "journal/theme-forge-2026-09-08/index.html": {
+          "bytes": 5964,
+          "sha256": "d5a8d3699fb0c9acf2b56bb1788840794e9824b26282b35b09035c33d6f2da92"
+        },
+        "journal/theme-forge-2026-09-14/index.html": {
+          "bytes": 6119,
+          "sha256": "aaa5358bd2932049c8248e5557896bfca19cbdc5bf15de5a4c7e15e52dc997e3"
+        },
+        "journal/theme-forge-2026-09-19/index.html": {
+          "bytes": 6192,
+          "sha256": "01a811a62252dc4f77c0ebd0cf2af9e0bbed877ef3b31c2d29612fe9220d61f4"
+        },
+        "journal/theme-forge-2026-09-29/index.html": {
+          "bytes": 5907,
+          "sha256": "6458b1ff249ba538661d90b23ceb5fc0a9e8acbdd56bd9463fa7d77f8ea4ecf6"
+        },
+        "journal/theme-forge-2026-09-30/index.html": {
+          "bytes": 5670,
+          "sha256": "15cb2c38d62d6febb7d1a8f96dd3c91bacde8ce00e3751b3f57a04e1f6d97836"
+        },
+        "journal/theme-forge-2026-10-26/index.html": {
+          "bytes": 6012,
+          "sha256": "7d1fb4829a9eda6122cef24e79480c38012dfbcfe2910c7f6739983092e49a64"
+        },
+        "journal/theme-forge-2026-10-29/index.html": {
+          "bytes": 5766,
+          "sha256": "3f4e330ba34aa73a51271e37873f4eef696b1e0ed3639cc08d22591f96d6bc86"
+        },
+        "journal/theme-forge-2026-10-30/index.html": {
+          "bytes": 5817,
+          "sha256": "2dba2079a58104716bdefb3ba9e670d9e768b12dca8f45477346d8c942fb3dad"
+        },
+        "journal/theme-forge-2026-10-31/index.html": {
+          "bytes": 5765,
+          "sha256": "525882a3503f3c24d702dee803880cc8acb9c32a054bf3f3acfeaf33c5a5454b"
+        },
+        "journal/theme-forge-2026-11-07/index.html": {
+          "bytes": 5748,
+          "sha256": "3e547f1c07bcae5bdeb6356d9060f37a5a47be1231b1797b39cdf13f292e4ffd"
+        },
+        "journal/theme-forge-2026-11-08/index.html": {
+          "bytes": 5696,
+          "sha256": "31300f721b4b988c382a0726c1b449dcea586dd347222458481b7c55bd6409c0"
+        },
+        "journal/theme-forge-packages-2026-11-06/index.html": {
+          "bytes": 6090,
+          "sha256": "ed96e42dc9b8d85ef3dba9784a64ee8a0ff4edb93478309acaadfac4d30ff578"
+        },
+        "journal/theme-forge-packages-2026-11-10/index.html": {
+          "bytes": 5926,
+          "sha256": "209be8f91bba8b4b19b8b4a141acf698184dd01b4c925d21ae4be252ae632a98"
+        },
+        "legal/index.html": {
+          "bytes": 6172,
+          "sha256": "686b7077ecf77bba7a8f4404ca5b68ddc957c7e1bce084e51eaece06e781f0c5"
+        },
+        "pagefind/fragment/en_fbc7b4e.pf_fragment": {
+          "bytes": 4592,
+          "sha256": "021823915771771037f41504f5ea002e131ee1d029fb9ab99d846248fe9e56fb"
+        },
+        "pagefind/index/en_dbd82e1.pf_index": {
+          "bytes": 6479,
+          "sha256": "0da0287bca49b3628f39336d78a74c19003d557d58759aa59a3bd1ed004b82df"
+        },
+        "pagefind/pagefind-component-ui.css": {
+          "bytes": 41830,
+          "sha256": "de389c7e5d87d6e2b10d65fb1e36e8989a12a2ad8dd6239b7e070d81fb5d8b0d"
+        },
+        "pagefind/pagefind-component-ui.js": {
+          "bytes": 175488,
+          "sha256": "958620129dd14bd851805daeb12ce708bd63b9287325d1d5ae6f73a04d1723f8"
+        },
+        "pagefind/pagefind-entry.json": {
+          "bytes": 171,
+          "sha256": "a1564b572a6c0e144aa49f896f450d97dea8f58298852685b0cecfb1d10a2652"
+        },
+        "pagefind/pagefind-highlight.js": {
+          "bytes": 44352,
+          "sha256": "04741266a86911636cefc41c8b407e380dda99b7d208724f700f94cdf57e37b5"
+        },
+        "pagefind/pagefind-modular-ui.css": {
+          "bytes": 7336,
+          "sha256": "653ab29e4de5629f6ddf5f6fcdf5d2b3eb539a8c07fff8a56b8ce2156a570788"
+        },
+        "pagefind/pagefind-modular-ui.js": {
+          "bytes": 14634,
+          "sha256": "f3efa0f74b305ccab0bc9edc7c09ab69867180b4c43093d84bb9b508ac4ec32c"
+        },
+        "pagefind/pagefind-ui.css": {
+          "bytes": 14482,
+          "sha256": "e113b816110ed07b017613e901addfe635350f2a5b84990aa76c91a74b158084"
+        },
+        "pagefind/pagefind-ui.js": {
+          "bytes": 119987,
+          "sha256": "2efa93f2e80a199ca742a69bd4cfffabc5c591ebe7763f64f7c655fd00d2209f"
+        },
+        "pagefind/pagefind-worker.js": {
+          "bytes": 41255,
+          "sha256": "4ca50d25bcab9e1c3afbc00ab5f7761114e83c8fc1b83d38655af1558b650c2a"
+        },
+        "pagefind/pagefind.en_d5611145ff.pf_meta": {
+          "bytes": 88,
+          "sha256": "68f758359f857df49359e15c64c2f93276435119d25b968e7028f84794c39cc8"
+        },
+        "pagefind/pagefind.js": {
+          "bytes": 45555,
+          "sha256": "252d272bd34d483d19a752060f6a065114d15ab12c42d8f905ca565e2768a009"
+        },
+        "pagefind/wasm.en.pagefind": {
+          "bytes": 72740,
+          "sha256": "6c8406154b5d460fc8b6cdbf2c99c008c43c465efdb1f9c15c192f5cf30dcd85"
+        },
+        "pagefind/wasm.unknown.pagefind": {
+          "bytes": 68199,
+          "sha256": "2533da887ac06de36813d031310af0f737daadacc931775e342aa5a3857a4959"
+        },
+        "sam-lair.webp": {
+          "bytes": 119152,
+          "sha256": "5ea7a92443cfe423024203a6558cf3e5ee240a08b9e58e5b7acd83a423bc515b"
+        },
+        "sitemap-0.xml": {
+          "bytes": 4498,
+          "sha256": "20b7b066bc58c7a723cd1e30e4c9c532e7a0a3dcede76108964d83b590346e3a"
+        },
+        "sitemap-index.xml": {
+          "bytes": 198,
+          "sha256": "57cd2dec3d215809fc5a9748be32a8eed610cef5c1e570206cfbf73ee4fed366"
+        },
+        "study/content-terms.md": {
+          "bytes": 5603,
+          "sha256": "9f783e0a27f235db4dee402191961010ecafc64d180bcc04b0bc3438d576c96e"
+        },
+        "study/fonts/KaTeX_AMS-Regular.ttf": {
+          "bytes": 63632,
+          "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
+        },
+        "study/fonts/KaTeX_AMS-Regular.woff": {
+          "bytes": 33516,
+          "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+        },
+        "study/fonts/KaTeX_AMS-Regular.woff2": {
+          "bytes": 28076,
+          "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.ttf": {
+          "bytes": 12368,
+          "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.woff": {
+          "bytes": 7716,
+          "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.woff2": {
+          "bytes": 6912,
+          "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.ttf": {
+          "bytes": 12344,
+          "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.woff": {
+          "bytes": 7656,
+          "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.woff2": {
+          "bytes": 6908,
+          "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.ttf": {
+          "bytes": 19584,
+          "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.woff": {
+          "bytes": 13296,
+          "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.woff2": {
+          "bytes": 11348,
+          "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.ttf": {
+          "bytes": 19572,
+          "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.woff": {
+          "bytes": 13208,
+          "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.woff2": {
+          "bytes": 11316,
+          "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
+        },
+        "study/fonts/KaTeX_Main-Bold.ttf": {
+          "bytes": 51336,
+          "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
+        },
+        "study/fonts/KaTeX_Main-Bold.woff": {
+          "bytes": 29912,
+          "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
+        },
+        "study/fonts/KaTeX_Main-Bold.woff2": {
+          "bytes": 25324,
+          "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.ttf": {
+          "bytes": 32968,
+          "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.woff": {
+          "bytes": 19412,
+          "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.woff2": {
+          "bytes": 16780,
+          "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
+        },
+        "study/fonts/KaTeX_Main-Italic.ttf": {
+          "bytes": 33580,
+          "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
+        },
+        "study/fonts/KaTeX_Main-Italic.woff": {
+          "bytes": 19676,
+          "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
+        },
+        "study/fonts/KaTeX_Main-Italic.woff2": {
+          "bytes": 16988,
+          "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
+        },
+        "study/fonts/KaTeX_Main-Regular.ttf": {
+          "bytes": 53580,
+          "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
+        },
+        "study/fonts/KaTeX_Main-Regular.woff": {
+          "bytes": 30772,
+          "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
+        },
+        "study/fonts/KaTeX_Main-Regular.woff2": {
+          "bytes": 26272,
+          "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.ttf": {
+          "bytes": 31196,
+          "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.woff": {
+          "bytes": 18668,
+          "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.woff2": {
+          "bytes": 16400,
+          "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
+        },
+        "study/fonts/KaTeX_Math-Italic.ttf": {
+          "bytes": 31308,
+          "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
+        },
+        "study/fonts/KaTeX_Math-Italic.woff": {
+          "bytes": 18748,
+          "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
+        },
+        "study/fonts/KaTeX_Math-Italic.woff2": {
+          "bytes": 16440,
+          "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.ttf": {
+          "bytes": 24504,
+          "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.woff": {
+          "bytes": 14408,
+          "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.woff2": {
+          "bytes": 12216,
+          "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.ttf": {
+          "bytes": 22364,
+          "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.woff": {
+          "bytes": 14112,
+          "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.woff2": {
+          "bytes": 12028,
+          "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.ttf": {
+          "bytes": 19436,
+          "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.woff": {
+          "bytes": 12316,
+          "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.woff2": {
+          "bytes": 10344,
+          "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
+        },
+        "study/fonts/KaTeX_Script-Regular.ttf": {
+          "bytes": 16648,
+          "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
+        },
+        "study/fonts/KaTeX_Script-Regular.woff": {
+          "bytes": 10588,
+          "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
+        },
+        "study/fonts/KaTeX_Script-Regular.woff2": {
+          "bytes": 9644,
+          "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
+        },
+        "study/fonts/KaTeX_Size1-Regular.ttf": {
+          "bytes": 12228,
+          "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
+        },
+        "study/fonts/KaTeX_Size1-Regular.woff": {
+          "bytes": 6496,
+          "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
+        },
+        "study/fonts/KaTeX_Size1-Regular.woff2": {
+          "bytes": 5468,
+          "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
+        },
+        "study/fonts/KaTeX_Size2-Regular.ttf": {
+          "bytes": 11508,
+          "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
+        },
+        "study/fonts/KaTeX_Size2-Regular.woff": {
+          "bytes": 6188,
+          "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
+        },
+        "study/fonts/KaTeX_Size2-Regular.woff2": {
+          "bytes": 5208,
+          "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
+        },
+        "study/fonts/KaTeX_Size3-Regular.ttf": {
+          "bytes": 7588,
+          "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
+        },
+        "study/fonts/KaTeX_Size3-Regular.woff": {
+          "bytes": 4420,
+          "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
+        },
+        "study/fonts/KaTeX_Size3-Regular.woff2": {
+          "bytes": 3624,
+          "sha256": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995"
+        },
+        "study/fonts/KaTeX_Size4-Regular.ttf": {
+          "bytes": 10364,
+          "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
+        },
+        "study/fonts/KaTeX_Size4-Regular.woff": {
+          "bytes": 5980,
+          "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
+        },
+        "study/fonts/KaTeX_Size4-Regular.woff2": {
+          "bytes": 4928,
+          "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.ttf": {
+          "bytes": 27556,
+          "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.woff": {
+          "bytes": 16028,
+          "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.woff2": {
+          "bytes": 13568,
+          "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
+        },
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13643,
+          "sha256": "da2eaf529a867d0c509e4f9df0c061e3077b99d209d567fb67c0b5c87b65e9b8"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24772,
+          "sha256": "114f168ff584e5d675ca9dc0d9204a6943f5f1bc7430d2b90e575f24f99511d4"
+        },
+        "study/index.html": {
+          "bytes": 5137,
+          "sha256": "e5ada29293a312edc151ce414dd63525d67bba0cf0768add0712503e1c1b7768"
+        },
+        "study/katex.css": {
+          "bytes": 24793,
+          "sha256": "00e0b094171b07f58422075f469b4feac2b2f7bce1aeec943c08da4d697f4dcf"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37215,
+          "sha256": "872bfbb7d0a61790f6194e811ebafcd38093fd78a817ce7a412a2c33d4c78bf0"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48705,
+          "sha256": "d8b8311fcdc8681eda579a7fb62ddbda33812e546c5ce514a2033eae7b3ecbff"
+        },
+        "study/licenses/codemirror-NOTICES.txt": {
+          "bytes": 20625,
+          "sha256": "6737cba331a7309c2b4e8ed9177cc93ef92796fb9ab870eb982ba28955af3be0"
+        },
+        "study/licenses/katex-LICENSE.txt": {
+          "bytes": 1107,
+          "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3"
+        },
+        "study/licenses/lehman-GPL-3.0.txt": {
+          "bytes": 35149,
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        "study/provenance/goodrich-ch4-ex6-harmonic.json": {
+          "bytes": 5429,
+          "sha256": "c906681a0b64faf22057613ed134c826810f4f4b7461e0340e7a5efacef9f90e"
+        },
+        "study/provenance/lehman-ch3-p4.json": {
+          "bytes": 6569,
+          "sha256": "228d920c72f1d2ebaa89f29d124c3d9365710fa67dbf0e81bfe5e22fbfeb521c"
+        },
+        "study/provenance/lehman-ch4-p22b.json": {
+          "bytes": 3012,
+          "sha256": "c2289a07246de37918deb0e3ce2f32ac162fe794a8855f692a06ae4c6afad421"
+        },
+        "study/provenance/rosen-1-3-ex5-6.json": {
+          "bytes": 3363,
+          "sha256": "637bda08e070248acda9beaad0d3f48af594415d70f52c3dc63b6e243721be71"
+        },
+        "study/provenance/sedgewick-ch1-s4-ex10.json": {
+          "bytes": 5238,
+          "sha256": "58a39a461bc56b121388e51baf5b362b6bcaf7652f88241b863b5f1949da9b8c"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 29023,
+          "sha256": "7814be2a53ff955f05f7eabaae653754bf5d660accf8b0c7af35c1657d78c5e8"
+        },
+        "study/rosen-de-morgan-javascript/index.html": {
+          "bytes": 14164,
+          "sha256": "7e00c56b52dfe1c662db4180f565984154a2d0bfab08051e5e202689a21a872a"
+        },
+        "study/runner-config.json": {
+          "bytes": 434,
+          "sha256": "7de4928422fa9538e1fe2d3018776157fbc750755b73b6275d68dc834fed7ca1"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12247,
+          "sha256": "feebd40dc4ef51e0d5f322d51aa27875f9fcf480708164963d764279aea7cd75"
+        }
+      },
+      "goodrichComponentUrl": "/_astro/GoodrichCh4Ex6Interactive.BHct71Co.js",
+      "normalizedStudyCss": {
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24771,
+          "sha256": "ba7c867ceb63aabed7169765de389e341b9d0244413b90a9254579a6a467b5d2"
+        },
+        "study/index.html": {
+          "bytes": 5136,
+          "sha256": "987beaedb5f1ac86898cf6540b8dde91c9b4af76574c6641d24eebd0502d1353"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 29022,
+          "sha256": "c2478c7d779e0b230504c4838ca40a2b697b9c4863206667c9305ae309430721"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12246,
+          "sha256": "c6b0929880e6537e721c09a962acdf23bc55d1fef77cc62557d1412a9046cda4"
+        }
+      },
+      "pagesWithStudyLink": 45
+    },
+    "linux/x64": {
+      "files": {
+        "404.html": {
+          "bytes": 4326,
+          "sha256": "333e880b93ac1d4e8f79a21f15555c58b6a7c3daff63c19e0a71df65e6936fe3"
+        },
+        "CNAME": {
+          "bytes": 28,
+          "sha256": "54605ad2cf50102998abb815a083b417a5c4818b5dc3c0cd2653f8e1c570b0c8"
+        },
+        "_astro/GoodrichCh4Ex6Interactive.BHct71Co.js": {
+          "bytes": 2080,
+          "sha256": "e10a50ece381d32314c0b30c34df43597927116121336b5e6183d20a59be9e0b"
+        },
+        "_astro/GoodrichCh4Ex6TypeScript.D0fntbfW.js": {
+          "bytes": 14115,
+          "sha256": "eaa2033614502d045dcecf157bf0e1e2e415b6c2e94fd8f5973380aedd021c17"
+        },
+        "_astro/LehmanCh3P4Interactive.B4c01knJ.js": {
+          "bytes": 2645,
+          "sha256": "00080e637e7b430ac98d18676a408d3625fa5cc21f5babaa3e7005489edb4260"
+        },
+        "_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.BcSo_yiZ.js": {
+          "bytes": 622,
+          "sha256": "dd7cc171c64ce739999d62aae6c7052ae2b45ce190713b35cf8919dde04abfd8"
+        },
+        "_astro/RosenDeMorganInteractive.BL2J5hK_.js": {
+          "bytes": 1818,
+          "sha256": "02bced5f997c5a501b34e5a7548b12bde374e01307d9352a19e74d6be6303032"
+        },
+        "_astro/Search.astro_astro_type_script_index_0_lang.CM1HKbUQ.js": {
+          "bytes": 1812,
+          "sha256": "dc3edd5d773f77ee68a3455ddd7db535cc530f8e9586a32c9ab9f71aaf036036"
+        },
+        "_astro/Site.DlX3LmZP.css": {
+          "bytes": 40400,
+          "sha256": "377e7d84274b4343f100b030531ae89f194f2835b97a81cf846cfd72d33c7562"
+        },
+        "_astro/TableOfContents.astro_astro_type_script_index_0_lang.Csloo1VZ.js": {
+          "bytes": 36,
+          "sha256": "f1c9743eceea19c4cada60524019ee9214c22a257a35bdfd184e85f9006264c0"
+        },
+        "_astro/client.CExsrO6E.js": {
+          "bytes": 184105,
+          "sha256": "3479dc8c559e6d6439e4d774d27bd687bebae1c0a7dc9bd50d0aa6a2d4a76752"
+        },
+        "_astro/dist.BBACsGst.js": {
+          "bytes": 44514,
+          "sha256": "2677dd06a9ef2c10bb38292e3a503661234340fd9c89696fa9a537bd015097ff"
+        },
+        "_astro/dist.D9I8oDcF.js": {
+          "bytes": 279765,
+          "sha256": "6c3d9d1b63810b407828736e0c001a2b8bc18fdeda0b063741078a6ec0fd2227"
+        },
+        "_astro/ec.0vx5m.js": {
+          "bytes": 2523,
+          "sha256": "182e98b9acfcfd358ea486967bd17dcaddd5930b8d092bc0653fd26ddbb11e37"
+        },
+        "_astro/ec.w36nc.css": {
+          "bytes": 18292,
+          "sha256": "1db272cd2e2bc5dfbc63c332f5d5f04bb4ba104065e894f951405e7bdddf5dcb"
+        },
+        "_astro/goodrich-harmonic-check.C7JaRLSk.js": {
+          "bytes": 200,
+          "sha256": "39784ad13be8c8feb98933fecb0de3ca6c7960cf8497f42cf5a9d7b3b261cd4c"
+        },
+        "_astro/middleware.CZXRk3QU.css": {
+          "bytes": 85437,
+          "sha256": "1de3d287dacd445f68602c12fe1078f4f791bcd29b0c042cf36b109aea271383"
+        },
+        "_astro/page.LAbJoB63.js": {
+          "bytes": 2484,
+          "sha256": "2249d35f5717d6bbcbcfb726c90df27ae4bfeb1765521dbaf052e4a62e565cf0"
+        },
+        "_astro/preload-helper.CxFQXtKk.js": {
+          "bytes": 1342,
+          "sha256": "b39ea8a0a9ff7dd6b08f09d4cc161bbfc41f2039d1606fecbaed8f165af4070d"
+        },
+        "_astro/print.B4cXCJEv.css": {
+          "bytes": 5011,
+          "sha256": "c80382ebe942814bc051e027d0e9c8c66bf1bd220af6d37e4a977910fa498813"
+        },
+        "_astro/react.DJx7QJrC.js": {
+          "bytes": 7706,
+          "sha256": "894c84fd083c0d1407ada08b77c4bcdc8c71ab6a9a5e5b7ff00c272efc872432"
+        },
+        "_astro/separate-origin-runtime-host.DMnYYv6k.js": {
+          "bytes": 5942,
+          "sha256": "0b87513bb440d84b34216f4069989bd9f2938e72010a710e7c2690cbf28cdd7d"
+        },
+        "_astro/starlight-toc.CTCQXEge.js": {
+          "bytes": 1981,
+          "sha256": "2a08da9f380dd1395e0072dbd1b35e1e2b0af6072f0e40417865318271f9b342"
+        },
+        "_astro/study-runtime-controller.C4xdxDv4.js": {
+          "bytes": 5443,
+          "sha256": "a7a6ddcb75c035e7ad560fdf44f40f74e6a7825ec1f19b92b59cd478f89ea6d9"
+        },
+        "_astro/study-runtime-editor-adapter.CUbrDOUE.js": {
+          "bytes": 138413,
+          "sha256": "b263f073d47714f0549758b251ca40a667793ff41970b48d205e012e182f06d8"
+        },
+        "_astro/study-runtime-protocol.D-PK65xU.js": {
+          "bytes": 7268,
+          "sha256": "f9749570f257752158e01cfe835ecc14df70f9720d846252f4f7f3afb18a33dc"
+        },
+        "_astro/study.DqBQcz0b.css": {
+          "bytes": 9164,
+          "sha256": "99bdd993125a803925e1fb3ab77596ae440985040d5ff754017a254e7e90a47b"
+        },
+        "_astro/ui-core.C2azTrwe.js": {
+          "bytes": 94253,
+          "sha256": "ded9abe3aebe1f74c034021496c98e69d1baa19e8a4a85f786d25e4aa650167c"
+        },
+        "blog/index.html": {
+          "bytes": 32644,
+          "sha256": "7b7b36d70fefb51c668cfea5dadf30763df1bcda10001b234e9609a8f10c8ff3"
+        },
+        "blog/personal-apg-v030-release-reflection/index.html": {
+          "bytes": 56489,
+          "sha256": "89b577bc628f1ef3320d62ba69e31af1e81ad11285040e77d0d242a78950d4c9"
+        },
+        "blog/rss.xml": {
+          "bytes": 15306,
+          "sha256": "9bd811276b0558180766b41bd71579596a1e6aed8256124f724224c7b1a39de4"
+        },
+        "blog/tags/agentic-engineering/index.html": {
+          "bytes": 33092,
+          "sha256": "0455d0e46b1295cc8360d1941cbcec9895f8eb5d07313b538162cff3641615e2"
+        },
+        "blog/tags/open-source/index.html": {
+          "bytes": 32996,
+          "sha256": "fd54846ad2656bde17c8375c87cc3723153dcb48b70727b7aa82ed61aa8e68fe"
+        },
+        "blog/tags/release/index.html": {
+          "bytes": 32948,
+          "sha256": "8088a4142b2b1faf3c94d30787608731f7694a74e5d149b2d0a3d07403a16aeb"
+        },
+        "blog/tags/software-engineering/index.html": {
+          "bytes": 33104,
+          "sha256": "b3e0f14a81ec52c63fef730e6080775635518dbf0d7978b6b9f73c272034de26"
+        },
+        "favicon.svg": {
+          "bytes": 250,
+          "sha256": "434b2d68afd79206081bf72091433e4bd619b6469aa549c92bcbcf8ae8ddb9a3"
+        },
+        "index.html": {
+          "bytes": 10468,
+          "sha256": "b3bdfa5a86e47e000b3e0a9e54568e96207098b38f90a6fc1cea76b877f63fe1"
+        },
+        "journal/apgr-0-1-0/index.html": {
+          "bytes": 5561,
+          "sha256": "c7513ee86207a9f2fc57699fb168ef5a6e9e20569f844790d4067127e8860ac2"
+        },
+        "journal/apgr-0-10-0/index.html": {
+          "bytes": 5655,
+          "sha256": "898b8c7f7d9d2698bb5119bbedeec41f357b8a7b2b49549bdb3a3997be97cd78"
+        },
+        "journal/apgr-0-11-0/index.html": {
+          "bytes": 5620,
+          "sha256": "21f08e0b8de92a7659d70865b6f1f17e2b0c13fe3d80d7654ec83be9997b35ec"
+        },
+        "journal/apgr-0-12-0/index.html": {
+          "bytes": 5566,
+          "sha256": "7b6337317d2ec43b45d13dcbd2fecd61996125a90b5005b61a9c219a108f9d68"
+        },
+        "journal/apgr-0-13-0/index.html": {
+          "bytes": 5939,
+          "sha256": "75ff33fd68d6c9eb0940dd0a1310f0157b6165511cef041eb7860155afcf495b"
+        },
+        "journal/apgr-0-13-1/index.html": {
+          "bytes": 5786,
+          "sha256": "e149d5014ae2e5e984682e8ff792990ebeeac5d250c34d06cade217e088183be"
+        },
+        "journal/apgr-0-2-0/index.html": {
+          "bytes": 5645,
+          "sha256": "20b8a9a80478e223f895c348074e43d29360d343718d60826fbe359c2b9319b9"
+        },
+        "journal/apgr-0-4-0/index.html": {
+          "bytes": 5492,
+          "sha256": "994f5ecdc6593fa773d69e1032c17ab69dd56bd542098f3d268e8242c689aee7"
+        },
+        "journal/apgr-0-5-0/index.html": {
+          "bytes": 5578,
+          "sha256": "624c30921710498b58bc7b9beb62715bebe36d7e73619a3bfba5ebf3ba02df58"
+        },
+        "journal/apgr-0-6-0/index.html": {
+          "bytes": 5660,
+          "sha256": "c4fa870f7fe1869aa81301e9bde74d6d58f89a3ca6d55e5a0b965e77f920971c"
+        },
+        "journal/apgr-0-7-0/index.html": {
+          "bytes": 5578,
+          "sha256": "5d8def74797906c9914f318ed481a5d4a24c73d745a2c1caaf561f5cecffedf9"
+        },
+        "journal/apgr-0-8-1/index.html": {
+          "bytes": 5495,
+          "sha256": "7b691c0c3784398821f757dfc8fa25b8a30a10b4a78dc1cae7caba87168b3f8a"
+        },
+        "journal/apgr-0-9-0/index.html": {
+          "bytes": 5625,
+          "sha256": "2b2fd26b0b980bf2e441726b1c88ba94b2059ef5576bab334e1be6bd2f3c4d93"
+        },
+        "journal/dinas-2026-10-22/index.html": {
+          "bytes": 5867,
+          "sha256": "182d18a9fbc15b759008b6044bbe594ee933f527d57cd86907b103247ba2e045"
+        },
+        "journal/dinas-browser-2026-10-20/index.html": {
+          "bytes": 5743,
+          "sha256": "d984c7a458e6bc1b8e05bb343b69583342ad76b03e5faddcfd0b6a0410eaa8b8"
+        },
+        "journal/index.html": {
+          "bytes": 23321,
+          "sha256": "69c692cfdd11ca5ccf6513880f7555c1121015348ee619cf50b22ba15db7c716"
+        },
+        "journal/repomap-toward-common-lore-index/index.html": {
+          "bytes": 5972,
+          "sha256": "85978d78ad328dd600023fe7f0a054629a8bf47f5668ea826ed8dc0c0c382a3e"
+        },
+        "journal/rss.xml": {
+          "bytes": 15038,
+          "sha256": "69d3f7691775d017825c6b2abffb9d4a184c1e59a9d50ff2e2bb9f9cf7a25e71"
+        },
+        "journal/theme-forge-2026-08-22/index.html": {
+          "bytes": 5634,
+          "sha256": "43d3a73a0a3ec62257c8fc914a83a46b709b727f251d44788c1c12395b397eed"
+        },
+        "journal/theme-forge-2026-08-23/index.html": {
+          "bytes": 5678,
+          "sha256": "f194da5a17165eedab4ea0b9a57f56d3cc9d6baf7ec4d175c6ab9a550eb31df7"
+        },
+        "journal/theme-forge-2026-08-24/index.html": {
+          "bytes": 5626,
+          "sha256": "147aec7267e77a6c41d70543810e2099ddc22011510b4224cd31b8aa954dc487"
+        },
+        "journal/theme-forge-2026-09-06/index.html": {
+          "bytes": 5909,
+          "sha256": "b882c64aed80fef6f9d833169a30292db266c65292c970719c6c6ef23d249525"
+        },
+        "journal/theme-forge-2026-09-08/index.html": {
+          "bytes": 5964,
+          "sha256": "d5a8d3699fb0c9acf2b56bb1788840794e9824b26282b35b09035c33d6f2da92"
+        },
+        "journal/theme-forge-2026-09-14/index.html": {
+          "bytes": 6119,
+          "sha256": "aaa5358bd2932049c8248e5557896bfca19cbdc5bf15de5a4c7e15e52dc997e3"
+        },
+        "journal/theme-forge-2026-09-19/index.html": {
+          "bytes": 6192,
+          "sha256": "01a811a62252dc4f77c0ebd0cf2af9e0bbed877ef3b31c2d29612fe9220d61f4"
+        },
+        "journal/theme-forge-2026-09-29/index.html": {
+          "bytes": 5907,
+          "sha256": "6458b1ff249ba538661d90b23ceb5fc0a9e8acbdd56bd9463fa7d77f8ea4ecf6"
+        },
+        "journal/theme-forge-2026-09-30/index.html": {
+          "bytes": 5670,
+          "sha256": "15cb2c38d62d6febb7d1a8f96dd3c91bacde8ce00e3751b3f57a04e1f6d97836"
+        },
+        "journal/theme-forge-2026-10-26/index.html": {
+          "bytes": 6012,
+          "sha256": "7d1fb4829a9eda6122cef24e79480c38012dfbcfe2910c7f6739983092e49a64"
+        },
+        "journal/theme-forge-2026-10-29/index.html": {
+          "bytes": 5766,
+          "sha256": "3f4e330ba34aa73a51271e37873f4eef696b1e0ed3639cc08d22591f96d6bc86"
+        },
+        "journal/theme-forge-2026-10-30/index.html": {
+          "bytes": 5817,
+          "sha256": "2dba2079a58104716bdefb3ba9e670d9e768b12dca8f45477346d8c942fb3dad"
+        },
+        "journal/theme-forge-2026-10-31/index.html": {
+          "bytes": 5765,
+          "sha256": "525882a3503f3c24d702dee803880cc8acb9c32a054bf3f3acfeaf33c5a5454b"
+        },
+        "journal/theme-forge-2026-11-07/index.html": {
+          "bytes": 5748,
+          "sha256": "3e547f1c07bcae5bdeb6356d9060f37a5a47be1231b1797b39cdf13f292e4ffd"
+        },
+        "journal/theme-forge-2026-11-08/index.html": {
+          "bytes": 5696,
+          "sha256": "31300f721b4b988c382a0726c1b449dcea586dd347222458481b7c55bd6409c0"
+        },
+        "journal/theme-forge-packages-2026-11-06/index.html": {
+          "bytes": 6090,
+          "sha256": "ed96e42dc9b8d85ef3dba9784a64ee8a0ff4edb93478309acaadfac4d30ff578"
+        },
+        "journal/theme-forge-packages-2026-11-10/index.html": {
+          "bytes": 5926,
+          "sha256": "209be8f91bba8b4b19b8b4a141acf698184dd01b4c925d21ae4be252ae632a98"
+        },
+        "legal/index.html": {
+          "bytes": 6172,
+          "sha256": "686b7077ecf77bba7a8f4404ca5b68ddc957c7e1bce084e51eaece06e781f0c5"
+        },
+        "pagefind/fragment/en_fbc7b4e.pf_fragment": {
+          "bytes": 4592,
+          "sha256": "021823915771771037f41504f5ea002e131ee1d029fb9ab99d846248fe9e56fb"
+        },
+        "pagefind/index/en_dbd82e1.pf_index": {
+          "bytes": 6479,
+          "sha256": "0da0287bca49b3628f39336d78a74c19003d557d58759aa59a3bd1ed004b82df"
+        },
+        "pagefind/pagefind-component-ui.css": {
+          "bytes": 41830,
+          "sha256": "de389c7e5d87d6e2b10d65fb1e36e8989a12a2ad8dd6239b7e070d81fb5d8b0d"
+        },
+        "pagefind/pagefind-component-ui.js": {
+          "bytes": 175488,
+          "sha256": "958620129dd14bd851805daeb12ce708bd63b9287325d1d5ae6f73a04d1723f8"
+        },
+        "pagefind/pagefind-entry.json": {
+          "bytes": 171,
+          "sha256": "a1564b572a6c0e144aa49f896f450d97dea8f58298852685b0cecfb1d10a2652"
+        },
+        "pagefind/pagefind-highlight.js": {
+          "bytes": 44352,
+          "sha256": "04741266a86911636cefc41c8b407e380dda99b7d208724f700f94cdf57e37b5"
+        },
+        "pagefind/pagefind-modular-ui.css": {
+          "bytes": 7336,
+          "sha256": "653ab29e4de5629f6ddf5f6fcdf5d2b3eb539a8c07fff8a56b8ce2156a570788"
+        },
+        "pagefind/pagefind-modular-ui.js": {
+          "bytes": 14634,
+          "sha256": "f3efa0f74b305ccab0bc9edc7c09ab69867180b4c43093d84bb9b508ac4ec32c"
+        },
+        "pagefind/pagefind-ui.css": {
+          "bytes": 14482,
+          "sha256": "e113b816110ed07b017613e901addfe635350f2a5b84990aa76c91a74b158084"
+        },
+        "pagefind/pagefind-ui.js": {
+          "bytes": 119987,
+          "sha256": "2efa93f2e80a199ca742a69bd4cfffabc5c591ebe7763f64f7c655fd00d2209f"
+        },
+        "pagefind/pagefind-worker.js": {
+          "bytes": 41255,
+          "sha256": "4ca50d25bcab9e1c3afbc00ab5f7761114e83c8fc1b83d38655af1558b650c2a"
+        },
+        "pagefind/pagefind.en_d5611145ff.pf_meta": {
+          "bytes": 88,
+          "sha256": "68f758359f857df49359e15c64c2f93276435119d25b968e7028f84794c39cc8"
+        },
+        "pagefind/pagefind.js": {
+          "bytes": 45555,
+          "sha256": "252d272bd34d483d19a752060f6a065114d15ab12c42d8f905ca565e2768a009"
+        },
+        "pagefind/wasm.en.pagefind": {
+          "bytes": 72209,
+          "sha256": "bb16c9e6d3d214d4d05cccca51df7b487b86b3657318da767f6ca9e0a2e7259d"
+        },
+        "pagefind/wasm.unknown.pagefind": {
+          "bytes": 68024,
+          "sha256": "3a74cefceacd066e8d3bc8c52e7bc1c869544ca3d9031b44a9b7136356d5d7f4"
+        },
+        "sam-lair.webp": {
+          "bytes": 119152,
+          "sha256": "5ea7a92443cfe423024203a6558cf3e5ee240a08b9e58e5b7acd83a423bc515b"
+        },
+        "sitemap-0.xml": {
+          "bytes": 4498,
+          "sha256": "20b7b066bc58c7a723cd1e30e4c9c532e7a0a3dcede76108964d83b590346e3a"
+        },
+        "sitemap-index.xml": {
+          "bytes": 198,
+          "sha256": "57cd2dec3d215809fc5a9748be32a8eed610cef5c1e570206cfbf73ee4fed366"
+        },
+        "study/content-terms.md": {
+          "bytes": 5603,
+          "sha256": "9f783e0a27f235db4dee402191961010ecafc64d180bcc04b0bc3438d576c96e"
+        },
+        "study/fonts/KaTeX_AMS-Regular.ttf": {
+          "bytes": 63632,
+          "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13"
+        },
+        "study/fonts/KaTeX_AMS-Regular.woff": {
+          "bytes": 33516,
+          "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251"
+        },
+        "study/fonts/KaTeX_AMS-Regular.woff2": {
+          "bytes": 28076,
+          "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.ttf": {
+          "bytes": 12368,
+          "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.woff": {
+          "bytes": 7716,
+          "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed"
+        },
+        "study/fonts/KaTeX_Caligraphic-Bold.woff2": {
+          "bytes": 6912,
+          "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.ttf": {
+          "bytes": 12344,
+          "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.woff": {
+          "bytes": 7656,
+          "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c"
+        },
+        "study/fonts/KaTeX_Caligraphic-Regular.woff2": {
+          "bytes": 6908,
+          "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.ttf": {
+          "bytes": 19584,
+          "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.woff": {
+          "bytes": 13296,
+          "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb"
+        },
+        "study/fonts/KaTeX_Fraktur-Bold.woff2": {
+          "bytes": 11348,
+          "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.ttf": {
+          "bytes": 19572,
+          "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.woff": {
+          "bytes": 13208,
+          "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463"
+        },
+        "study/fonts/KaTeX_Fraktur-Regular.woff2": {
+          "bytes": 11316,
+          "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc"
+        },
+        "study/fonts/KaTeX_Main-Bold.ttf": {
+          "bytes": 51336,
+          "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8"
+        },
+        "study/fonts/KaTeX_Main-Bold.woff": {
+          "bytes": 29912,
+          "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822"
+        },
+        "study/fonts/KaTeX_Main-Bold.woff2": {
+          "bytes": 25324,
+          "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.ttf": {
+          "bytes": 32968,
+          "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.woff": {
+          "bytes": 19412,
+          "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c"
+        },
+        "study/fonts/KaTeX_Main-BoldItalic.woff2": {
+          "bytes": 16780,
+          "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b"
+        },
+        "study/fonts/KaTeX_Main-Italic.ttf": {
+          "bytes": 33580,
+          "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a"
+        },
+        "study/fonts/KaTeX_Main-Italic.woff": {
+          "bytes": 19676,
+          "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf"
+        },
+        "study/fonts/KaTeX_Main-Italic.woff2": {
+          "bytes": 16988,
+          "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267"
+        },
+        "study/fonts/KaTeX_Main-Regular.ttf": {
+          "bytes": 53580,
+          "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830"
+        },
+        "study/fonts/KaTeX_Main-Regular.woff": {
+          "bytes": 30772,
+          "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc"
+        },
+        "study/fonts/KaTeX_Main-Regular.woff2": {
+          "bytes": 26272,
+          "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.ttf": {
+          "bytes": 31196,
+          "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.woff": {
+          "bytes": 18668,
+          "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e"
+        },
+        "study/fonts/KaTeX_Math-BoldItalic.woff2": {
+          "bytes": 16400,
+          "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1"
+        },
+        "study/fonts/KaTeX_Math-Italic.ttf": {
+          "bytes": 31308,
+          "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a"
+        },
+        "study/fonts/KaTeX_Math-Italic.woff": {
+          "bytes": 18748,
+          "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571"
+        },
+        "study/fonts/KaTeX_Math-Italic.woff2": {
+          "bytes": 16440,
+          "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.ttf": {
+          "bytes": 24504,
+          "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.woff": {
+          "bytes": 14408,
+          "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba"
+        },
+        "study/fonts/KaTeX_SansSerif-Bold.woff2": {
+          "bytes": 12216,
+          "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.ttf": {
+          "bytes": 22364,
+          "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.woff": {
+          "bytes": 14112,
+          "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2"
+        },
+        "study/fonts/KaTeX_SansSerif-Italic.woff2": {
+          "bytes": 12028,
+          "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.ttf": {
+          "bytes": 19436,
+          "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.woff": {
+          "bytes": 12316,
+          "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605"
+        },
+        "study/fonts/KaTeX_SansSerif-Regular.woff2": {
+          "bytes": 10344,
+          "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342"
+        },
+        "study/fonts/KaTeX_Script-Regular.ttf": {
+          "bytes": 16648,
+          "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67"
+        },
+        "study/fonts/KaTeX_Script-Regular.woff": {
+          "bytes": 10588,
+          "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a"
+        },
+        "study/fonts/KaTeX_Script-Regular.woff2": {
+          "bytes": 9644,
+          "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b"
+        },
+        "study/fonts/KaTeX_Size1-Regular.ttf": {
+          "bytes": 12228,
+          "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b"
+        },
+        "study/fonts/KaTeX_Size1-Regular.woff": {
+          "bytes": 6496,
+          "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9"
+        },
+        "study/fonts/KaTeX_Size1-Regular.woff2": {
+          "bytes": 5468,
+          "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe"
+        },
+        "study/fonts/KaTeX_Size2-Regular.ttf": {
+          "bytes": 11508,
+          "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b"
+        },
+        "study/fonts/KaTeX_Size2-Regular.woff": {
+          "bytes": 6188,
+          "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d"
+        },
+        "study/fonts/KaTeX_Size2-Regular.woff2": {
+          "bytes": 5208,
+          "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd"
+        },
+        "study/fonts/KaTeX_Size3-Regular.ttf": {
+          "bytes": 7588,
+          "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082"
+        },
+        "study/fonts/KaTeX_Size3-Regular.woff": {
+          "bytes": 4420,
+          "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949"
+        },
+        "study/fonts/KaTeX_Size3-Regular.woff2": {
+          "bytes": 3624,
+          "sha256": "73d591271b1604960cb10bb90fee021670af7297017e0e98480b332d11f51995"
+        },
+        "study/fonts/KaTeX_Size4-Regular.ttf": {
+          "bytes": 10364,
+          "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877"
+        },
+        "study/fonts/KaTeX_Size4-Regular.woff": {
+          "bytes": 5980,
+          "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58"
+        },
+        "study/fonts/KaTeX_Size4-Regular.woff2": {
+          "bytes": 4928,
+          "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.ttf": {
+          "bytes": 27556,
+          "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.woff": {
+          "bytes": 16028,
+          "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7"
+        },
+        "study/fonts/KaTeX_Typewriter-Regular.woff2": {
+          "bytes": 13568,
+          "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b"
+        },
+        "study/goodrich-ch4-ex6-harmonic-typescript/index.html": {
+          "bytes": 13643,
+          "sha256": "72d708afde91c7ed5225064216fd559075fc284fe31f6e0c619ee2604865a575"
+        },
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24773,
+          "sha256": "b6653a30d12b79f7cad781eb6cd8119ecd141b16f03e446e7e667b5d502e49de"
+        },
+        "study/index.html": {
+          "bytes": 5137,
+          "sha256": "e5ada29293a312edc151ce414dd63525d67bba0cf0768add0712503e1c1b7768"
+        },
+        "study/katex.css": {
+          "bytes": 24793,
+          "sha256": "00e0b094171b07f58422075f469b4feac2b2f7bce1aeec943c08da4d697f4dcf"
+        },
+        "study/lehman-ch3-p4/index.html": {
+          "bytes": 37216,
+          "sha256": "fb3f76a09835f4c4d243a4950bfd380654bb5e2b8e906081b983994b1f781d77"
+        },
+        "study/lehman-ch4-p22b/index.html": {
+          "bytes": 48705,
+          "sha256": "d8b8311fcdc8681eda579a7fb62ddbda33812e546c5ce514a2033eae7b3ecbff"
+        },
+        "study/licenses/codemirror-NOTICES.txt": {
+          "bytes": 20625,
+          "sha256": "6737cba331a7309c2b4e8ed9177cc93ef92796fb9ab870eb982ba28955af3be0"
+        },
+        "study/licenses/katex-LICENSE.txt": {
+          "bytes": 1107,
+          "sha256": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3"
+        },
+        "study/licenses/lehman-GPL-3.0.txt": {
+          "bytes": 35149,
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        "study/provenance/goodrich-ch4-ex6-harmonic.json": {
+          "bytes": 5429,
+          "sha256": "c906681a0b64faf22057613ed134c826810f4f4b7461e0340e7a5efacef9f90e"
+        },
+        "study/provenance/lehman-ch3-p4.json": {
+          "bytes": 6569,
+          "sha256": "228d920c72f1d2ebaa89f29d124c3d9365710fa67dbf0e81bfe5e22fbfeb521c"
+        },
+        "study/provenance/lehman-ch4-p22b.json": {
+          "bytes": 3012,
+          "sha256": "c2289a07246de37918deb0e3ce2f32ac162fe794a8855f692a06ae4c6afad421"
+        },
+        "study/provenance/rosen-1-3-ex5-6.json": {
+          "bytes": 3363,
+          "sha256": "637bda08e070248acda9beaad0d3f48af594415d70f52c3dc63b6e243721be71"
+        },
+        "study/provenance/sedgewick-ch1-s4-ex10.json": {
+          "bytes": 5238,
+          "sha256": "58a39a461bc56b121388e51baf5b362b6bcaf7652f88241b863b5f1949da9b8c"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 29023,
+          "sha256": "7814be2a53ff955f05f7eabaae653754bf5d660accf8b0c7af35c1657d78c5e8"
+        },
+        "study/rosen-de-morgan-javascript/index.html": {
+          "bytes": 14163,
+          "sha256": "7749bfb3e545710153905d5cb220f8f0cdf0dccd3ae5160a05e3d6c8e406bcbd"
+        },
+        "study/runner-config.json": {
+          "bytes": 434,
+          "sha256": "7de4928422fa9538e1fe2d3018776157fbc750755b73b6275d68dc834fed7ca1"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12247,
+          "sha256": "feebd40dc4ef51e0d5f322d51aa27875f9fcf480708164963d764279aea7cd75"
+        }
+      },
+      "goodrichComponentUrl": "/_astro/GoodrichCh4Ex6Interactive.BHct71Co.js",
+      "normalizedStudyCss": {
+        "study/goodrich-ch4-ex6-harmonic/index.html": {
+          "bytes": 24772,
+          "sha256": "95fce477071d01a6e2801b07eb4af42667788ff4361a26cf0a841c27446d84d8"
+        },
+        "study/index.html": {
+          "bytes": 5136,
+          "sha256": "987beaedb5f1ac86898cf6540b8dde91c9b4af76574c6641d24eebd0502d1353"
+        },
+        "study/rosen-1-3-ex5-6/index.html": {
+          "bytes": 29022,
+          "sha256": "c2478c7d779e0b230504c4838ca40a2b697b9c4863206667c9305ae309430721"
+        },
+        "study/sedgewick-ch1-s4-ex10/index.html": {
+          "bytes": 12246,
+          "sha256": "c6b0929880e6537e721c09a962acdf23bc55d1fef77cc62557d1412a9046cda4"
+        }
+      },
+      "pagesWithStudyLink": 45
+    }
+  },
+  "schema": "personal-study-editor-rosen.v1"
+}

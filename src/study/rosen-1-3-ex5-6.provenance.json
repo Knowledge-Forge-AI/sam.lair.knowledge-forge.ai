@@ -8,11 +8,11 @@
     "dynamicRun": false,
     "editorInitialization": false,
     "owner": "personal-study consumer",
-    "bytes": 3745,
-    "sha256": "7a2e3303aaf05ab3fe94e710025b09200634db09428907154a9f06feef961acb"
+    "bytes": 4747,
+    "sha256": "724d5aebbef6ae436d3fd8a017bc841325953f5df9fd3c79a9c0813bb37e7f70"
   },
   "sourceHistory": {
-    "treatment": "consumer-owned MDX adaptation of the selected exercise slice",
+    "treatment": "consumer-owned MDX adaptation of the selected exercise slice with an original worked example",
     "maintainedSlice": {
       "path": "packages/study-components/lessons/rosen-1-3-ex5-6.mdx",
       "sha256": "9ae9d99310b8a5acab0dc5d82b3d15b6c314608de5f279389c3b68c2b632d71e",
@@ -37,6 +37,7 @@
   "semanticContent": {
     "exercise5": {"left": "p ∧ (q ∨ r)", "right": "(p ∧ q) ∨ (p ∧ r)", "rows": 8, "proofBoundary": "finite exhaustive valuation; not a general-purpose proof checker"},
     "exercise6": {"left": "¬(p ∧ q)", "right": "¬p ∨ ¬q", "rows": 4, "proofBoundary": "finite exhaustive valuation; not a general-purpose proof checker"},
+    "workedExample": {"identity": "Negated implication", "treatment": "original supplement using the Exercise 6 result", "proofMethod": "substitution, double negation, and the truth-functional definition of implication"},
     "truthTablePolicy": "the two displayed finite equivalences are established by exhaustive rows; no correctness claim is inferred from formatting alone"
   },
   "codeIncludes": [],

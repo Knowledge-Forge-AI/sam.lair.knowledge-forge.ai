@@ -280,6 +280,7 @@ export function StudyEditor(props) {
     const runRevisionRef = useRef(0);
     const outputWasClearedRef = useRef(false);
     const viewRef = useRef(null);
+    const retainedEditorStateRef = useRef(null);
     const controllerRef = useRef(null);
     const executionControllerRef = useRef(null);
     const runTokenRef = useRef(0);
@@ -314,6 +315,7 @@ export function StudyEditor(props) {
         if (view === null)
             return;
         const revision = ++languageRevisionRef.current;
+        const runToken = runTokenRef.current;
         setStatus("initializing");
         setStatusDetail(`Loading ${nextLanguage} editor support.`);
         if (preservedDiagnostic === undefined)
@@ -327,6 +329,9 @@ export function StudyEditor(props) {
                 view.dispatch({
                     effects: languageCompartmentRef.current.reconfigure(extension),
                 });
+                // Syntax may finish after Run has taken ownership of the status.
+                if (runTokenRef.current !== runToken)
+                    return;
                 const unavailable = executionUnavailable(nextLanguage, executionRef.current, pythonEntryRef.current);
                 if (unavailable === undefined) {
                     setStatus("ready");
@@ -342,7 +347,8 @@ export function StudyEditor(props) {
                         : preservedDiagnostic + " " + unavailable.diagnostic);
                 }
             }, () => {
-                if (viewRef.current !== view || languageRevisionRef.current !== revision)
+                if (viewRef.current !== view || languageRevisionRef.current !== revision
+                    || runTokenRef.current !== runToken)
                     return;
                 setStatus("error");
                 setStatusDetail("Editor language support failed.");
@@ -385,14 +391,16 @@ export function StudyEditor(props) {
             return;
         }
         const appliedLanguage = appliedLanguageRef.current;
-        const initialExtension = appliedLanguage === "python"
-            ? javascript()
-            : builtInLanguage(appliedLanguage);
-        languageExtensionRef.current = initialExtension;
-        const view = new EditorView({
-            state: createEditorState(sourceRef.current, languageCompartmentRef.current, initialExtension, applySourceChange),
-            parent: hostElement,
-        });
+        let state = retainedEditorStateRef.current;
+        if (state === null || state.doc.toString() !== sourceRef.current) {
+            const initialExtension = appliedLanguage === "python"
+                ? javascript()
+                : builtInLanguage(appliedLanguage);
+            languageExtensionRef.current = initialExtension;
+            state = createEditorState(sourceRef.current, languageCompartmentRef.current, initialExtension, applySourceChange);
+        }
+        const view = new EditorView({ state, parent: hostElement });
+        retainedEditorStateRef.current = null;
         viewRef.current = view;
         setEditorReady(true);
         setStatus("ready");
@@ -412,9 +420,12 @@ export function StudyEditor(props) {
             controllerRef.current = null;
             executionControllerRef.current = null;
             setHasActiveRun(false);
-            view.destroy();
-            if (viewRef.current === view)
+            if (viewRef.current === view) {
+                // Activity can recreate the view without remounting this component.
+                retainedEditorStateRef.current = view.state;
                 viewRef.current = null;
+            }
+            view.destroy();
             setEditorReady(false);
         };
     }, [applyLanguage, applySourceChange]);
@@ -456,6 +467,7 @@ export function StudyEditor(props) {
             setStderr("A run is already in progress; stop it before starting another run.");
             return;
         }
+        const token = ++runTokenRef.current;
         const unavailable = executionUnavailable(language, execution, pythonEntry);
         if (unavailable !== undefined) {
             setStatus("error");
@@ -477,7 +489,7 @@ export function StudyEditor(props) {
         const sourceRevision = sourceRevisionRef.current;
         const inputRevision = inputRevisionRef.current;
         const runRevision = ++runRevisionRef.current;
-        const token = ++runTokenRef.current;
+        let acceptsCallbacks = true;
         outputWasClearedRef.current = false;
         setStdout("");
         setStderr("");
@@ -501,7 +513,7 @@ export function StudyEditor(props) {
                     watchdog,
                     ...(limits === undefined ? {} : { limits }),
                     onOutput: (chunk) => {
-                        if (runTokenRef.current === token)
+                        if (acceptsCallbacks && runTokenRef.current === token)
                             setStdout((current) => current + chunk);
                     },
                 });
@@ -522,7 +534,7 @@ export function StudyEditor(props) {
                 }, pythonEntry);
                 const executionController = execution.createController(request, {
                     onProbe: (probe) => {
-                        if (runTokenRef.current !== token)
+                        if (!acceptsCallbacks || runTokenRef.current !== token)
                             return;
                         if (probe.category === "INIT_STARTED" || probe.category === "INIT_OK") {
                             setStatus("initializing");
@@ -534,7 +546,7 @@ export function StudyEditor(props) {
                         }
                     },
                     onOutput: (output) => {
-                        if (runTokenRef.current !== token)
+                        if (!acceptsCallbacks || runTokenRef.current !== token)
                             return;
                         if (output.stream === "stdout")
                             setStdout((current) => current + output.text);
@@ -549,6 +561,7 @@ export function StudyEditor(props) {
             }
         }
         catch (error) {
+            acceptsCallbacks = false;
             setStatus("error");
             setStatusDetail("Run configuration was rejected.");
             setStderr(errorText(error));
@@ -560,6 +573,7 @@ export function StudyEditor(props) {
             executionControllerRef.current = controller;
         setHasActiveRun(true);
         void outcomePromise.then((outcome) => {
+            acceptsCallbacks = false;
             if (runTokenRef.current !== token)
                 return;
             if (outcome.kind === "completed") {
@@ -607,6 +621,7 @@ export function StudyEditor(props) {
                 setStderr((current) => current.length === 0 ? `Runner error: ${outcome.code}.` : current);
             }
         }, (error) => {
+            acceptsCallbacks = false;
             if (runTokenRef.current !== token)
                 return;
             setStatus("error");

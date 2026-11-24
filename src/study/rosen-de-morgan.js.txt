@@ -1,0 +1,16 @@
+function deMorgan(input, write) {
+  if (input !== "or" && input !== "and") {
+    throw new RangeError('Input must be "or" or "and".');
+  }
+  const rows = [];
+  for (const p of [true, false]) {
+    for (const q of [true, false]) {
+      const left = !(p && q);
+      const right = input === "or" ? !p || !q : !p && !q;
+      rows.push([p, q, left, right]);
+    }
+  }
+  const counterexamples = rows.filter(([, , left, right]) => left !== right);
+  write(`${counterexamples.length} of ${rows.length} rows disagree.\n`);
+  return rows;
+}

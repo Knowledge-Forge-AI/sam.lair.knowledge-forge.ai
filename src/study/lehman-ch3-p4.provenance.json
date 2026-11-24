@@ -59,7 +59,7 @@
     },
     {
       "path": "src/study/lehman-ch3-p4.mdx",
-      "sha256": "9626d8bfd1411ab573ff1e3652b40cf56f13e4b5ab5b76eb93688d0e641a12f2",
+      "sha256": "8c5a7ab27c5dd3180dffba4ee2d486784c088b99af3c42037f15bed9a0abaf03",
       "treatment": "adapted-mdx",
       "source_dependency": "ch3_p4.py and Chapter 3 Problem 4 section of ch3-sol.tex"
     },
@@ -77,8 +77,8 @@
       "input": "bounded nonnegative integer",
       "maximum": 8,
       "maximum_argument": "optional strict integer in 0..MAX_N; bool rejected; defaults to MAX_N",
-      "mode": "unqualified-static-fallback",
-      "runtime_status": "bounded standard-library readback reported by an earlier private study; not executed by this repository build/test; runtime remains unqualified"
+      "mode": "optional-separate-origin-python",
+      "runtime_status": "The optional page editor runs the maintained bounded entry after Run. The MDX build renders static content only."
     },
     "CodeInclude": {
       "includeId": "lehman-truth-assignments",
@@ -108,11 +108,11 @@
     "or_later": "not-stated; do not relabel as GPL-3.0-or-later"
   },
   "qualification": {
-    "status": "static-source-with-historical-unqualified-readback",
-    "native_execution": "an earlier private study reported an unqualified standard-library readback; this repository build/test does not execute it and native behavior remains unverified here",
-    "browser_execution": "unqualified",
+    "status": "static-lesson-with-optional-browser-editor",
+    "native_execution": "Separate network-denied CPython 3.11.14 replay matched the original row order for 0 through 8 and the exact n=4 TeX sample.",
+    "browser_execution": "Optional separate-origin Python editor. The program starts only upon Run.",
     "mathematical_proof": "not claimed",
-    "allowed_readback": "bounded standard-library-only source behavior check for n=0..8, exact n=4 row order, invalid n inputs, and invalid maximum inputs before value validation; historical private-study evidence only, not a repository build/test check",
+    "allowed_readback": "Bounded standard-library behavior check for n=0 through 8, all valid maximum pairs, exact n=4 row order, and invalid n and maximum guards. This check runs separately from the static site build.",
     "conversion_date": "2026-11-13"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "schema": "personal-study-typescript-cache-delta.v1",
+  "baseFixtureSha256": "74905b05beaa558e94171f32386f7d305f7482937efe017a9fb8ceecf9e82ea7",
+  "ubuntuFixtureSha256": "59c52f6f56d157e32ec0ce93cb831fec0cdcb704fa9b44abd9b9f04606f43761",
+  "priorRosenFixtureSha256": "9d6cb57392e0e3a280ce0956be7e6e07329efca47e600ded03aefb1b716c6a63",
+  "remove": "_astro/GoodrichCh4Ex6TypeScript.CwqPKT5w.js",
+  "add": "_astro/GoodrichCh4Ex6TypeScript.DbZn80a0.js",
+  "bundle": {
+    "bytes": 14115,
+    "sha256": "7f537210f0d3b09ac12799636416042507b865bedaeb74e0882cadb9d5be3fde"
+  },
+  "routeByHost": {
+    "darwin/arm64": {
+      "bytes": 13644,
+      "sha256": "e37eb93e7510f937b9e9156b85ea1f0ae2082d3a753446ec17b8d11b77c86a6f"
+    },
+    "linux/x64": {
+      "bytes": 13643,
+      "sha256": "a6fcdab84648f91865b2064c1be688ceb64365eba28a53121bede3ebc5c2ca06"
+    }
+  }
+}

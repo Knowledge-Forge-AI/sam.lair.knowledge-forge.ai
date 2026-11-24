@@ -1,0 +1,16 @@
+{
+  "schema": "personal-study-rosen-derivation-delta.v1",
+  "baseFixtureSha256": "74905b05beaa558e94171f32386f7d305f7482937efe017a9fb8ceecf9e82ea7",
+  "ubuntuFixtureSha256": "59c52f6f56d157e32ec0ce93cb831fec0cdcb704fa9b44abd9b9f04606f43761",
+  "files": {
+    "study/rosen-1-3-ex5-6/index.html": {
+      "bytes": 28848,
+      "sha256": "c4e475a9319662d6416e507f955729291ba7abb058594ac5c8f133d7a2404063"
+    },
+    "study/provenance/rosen-1-3-ex5-6.json": {
+      "bytes": 3363,
+      "sha256": "637bda08e070248acda9beaad0d3f48af594415d70f52c3dc63b6e243721be71"
+    }
+  },
+  "normalizedStudyCssSha256": "ef9a5f2efde71ffe282da681747f119709c77e766a600f728f202ac0cd20805e"
+}
